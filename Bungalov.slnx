@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Bungalov.Business/Bungalov.Business.csproj" />
+  <Project Path="Bungalov.Core/Bungalov.Core.csproj" />
+  <Project Path="Bungalov.DataAccess/Bungalov.DataAccess.csproj" />
+  <Project Path="Bungalov.WebUI/Bungalov.WebUI.csproj" />
+</Solution>

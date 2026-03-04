@@ -1,0 +1,6 @@
+@Bungalov.WebUI_HostAddress = http://localhost:5234
+
+GET {{Bungalov.WebUI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

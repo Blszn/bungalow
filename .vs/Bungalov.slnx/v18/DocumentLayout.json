@@ -1,0 +1,256 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\karal\\source\\repos\\Bungalov\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7136070D-EC44-1BF9-918A-8DAB786A5888}|Bungalov.Core\\Bungalov.Core.csproj|c:\\users\\karal\\source\\repos\\bungalov\\bungalov.core\\varliklar\\reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7136070D-EC44-1BF9-918A-8DAB786A5888}|Bungalov.Core\\Bungalov.Core.csproj|solutionrelative:bungalov.core\\varliklar\\reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7136070D-EC44-1BF9-918A-8DAB786A5888}|Bungalov.Core\\Bungalov.Core.csproj|c:\\users\\karal\\source\\repos\\bungalov\\bungalov.core\\varliklar\\bungalow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7136070D-EC44-1BF9-918A-8DAB786A5888}|Bungalov.Core\\Bungalov.Core.csproj|solutionrelative:bungalov.core\\varliklar\\bungalow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Migrations\\20260304220735_CreateSQLiteDB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Bungalov.DataAccess\\Migrations\\20260304220735_CreateSQLiteDB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D53587BF-263E-95C5-2D6F-E6A217B04BB0}|Bungalov.WebUI\\Bungalov.WebUI.csproj|c:\\users\\karal\\source\\repos\\bungalov\\bungalov.webui\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D53587BF-263E-95C5-2D6F-E6A217B04BB0}|Bungalov.WebUI\\Bungalov.WebUI.csproj|solutionrelative:bungalov.webui\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D53587BF-263E-95C5-2D6F-E6A217B04BB0}|Bungalov.WebUI\\Bungalov.WebUI.csproj|c:\\users\\karal\\source\\repos\\bungalov\\bungalov.webui\\bungalov.webui.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{D53587BF-263E-95C5-2D6F-E6A217B04BB0}|Bungalov.WebUI\\Bungalov.WebUI.csproj|solutionrelative:bungalov.webui\\bungalov.webui.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D937EB08-D7DC-E6DC-B41A-024793239ABC}|Bungalov.DataAccess\\Bungalov.DataAccess.csproj|c:\\users\\karal\\source\\repos\\bungalov\\bungalov.dataaccess\\baglam\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D937EB08-D7DC-E6DC-B41A-024793239ABC}|Bungalov.DataAccess\\Bungalov.DataAccess.csproj|solutionrelative:bungalov.dataaccess\\baglam\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D937EB08-D7DC-E6DC-B41A-024793239ABC}|Bungalov.DataAccess\\Bungalov.DataAccess.csproj|c:\\users\\karal\\source\\repos\\bungalov\\bungalov.dataaccess\\bungalov.dataaccess.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{D937EB08-D7DC-E6DC-B41A-024793239ABC}|Bungalov.DataAccess\\Bungalov.DataAccess.csproj|solutionrelative:bungalov.dataaccess\\bungalov.dataaccess.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D53587BF-263E-95C5-2D6F-E6A217B04BB0}|Bungalov.WebUI\\Bungalov.WebUI.csproj|c:\\users\\karal\\source\\repos\\bungalov\\bungalov.webui\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{D53587BF-263E-95C5-2D6F-E6A217B04BB0}|Bungalov.WebUI\\Bungalov.WebUI.csproj|solutionrelative:bungalov.webui\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Migrations\\20260304215140_CreateBungalovDB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Bungalov.DataAccess\\Migrations\\20260304215140_CreateBungalovDB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Migrations\\20260304214608_InitialSQLite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Bungalov.DataAccess\\Migrations\\20260304214608_InitialSQLite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Migrations\\20260304210518_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Bungalov.DataAccess\\Migrations\\20260304210518_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7136070D-EC44-1BF9-918A-8DAB786A5888}|Bungalov.Core\\Bungalov.Core.csproj|c:\\users\\karal\\source\\repos\\bungalov\\bungalov.core\\varliklar\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7136070D-EC44-1BF9-918A-8DAB786A5888}|Bungalov.Core\\Bungalov.Core.csproj|solutionrelative:bungalov.core\\varliklar\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7136070D-EC44-1BF9-918A-8DAB786A5888}|Bungalov.Core\\Bungalov.Core.csproj|c:\\users\\karal\\source\\repos\\bungalov\\bungalov.core\\varliklar\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7136070D-EC44-1BF9-918A-8DAB786A5888}|Bungalov.Core\\Bungalov.Core.csproj|solutionrelative:bungalov.core\\varliklar\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7136070D-EC44-1BF9-918A-8DAB786A5888}|Bungalov.Core\\Bungalov.Core.csproj|c:\\users\\karal\\source\\repos\\bungalov\\bungalov.core\\bungalov.core.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{7136070D-EC44-1BF9-918A-8DAB786A5888}|Bungalov.Core\\Bungalov.Core.csproj|solutionrelative:bungalov.core\\bungalov.core.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "20260304220735_CreateSQLiteDB.cs",
+              "DocumentMoniker": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Migrations\\20260304220735_CreateSQLiteDB.cs",
+              "RelativeDocumentMoniker": "Bungalov.DataAccess\\Migrations\\20260304220735_CreateSQLiteDB.cs",
+              "ToolTip": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Migrations\\20260304220735_CreateSQLiteDB.cs",
+              "RelativeToolTip": "Bungalov.DataAccess\\Migrations\\20260304220735_CreateSQLiteDB.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T22:07:35.098Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Bungalov.DataAccess.csproj",
+              "DocumentMoniker": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Bungalov.DataAccess.csproj",
+              "RelativeDocumentMoniker": "Bungalov.DataAccess\\Bungalov.DataAccess.csproj",
+              "ToolTip": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Bungalov.DataAccess.csproj",
+              "RelativeToolTip": "Bungalov.DataAccess\\Bungalov.DataAccess.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-04T20:41:08.227Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Baglam\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "Bungalov.DataAccess\\Baglam\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Baglam\\AppDbContext.cs",
+              "RelativeToolTip": "Bungalov.DataAccess\\Baglam\\AppDbContext.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAxwBwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T20:41:26.198Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.WebUI\\Program.cs",
+              "RelativeDocumentMoniker": "Bungalov.WebUI\\Program.cs",
+              "ToolTip": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.WebUI\\Program.cs",
+              "RelativeToolTip": "Bungalov.WebUI\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAwBUAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T20:42:04.095Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Bungalow.cs",
+              "DocumentMoniker": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.Core\\Varliklar\\Bungalow.cs",
+              "RelativeDocumentMoniker": "Bungalov.Core\\Varliklar\\Bungalow.cs",
+              "ToolTip": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.Core\\Varliklar\\Bungalow.cs",
+              "RelativeToolTip": "Bungalov.Core\\Varliklar\\Bungalow.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T20:39:57.68Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Reservation.cs",
+              "DocumentMoniker": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.Core\\Varliklar\\Reservation.cs",
+              "RelativeDocumentMoniker": "Bungalov.Core\\Varliklar\\Reservation.cs",
+              "ToolTip": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.Core\\Varliklar\\Reservation.cs",
+              "RelativeToolTip": "Bungalov.Core\\Varliklar\\Reservation.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T20:40:17.606Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Bungalov.WebUI.csproj",
+              "DocumentMoniker": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.WebUI\\Bungalov.WebUI.csproj",
+              "RelativeDocumentMoniker": "Bungalov.WebUI\\Bungalov.WebUI.csproj",
+              "ToolTip": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.WebUI\\Bungalov.WebUI.csproj",
+              "RelativeToolTip": "Bungalov.WebUI\\Bungalov.WebUI.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-04T20:45:02.281Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.WebUI\\appsettings.json",
+              "RelativeDocumentMoniker": "Bungalov.WebUI\\appsettings.json",
+              "ToolTip": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.WebUI\\appsettings.json",
+              "RelativeToolTip": "Bungalov.WebUI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-04T20:41:43.678Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "20260304214608_InitialSQLite.cs",
+              "DocumentMoniker": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Migrations\\20260304214608_InitialSQLite.cs",
+              "RelativeDocumentMoniker": "Bungalov.DataAccess\\Migrations\\20260304214608_InitialSQLite.cs",
+              "ToolTip": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Migrations\\20260304214608_InitialSQLite.cs",
+              "RelativeToolTip": "Bungalov.DataAccess\\Migrations\\20260304214608_InitialSQLite.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T21:46:08.18Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "20260304215140_CreateBungalovDB.cs",
+              "DocumentMoniker": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Migrations\\20260304215140_CreateBungalovDB.cs",
+              "RelativeDocumentMoniker": "Bungalov.DataAccess\\Migrations\\20260304215140_CreateBungalovDB.cs",
+              "ToolTip": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Migrations\\20260304215140_CreateBungalovDB.cs",
+              "RelativeToolTip": "Bungalov.DataAccess\\Migrations\\20260304215140_CreateBungalovDB.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T21:51:40.948Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "20260304210518_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Migrations\\20260304210518_InitialCreate.cs",
+              "RelativeDocumentMoniker": "Bungalov.DataAccess\\Migrations\\20260304210518_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.DataAccess\\Migrations\\20260304210518_InitialCreate.cs",
+              "RelativeToolTip": "Bungalov.DataAccess\\Migrations\\20260304210518_InitialCreate.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T21:05:18.683Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.Core\\Varliklar\\Category.cs",
+              "RelativeDocumentMoniker": "Bungalov.Core\\Varliklar\\Category.cs",
+              "ToolTip": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.Core\\Varliklar\\Category.cs",
+              "RelativeToolTip": "Bungalov.Core\\Varliklar\\Category.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T20:39:44.263Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "BaseEntity.cs",
+              "DocumentMoniker": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.Core\\Varliklar\\BaseEntity.cs",
+              "RelativeDocumentMoniker": "Bungalov.Core\\Varliklar\\BaseEntity.cs",
+              "ToolTip": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.Core\\Varliklar\\BaseEntity.cs",
+              "RelativeToolTip": "Bungalov.Core\\Varliklar\\BaseEntity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-04T20:57:05.759Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Bungalov.Core.csproj",
+              "DocumentMoniker": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.Core\\Bungalov.Core.csproj",
+              "RelativeDocumentMoniker": "Bungalov.Core\\Bungalov.Core.csproj",
+              "ToolTip": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.Core\\Bungalov.Core.csproj",
+              "RelativeToolTip": "Bungalov.Core\\Bungalov.Core.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-04T20:37:14.438Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

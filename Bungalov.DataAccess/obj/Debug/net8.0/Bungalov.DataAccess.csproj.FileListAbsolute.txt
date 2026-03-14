@@ -15,3 +15,4 @@ C:\Users\karal\source\repos\Bungalov\Bungalov.DataAccess\obj\Debug\net8.0\refint
 C:\Users\karal\source\repos\Bungalov\Bungalov.DataAccess\obj\Debug\net8.0\Bungalov.DataAccess.pdb
 C:\Users\karal\source\repos\Bungalov\Bungalov.DataAccess\obj\Debug\net8.0\Bungalov.DataAccess.genruntimeconfig.cache
 C:\Users\karal\source\repos\Bungalov\Bungalov.DataAccess\obj\Debug\net8.0\ref\Bungalov.DataAccess.dll
+C:\Users\karal\source\repos\Bungalov\Bungalov.DataAccess\obj\Debug\net8.0\Bungalov.DataAccess.sourcelink.json

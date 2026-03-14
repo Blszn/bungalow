@@ -139,3 +139,4 @@ C:\Users\karal\source\repos\Bungalov\Bungalov.WebUI\obj\Debug\net8.0\refint\Bung
 C:\Users\karal\source\repos\Bungalov\Bungalov.WebUI\obj\Debug\net8.0\Bungalov.WebUI.pdb
 C:\Users\karal\source\repos\Bungalov\Bungalov.WebUI\obj\Debug\net8.0\Bungalov.WebUI.genruntimeconfig.cache
 C:\Users\karal\source\repos\Bungalov\Bungalov.WebUI\obj\Debug\net8.0\ref\Bungalov.WebUI.dll
+C:\Users\karal\source\repos\Bungalov\Bungalov.WebUI\obj\Debug\net8.0\Bungalov.WebUI.sourcelink.json

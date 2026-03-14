@@ -11,3 +11,4 @@ C:\Users\karal\source\repos\Bungalov\Bungalov.Core\obj\Debug\net8.0\refint\Bunga
 C:\Users\karal\source\repos\Bungalov\Bungalov.Core\obj\Debug\net8.0\Bungalov.Core.pdb
 C:\Users\karal\source\repos\Bungalov\Bungalov.Core\obj\Debug\net8.0\Bungalov.Core.genruntimeconfig.cache
 C:\Users\karal\source\repos\Bungalov\Bungalov.Core\obj\Debug\net8.0\ref\Bungalov.Core.dll
+C:\Users\karal\source\repos\Bungalov\Bungalov.Core\obj\Debug\net8.0\Bungalov.Core.sourcelink.json

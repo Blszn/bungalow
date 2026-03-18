@@ -1,2 +1,4 @@
-*.json
-/.vs
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user

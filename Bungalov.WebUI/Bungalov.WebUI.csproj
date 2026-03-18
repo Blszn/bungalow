@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.12">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Bungalov.Core\Bungalov.Core.csproj" />
     <ProjectReference Include="..\Bungalov.DataAccess\Bungalov.DataAccess.csproj" />
+    <ProjectReference Include="..\Bungalov.Business\Bungalov.Business.csproj" />
   </ItemGroup>
 
 </Project>

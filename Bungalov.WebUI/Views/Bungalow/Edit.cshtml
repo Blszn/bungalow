@@ -1,0 +1,148 @@
+@model Bungalov.Core.Varliklar.Bungalow
+
+@{
+    ViewData["Title"] = "Bungalov Düzenle";
+}
+
+<div class="row justify-content-center mb-5">
+    <div class="col-lg-8">
+        
+        <div class="d-flex align-items-center mb-4">
+            <a asp-action="Index" class="btn btn-outline-secondary me-3 shadow-sm rounded-circle p-2 d-flex" style="width: 40px; height: 40px;">
+                <i class="bi bi-arrow-left m-auto"></i>
+            </a>
+            <div>
+                <h1 class="display-6 mb-0">Bungalov Düzenle</h1>
+                <p class="text-muted mb-0"><strong>@Model.Name</strong> isimli bungalovun bilgilerini güncelleyin.</p>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="card-body p-5">
+                <form asp-action="Edit" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <input type="hidden" asp-for="Id" />
+                    
+                    <h5 class="text-primary border-bottom pb-2 mb-4"><i class="bi bi-info-circle me-2"></i>Temel Bilgiler</h5>
+                    
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-8">
+                            <div class="form-floating text-left">
+                                <input asp-for="Name" class="form-control" placeholder="Bungalov Adı" />
+                                <label asp-for="Name">Bungalov Adı</label>
+                                <span asp-validation-for="Name" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categories">
+                                    <option value="">Seçiniz...</option>
+                                </select>
+                                <label asp-for="CategoryId">Kategori</label>
+                                <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <textarea asp-for="Description" class="form-control" placeholder="Açıklama" style="height: 100px"></textarea>
+                        <label asp-for="Description">Açıklama</label>
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                    </div>
+
+                    <h5 class="text-primary border-bottom pb-2 mb-4"><i class="bi bi-tag me-2"></i>Fiyat ve Konum</h5>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="PricePerNight" type="number" step="0.01" class="form-control" placeholder="Gecelik Fiyat" />
+                                <label asp-for="PricePerNight">Gecelik Fiyat (₺)</label>
+                                <span asp-validation-for="PricePerNight" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="Capacity" type="number" class="form-control" placeholder="Kapasite" />
+                                <label asp-for="Capacity">Kapasite (Kişi)</label>
+                                <span asp-validation-for="Capacity" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="Location" class="form-control" placeholder="Konum" />
+                                <label asp-for="Location">Konum</label>
+                                <span asp-validation-for="Location" class="text-danger small"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="text-primary border-bottom pb-2 mb-4"><i class="bi bi-star me-2"></i>Özellikler</h5>
+
+                    <div class="row bg-light rounded-3 p-3 mb-4 mx-0 border">
+                        <div class="col-md-4">
+                            <div class="form-check form-switch py-2">
+                                <input class="form-check-input fs-5" type="checkbox" role="switch" asp-for="HasJacuzzi">
+                                <label class="form-check-label pt-1 ms-2" asp-for="HasJacuzzi">Jakuzi Var mı?</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check form-switch py-2">
+                                <input class="form-check-input fs-5" type="checkbox" role="switch" asp-for="HasPool">
+                                <label class="form-check-label pt-1 ms-2" asp-for="HasPool">Havuz Var mı?</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check form-switch py-2">
+                                <input class="form-check-input fs-5" type="checkbox" role="switch" asp-for="IsWifiAvailable">
+                                <label class="form-check-label pt-1 ms-2" asp-for="IsWifiAvailable">WiFi Var mı?</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="text-primary border-bottom pb-2 mb-4"><i class="bi bi-images me-2"></i>Görseller</h5>
+
+                    @if (Model.Images != null && Model.Images.Any())
+                    {
+                        <div class="row g-2 mb-3">
+                            @foreach (var img in Model.Images)
+                            {
+                                <div class="col-auto">
+                                    <div class="position-relative d-inline-block">
+                                        <img src="@img.ImageUrl" class="img-thumbnail rounded-3" style="height: 100px; width: 100px; object-fit: cover;" />
+                                        <button type="submit" asp-action="DeleteImage" asp-route-imageId="@img.Id" asp-route-bungalowId="@Model.Id" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1 rounded-circle" style="width: 24px; height: 24px; padding: 0; display: flex; align-items: center; justify-content: center;" onclick="return confirm('Bu resmi silmek istediğinize emin misiniz?');" title="Resmi Sil">
+                                            <i class="bi bi-x"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="form-text mb-4">Mevcut görsellerinizi yukarıda görebilirsiniz. Yeni eklenen görseller bunların yanına eklenecektir.</div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-light border text-center text-muted py-3 mb-4">
+                            <i class="bi bi-image me-2"></i>Bu bungalov için henüz görsel yüklenmemiş.
+                        </div>
+                    }
+
+                    <div class="mb-4">
+                        <label for="newImages" class="form-label text-muted fw-medium">Yeni Görseller Ekle</label>
+                        <input type="file" class="form-control form-control-lg" id="newImages" name="newImages" accept="image/*" multiple />
+                        <div class="form-text">Birden fazla resim seçmek için CTRL veya Shift tuşunu basılı tutun.</div>
+                    </div>
+
+                    <div class="d-grid mt-5">
+                        <button type="submit" class="btn btn-primary btn-lg py-3 shadow-sm rounded-3 fw-bold">
+                            <i class="bi bi-check2-circle me-2"></i> Değişiklikleri Kaydet
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

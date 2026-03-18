@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Bungalov.Core.Varliklar;
 
@@ -16,4 +16,5 @@ public class Bungalow : BaseEntity
     public int CategoryId { get; set; }
     public Category Category { get; set; } = null!;
     public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+    public ICollection<BungalowImage> Images { get; set; } = new List<BungalowImage>();
 }

@@ -1,0 +1,77 @@
+@model Bungalov.Core.Varliklar.Category
+
+@{
+    ViewData["Title"] = "Kategoriyi Düzenle";
+}
+
+<div class="row justify-content-center mb-5">
+    <div class="col-lg-8">
+        
+        <div class="d-flex align-items-center mb-4">
+            <a asp-action="Index" class="btn btn-outline-secondary me-3 shadow-sm rounded-circle p-2 d-flex" style="width: 40px; height: 40px;">
+                <i class="bi bi-arrow-left m-auto"></i>
+            </a>
+            <div>
+                <h1 class="display-6 mb-0">Kategoriyi Düzenle</h1>
+                <p class="text-muted mb-0"><strong>@Model.CategoryName</strong> isimli kategorinin bilgilerini güncelleyin.</p>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="card-body p-5">
+                <form asp-action="Edit" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="ImageUrl" />
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-4 text-center">
+                            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                            {
+                                <img src="@Model.ImageUrl" alt="Mevcut Resim" class="img-thumbnail rounded-3 shadow-sm mb-2" style="max-height: 150px; object-fit: cover;" />
+                                <div class="small text-muted">Mevcut Resim</div>
+                            }
+                            else
+                            {
+                                <div class="bg-light rounded-3 d-flex align-items-center justify-content-center mb-2" style="height: 150px;">
+                                    <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                                </div>
+                                <div class="small text-muted">Resim Yok</div>
+                            }
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-floating mb-3">
+                                <input asp-for="CategoryName" class="form-control" placeholder="Kategori Adı" />
+                                <label asp-for="CategoryName">Kategori Adı</label>
+                                <span asp-validation-for="CategoryName" class="text-danger small"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="imageFile" class="form-label text-primary fw-medium"><i class="bi bi-image me-2"></i>Yeni Resim Yükle (Değiştirmek için)</label>
+                                <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*" />
+                                <div class="form-text">Yeni bir resim seçmezseniz mevcut resim korunacaktır.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <textarea asp-for="Description" class="form-control" placeholder="Açıklama" style="height: 100px"></textarea>
+                        <label asp-for="Description">Açıklama</label>
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg py-3 shadow-sm rounded-3 fw-bold">
+                            <i class="bi bi-check2-circle me-2"></i> Değişiklikleri Kaydet
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

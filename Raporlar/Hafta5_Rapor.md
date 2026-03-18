@@ -80,20 +80,11 @@ Bungalov/
 | Teknoloji | Sürüm/Detay |
 |---|---|
 | .NET | 8.0 |
-| Entity Framework Core | 8.0.x (PostgreSQL ile) |
-| PostgreSQL | Supabase (AWS EU-Central) |
+| Entity Framework Core | 8.0.x |
+| PostgreSQL | Supabase |
 | FluentValidation | ASP.NET Core entegrasyonu ile |
 | Bootstrap | 5.x + Bootstrap Icons |
 | Mimari Desen | Repository + Unit of Work + MVC |
 
----
 
-## 📌 Sonraki Hafta İçin Planlanan İşler
-- [ ] Rezervasyon yönetim paneli (CRUD)
-- [ ] Ana sayfa tasarımı (müşteri paneli)
-- [ ] Kullanıcı giriş sistemi (Authentication)
-- [ ] Bungalov detay sayfası
 
----
-
-> **Not:** Bu rapor `Raporlar/` klasörüne kaydedilmiştir. İlerleyen haftalarda her haftanın raporu `Hafta6_Rapor.md`, `Hafta7_Rapor.md` vb. şekilde aynı klasöre eklenecektir.

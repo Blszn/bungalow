@@ -19,9 +19,21 @@ public class BungalowController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string? search, int? categoryId, int? minCapacity, bool hasJacuzzi, bool hasPool)
     {
-        var bungalows = await _bungalowService.GetAllBungalowsAsync();
+        var bungalows = await _bungalowService.GetBungalowsByFilterAsync(b =>
+            (string.IsNullOrEmpty(search) || b.Name.Contains(search) || b.Location.Contains(search)) &&
+            (!categoryId.HasValue || b.CategoryId == categoryId.Value) &&
+            (!minCapacity.HasValue || b.Capacity >= minCapacity.Value) &&
+            (!hasJacuzzi || b.HasJacuzzi) &&
+            (!hasPool || b.HasPool));
+
+        ViewBag.Search = search;
+        ViewBag.CategoryId = categoryId;
+        ViewBag.MinCapacity = minCapacity;
+        ViewBag.HasJacuzzi = hasJacuzzi;
+        ViewBag.HasPool = hasPool;
+
         return View(bungalows);
     }
 

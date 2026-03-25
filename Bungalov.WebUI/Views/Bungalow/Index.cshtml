@@ -7,7 +7,7 @@
 <div class="row mb-4 align-items-center">
     <div class="col">
         <h1 class="display-6"><i class="bi bi-list-ul text-primary"></i> Bungalov Listesi</h1>
-        <p class="text-muted">Sistemdeki tüm bungalovları buradan yönetebilirsiniz.</p>
+        <p class="text-muted">Sistemdeki tüm bungalovları inceleyin ve yönetin.</p>
     </div>
     <div class="col-auto">
         <a asp-action="Create" class="btn btn-primary btn-lg shadow-sm">
@@ -15,6 +15,74 @@
         </a>
     </div>
 </div>
+
+<div class="row">
+    <!-- Sidebar - Filtreler ve Kategoriler -->
+    <div class="col-lg-3">
+        <!-- Kategori Listesi ViewComponent -->
+        @await Component.InvokeAsync("CategoryList", new { selectedCategoryId = ViewBag.CategoryId })
+        
+        <!-- Detaylı Filtreleme -->
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card-header bg-white border-bottom-0 pt-4 pb-2">
+                <h5 class="fw-bold mb-0"><i class="bi bi-funnel text-primary me-2"></i>Filtrele</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="Index" method="get">
+                    <!-- Aramayı kaybetmemek için gizli alan -->
+                    <input type="hidden" name="search" value="@ViewBag.Search" />
+                    <input type="hidden" name="categoryId" value="@ViewBag.CategoryId" />
+                    
+                    <div class="mb-3">
+                        <label class="form-label text-muted small">Minimum Kapasite</label>
+                        <select name="minCapacity" class="form-select">
+                            <option value="">Hepsi</option>
+                            <!option value="2" @(ViewBag.MinCapacity == 2 ? "selected" : "")>En az 2 Kişi</!option>
+                            <!option value="4" @(ViewBag.MinCapacity == 4 ? "selected" : "")>En az 4 Kişi</!option>
+                            <!option value="6" @(ViewBag.MinCapacity == 6 ? "selected" : "")>En az 6 Kişi</!option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="hasJacuzzi" id="hasJacuzzi" value="true" @(ViewBag.HasJacuzzi == true ? "checked" : "")>
+                            <label class="form-check-label" for="hasJacuzzi">Jakuzili</label>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="hasPool" id="hasPool" value="true" @(ViewBag.HasPool == true ? "checked" : "")>
+                            <label class="form-check-label" for="hasPool">Havuzlu</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search me-2"></i>Uygula</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary w-100 mt-2">Temizle</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ana İçerik - Listeleme -->
+    <div class="col-lg-9">
+        <!-- Arama Çubuğu -->
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card-body">
+                <form asp-action="Index" method="get" class="d-flex gap-2">
+                    <input type="hidden" name="categoryId" value="@ViewBag.CategoryId" />
+                    <input type="hidden" name="minCapacity" value="@ViewBag.MinCapacity" />
+                    @if(ViewBag.HasJacuzzi == true) { <input type="hidden" name="hasJacuzzi" value="true" /> }
+                    @if(ViewBag.HasPool == true) { <input type="hidden" name="hasPool" value="true" /> }
+                    
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+                        <input type="text" name="search" value="@ViewBag.Search" class="form-control border-start-0 ps-0" placeholder="Bungalov adı veya konuma göre ara...">
+                        <button class="btn btn-primary px-4" type="submit">Ara</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
 @if (!Model.Any())
 {
@@ -117,3 +185,5 @@ else
         }
     </div>
 }
+</div>
+

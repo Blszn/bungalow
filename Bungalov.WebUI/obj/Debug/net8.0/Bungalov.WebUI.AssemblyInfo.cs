@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Bungalov.WebUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c17a061f1e6fdda3bde99570dec317e142c31aa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b516e484ca11f73c9fc3852ab1a42a89d378531")]
 [assembly: System.Reflection.AssemblyProductAttribute("Bungalov.WebUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Bungalov.WebUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

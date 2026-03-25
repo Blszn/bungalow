@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mhsxgN4CH4A=",
+  "dgSpecHash": "6IhX6XQHKyU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\karal\\source\\repos\\Bungalov\\Bungalov.Core\\Bungalov.Core.csproj",
+  "projectFilePath": "C:\\Users\\karal\\Desktop\\Bungalov\\Bungalov.Core\\Bungalov.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\karal\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\karal\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

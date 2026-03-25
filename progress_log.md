@@ -25,3 +25,10 @@
 - **Silinen Dosyalar:** `WeatherForecast.cs`, `WeatherForecastController.cs` (kullanılmayan .NET şablon dosyaları) ve `DevTestController.cs` (artık gerekli olmayan test controller) silindi.
 - **launchSettings.json Temizlendi:** Swagger referansları kaldırıldı, MVC uygulamasına uygun hale getirildi.
 - **Haftalık Rapor Sistemi Kuruldu:** `Raporlar/` klasörüne `Hafta5_Rapor.md` oluşturuldu. Her hafta yeni rapor aynı klasöre eklenecek.
+
+## [2026-03-25] Dinamik Listeleme ve Gelişmiş Filtreleme (6. Hafta)
+- **Dinamik Filtreleme:** `BungalowController` üzerinde `search`, `categoryId`, `minCapacity`, `hasJacuzzi` ve `hasPool` parametrelerine göre çalışan gelişmiş bir filtreleme sistemi kuruldu. Veriler veritabanı seviyesinde filtrelenmektedir.
+- **ViewComponents:** Kategorileri yan menüde listelemek için `CategoryList` ViewComponent'i oluşturuldu. Bu sayede kategoriler modüler ve tekrar kullanılabilir bir yapıya kavuştu.
+- **Arayüz (UI) Revizyonu:** `Index.cshtml` sayfası iki kolonlu (Sidebar + Content) bir yapıya dönüştürüldü. Sol menüye filtreler ve kategoriler, üst kısma ise arama çubuğu eklendi. Bootstrap Switch ve modern kart yapıları ile görsel kalite artırıldı.
+- **Otomasyon ve Rotalama:** Projeyi tek tıkla başlatmak için `baslat.bat` dosyası eklendi. Uygulamanın varsayılan açılış sayfası (Home -> Bungalow) olarak güncellenerek 404 hatası giderildi.
+- **Raporlama:** 6. hafta ilerleme raporu (`Hafta6_Rapor.md`) oluşturuldu ve dökümante edildi.

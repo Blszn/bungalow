@@ -4,6 +4,7 @@ using Bungalov.DataAccess.Baglam;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,49 +16,118 @@ namespace Bungalov.DataAccess.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.12");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "8.0.12")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("AmenityBungalow", b =>
+                {
+                    b.Property<int>("AmenitiesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("BungalowsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("AmenitiesId", "BungalowsId");
+
+                    b.HasIndex("BungalowsId");
+
+                    b.ToTable("BungalowAmenities", (string)null);
+                });
+
+            modelBuilder.Entity("Bungalov.Core.Varliklar.Amenity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("IconCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Amenities");
+                });
 
             modelBuilder.Entity("Bungalov.Core.Varliklar.Bungalow", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("Capacity")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<int>("CategoryId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CheckInTime")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CheckOutTime")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
-                    b.Property<bool>("HasJacuzzi")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("HasPool")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsWifiAvailable")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("District")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Location")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
+
+                    b.Property<int>("MinNights")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
-                    b.Property<double>("PricePerNight")
-                        .HasColumnType("REAL");
+                    b.Property<string>("Neighborhood")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("PricePerNight")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Province")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("SizeM2")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -66,29 +136,59 @@ namespace Bungalov.DataAccess.Migrations
                     b.ToTable("Bungalows");
                 });
 
+            modelBuilder.Entity("Bungalov.Core.Varliklar.BungalowImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BungalowId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BungalowId");
+
+                    b.ToTable("BungalowImages");
+                });
+
             modelBuilder.Entity("Bungalov.Core.Varliklar.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<bool>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -99,34 +199,51 @@ namespace Bungalov.DataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AppUserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<int>("BungalowId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CheckInDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("CheckOutDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("Status")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("boolean");
 
-                    b.Property<double>("TotalPrice")
-                        .HasColumnType("REAL");
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BungalowId");
 
                     b.ToTable("Reservations");
+                });
+
+            modelBuilder.Entity("AmenityBungalow", b =>
+                {
+                    b.HasOne("Bungalov.Core.Varliklar.Amenity", null)
+                        .WithMany()
+                        .HasForeignKey("AmenitiesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bungalov.Core.Varliklar.Bungalow", null)
+                        .WithMany()
+                        .HasForeignKey("BungalowsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Bungalov.Core.Varliklar.Bungalow", b =>
@@ -138,6 +255,17 @@ namespace Bungalov.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Bungalov.Core.Varliklar.BungalowImage", b =>
+                {
+                    b.HasOne("Bungalov.Core.Varliklar.Bungalow", "Bungalow")
+                        .WithMany("Images")
+                        .HasForeignKey("BungalowId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bungalow");
                 });
 
             modelBuilder.Entity("Bungalov.Core.Varliklar.Reservation", b =>
@@ -153,6 +281,8 @@ namespace Bungalov.DataAccess.Migrations
 
             modelBuilder.Entity("Bungalov.Core.Varliklar.Bungalow", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("Reservations");
                 });
 

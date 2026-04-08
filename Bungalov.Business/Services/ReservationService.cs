@@ -44,4 +44,33 @@ public class ReservationService : IReservationService
         _unitOfWork.GetRepository<Reservation>().Update(reservation);
         await _unitOfWork.SaveAsync();
     }
+
+    public async Task<bool> IsAvailableAsync(int bungalowId, DateTime checkIn, DateTime checkOut)
+    {
+        // CheckIn >= ExistingCheckOut OR CheckOut <= ExistingCheckIn ise çakışma yoktur.
+        // Tersi durumda (CheckIn < ExistingCheckOut AND CheckOut > ExistingCheckIn) çakışma vardır.
+        var reservations = await _unitOfWork.GetRepository<Reservation>().GetByFilterAsync(r => 
+            r.BungalowId == bungalowId && 
+            checkIn < r.CheckOutDate && 
+            checkOut > r.CheckInDate);
+            
+        return !reservations.Any();
+    }
+
+    public async Task<List<DateTime>> GetBookedDatesAsync(int bungalowId)
+    {
+        var reservations = await _unitOfWork.GetRepository<Reservation>().GetByFilterAsync(r => r.BungalowId == bungalowId);
+        var dates = new List<DateTime>();
+
+        foreach (var res in reservations)
+        {
+            var date = res.CheckInDate.Date;
+            while (date < res.CheckOutDate.Date)
+            {
+                dates.Add(date);
+                date = date.AddDays(1);
+            }
+        }
+        return dates.Distinct().ToList();
+    }
 }

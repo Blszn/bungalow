@@ -1,0 +1,300 @@
+@model Bungalov.Core.Varliklar.Bungalow
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<div class="container py-4">
+    <div class="row align-items-center mb-4">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-1">
+                    <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none">Bungalovlar</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+                </ol>
+            </nav>
+            <h1 class="display-5 fw-bold mb-0">@Model.Name</h1>
+            <p class="text-muted"><i class="bi bi-geo-alt-fill text-primary me-1"></i>
+                @if (!string.IsNullOrEmpty(Model.Province)) { @Model.Province @(string.IsNullOrEmpty(Model.District) ? "" : " / " + Model.District) }
+                else { @Model.Location }
+            </p>
+        </div>
+        <div class="col-auto">
+            <span class="fs-3 fw-bold text-success">₺@Model.PricePerNight.ToString("N0")</span>
+            <span class="text-muted"> / gece</span>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Sol Kolon: Görseller ve Açıklama -->
+        <div class="col-lg-8">
+            <!-- Galeri -->
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                @if (Model.Images != null && Model.Images.Any())
+                {
+                    <div id="bungalowGallery" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" style="height: 500px;">
+                            @for (int i = 0; i < Model.Images.Count; i++)
+                            {
+                                <div class="carousel-item h-100 @(i == 0 ? "active" : "")">
+                                    <img src="@Model.Images.ElementAt(i).ImageUrl" class="d-block w-100 h-100" style="object-fit: cover;" alt="@Model.Name">
+                                </div>
+                            }
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#bungalowGallery" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Önceki</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#bungalowGallery" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Sonraki</span>
+                        </button>
+                    </div>
+                }
+                else
+                {
+                    <div class="bg-light d-flex align-items-center justify-content-center" style="height: 400px;">
+                        <i class="bi bi-image text-muted display-1"></i>
+                    </div>
+                }
+            </div>
+
+            <!-- Bilgiler -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-3">
+                    <div class="p-3 bg-white shadow-sm rounded-4 text-center h-100">
+                        <i class="bi bi-people fs-3 text-primary d-block mb-2"></i>
+                        <span class="text-muted small d-block">Kapasite</span>
+                        <span class="fw-bold">@Model.Capacity Kişi</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 bg-white shadow-sm rounded-4 text-center h-100">
+                        <i class="bi bi-rulers fs-3 text-primary d-block mb-2"></i>
+                        <span class="text-muted small d-block">Alan</span>
+                        <span class="fw-bold">@Model.SizeM2 m²</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 bg-white shadow-sm rounded-4 text-center h-100">
+                        <i class="bi bi-moon-stars fs-3 text-primary d-block mb-2"></i>
+                        <span class="text-muted small d-block">Min. Gece</span>
+                        <span class="fw-bold">@Model.MinNights Gece</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 bg-white shadow-sm rounded-4 text-center h-100">
+                        <i class="bi bi-tag fs-3 text-primary d-block mb-2"></i>
+                        <span class="text-muted small d-block">Kategori</span>
+                        <span class="fw-bold">@Model.Category?.CategoryName</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 shadow-sm rounded-4 mb-4">
+                <h4 class="fw-bold mb-3 border-bottom pb-2">Hakkında</h4>
+                <p class="text-muted lh-lg" style="white-space: pre-line;">@Model.Description</p>
+                
+                <h4 class="fw-bold mt-5 mb-3 border-bottom pb-2">Olanaklar</h4>
+                <div class="d-flex flex-wrap gap-2">
+                    @if (Model.Amenities != null && Model.Amenities.Any())
+                    {
+                        @foreach (var amenity in Model.Amenities)
+                        {
+                            <span class="badge bg-light text-dark border p-3 rounded-3 d-flex align-items-center fw-normal">
+                                <i class="bi @amenity.IconCode text-primary fs-5 me-2"></i> @amenity.Name
+                            </span>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted fst-italic">Herhangi bir özellik eklenmemiş.</p>
+                    }
+                </div>
+            </div>
+            
+            <!-- Müsaitlik Takvimi -->
+            <div class="bg-white p-4 shadow-sm rounded-4 mb-4">
+                <h4 class="fw-bold mb-4 border-bottom pb-2">Müsaitlik Durumu</h4>
+                <div id="availabilityCalendar"></div>
+                <div class="mt-3 d-flex gap-3">
+                    <div class="d-flex align-items-center"><span class="badge bg-danger p-2 me-2"></span> Dolu</div>
+                    <div class="d-flex align-items-center"><span class="badge bg-success p-2 me-2"></span> Müsait</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sağ Kolon: Rezervasyon Formu -->
+        <div class="col-lg-4">
+            <div class="sticky-top" style="top: 100px; z-index: 10;">
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                    <div class="card-header bg-primary text-white p-4">
+                        <h4 class="mb-0">Rezervasyon Yap</h4>
+                        <p class="small text-white-50 mb-0">Hızlıca yerini ayırt.</p>
+                    </div>
+                    <div class="card-body p-4">
+                        <form id="reservationForm">
+                            <input type="hidden" id="bungalowId" value="@Model.Id" />
+                            <input type="hidden" id="pricePerNight" value="@Model.PricePerNight" />
+                            
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">Giriş Tarihi</label>
+                                <input type="date" id="checkIn" class="form-control form-control-lg border-light bg-light shadow-none" required min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">Çıkış Tarihi</label>
+                                <input type="date" id="checkOut" class="form-control form-control-lg border-light bg-light shadow-none" required min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" />
+                            </div>
+
+                            <hr class="my-4 op-10">
+
+                            <div id="priceSummary" class="d-none animate__animated animate__fadeIn">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-muted" id="calcText">₺@Model.PricePerNight x 0 gece</span>
+                                    <span class="fw-bold" id="nightPrice">₺0</span>
+                                </div>
+                                <div class="d-flex justify-content-between fs-4 fw-bold text-primary mt-2">
+                                    <span>Toplam Tutar</span>
+                                    <span id="totalPriceResult">₺0</span>
+                                </div>
+                            </div>
+
+                            <div id="pricePlaceholder" class="text-center py-3 text-muted border border-dashed rounded-3 mb-4">
+                                <small>Tarih seçtiğinizde fiyat hesaplanacaktır.</small>
+                            </div>
+
+                            <button type="button" id="btnBook" class="btn btn-primary btn-lg w-100 py-3 rounded-3 shadow-sm fw-bold mt-2">
+                                <i class="bi bi-calendar-check me-2"></i> Rezervasyon Talebi Gönder
+                            </button>
+                        </form>
+                    </div>
+                    <div class="card-footer bg-light p-4 border-top-0">
+                        <div class="d-flex align-items-center text-muted small">
+                            <i class="bi bi-shield-check text-success fs-4 me-2"></i>
+                            <div>Kayıt işlemi sonrasında onay e-postası alacaksınız.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bungalowId = document.getElementById('bungalowId').value;
+            const pricePerNight = parseFloat(document.getElementById('pricePerNight').value);
+            const checkInInput = document.getElementById('checkIn');
+            const checkOutInput = document.getElementById('checkOut');
+            const priceSummary = document.getElementById('priceSummary');
+            const pricePlaceholder = document.getElementById('pricePlaceholder');
+            const btnBook = document.getElementById('btnBook');
+
+            // 1. Takvim Entegrasyonu
+            const calendarEl = document.getElementById('availabilityCalendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'tr',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,listMonth'
+                },
+                events: function(info, successCallback, failureCallback) {
+                    fetch(`/Reservation/GetBookedDates?bungalowId=${bungalowId}`)
+                        .then(response => response.json())
+                        .then(dates => {
+                            const events = dates.map(date => ({
+                                start: date,
+                                allDay: true,
+                                display: 'background',
+                                color: '#dc3545' // Dolu tarihler kırmızı
+                            }));
+                            successCallback(events);
+                        });
+                }
+            });
+            calendar.render();
+
+            // 2. Fiyat Hesaplama Mantığı
+            function calculatePrice() {
+                const checkIn = new Date(checkInInput.value);
+                const checkOut = new Date(checkOutInput.value);
+
+                if (checkIn && checkOut && checkOut > checkIn) {
+                    const diffTime = Math.abs(checkOut - checkIn);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    const total = diffDays * pricePerNight;
+
+                    document.getElementById('calcText').innerText = `₺${pricePerNight.toLocaleString('tr-TR')} x ${diffDays} gece`;
+                    document.getElementById('nightPrice').innerText = `₺${total.toLocaleString('tr-TR')}`;
+                    document.getElementById('totalPriceResult').innerText = `₺${total.toLocaleString('tr-TR')}`;
+
+                    priceSummary.classList.remove('d-none');
+                    pricePlaceholder.classList.add('d-none');
+                } else {
+                    priceSummary.classList.add('d-none');
+                    pricePlaceholder.classList.remove('d-none');
+                }
+            }
+
+            checkInInput.addEventListener('change', calculatePrice);
+            checkOutInput.addEventListener('change', calculatePrice);
+
+            // 3. Rezervasyon Gönderimi
+            btnBook.addEventListener('click', function() {
+                const checkIn = checkInInput.value;
+                const checkOut = checkOutInput.value;
+
+                if (!checkIn || !checkOut) {
+                    Swal.fire('Hata', 'Lütfen giriş ve çıkış tarihlerini seçin.', 'error');
+                    return;
+                }
+
+                btnBook.disabled = true;
+                btnBook.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> İşleniyor...';
+
+                const formData = new FormData();
+                formData.append('bungalowId', bungalowId);
+                formData.append('checkIn', checkIn);
+                formData.append('checkOut', checkOut);
+
+                fetch('/Reservation/MakeReservation', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            title: 'Başarılı!',
+                            text: data.message,
+                            icon: 'success',
+                            confirmButtonText: 'Tamam'
+                        }).then(() => {
+                            window.location.reload();
+                        });
+                    } else {
+                        Swal.fire('Hata', data.message, 'error');
+                        btnBook.disabled = false;
+                        btnBook.innerHTML = '<i class="bi bi-calendar-check me-2"></i> Rezervasyon Talebi Gönder';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire('Hata', 'Sunucu ile bağlantı kurulurken bir hata oluştu.', 'error');
+                    btnBook.disabled = false;
+                    btnBook.innerHTML = '<i class="bi bi-calendar-check me-2"></i> Rezervasyon Talebi Gönder';
+                });
+            });
+        });
+    </script>
+}

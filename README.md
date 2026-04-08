@@ -29,6 +29,7 @@ Haftalık ilerleme raporları ve teknik detaylara aşağıdaki tablodan ulaşabi
 | **Hafta 4** | [Hafta 4 Raporu](./Raporlar/Hafta4_Rapor.md) | Web UI geliştirmeleri ve arayüz entegrasyonları. |
 | **Hafta 5** | [Hafta 5 Raporu](./Raporlar/Hafta5_Rapor.md) | PostgreSQL entegrasyonu, veritabanı güncellemeleri ve Admin panel. |
 | **Hafta 6** | [Hafta 6 Raporu](./Raporlar/Hafta6_Rapor.md) | Dinamik listeleme, gelişmiş filtreleme ve ViewComponent entegrasyonu. |
+| **Hafta 7** | [Hafta 7 Raporu](./Raporlar/Hafta7_Rapor.md) | Dinamik özellik yönetimi, Rezervasyon motoru ve Takvim entegrasyonu. |
 
 ---
 

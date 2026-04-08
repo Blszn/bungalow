@@ -20,6 +20,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IBungalowService, BungalowService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IAmenityService, AmenityService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 
 // FluentValidation Configurations

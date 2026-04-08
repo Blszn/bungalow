@@ -32,18 +32,18 @@ public class BungalowService : IBungalowService
 
     public async Task<List<Bungalow>> GetAllBungalowsAsync()
     {
-        return await _unitOfWork.GetRepository<Bungalow>().GetAllAsync(b => b.Category, b => b.Images);
+        return await _unitOfWork.GetRepository<Bungalow>().GetAllAsync(b => b.Category, b => b.Images, b => b.Amenities);
     }
 
     public async Task<Bungalow?> GetBungalowByIdAsync(int id)
     {
-        var result = await _unitOfWork.GetRepository<Bungalow>().GetByFilterAsync(b => b.Id == id, b => b.Category, b => b.Images);
+        var result = await _unitOfWork.GetRepository<Bungalow>().GetByFilterAsync(b => b.Id == id, b => b.Category, b => b.Images, b => b.Amenities);
         return result.FirstOrDefault();
     }
 
     public async Task<List<Bungalow>> GetBungalowsByFilterAsync(Expression<Func<Bungalow, bool>> filter)
     {
-        return await _unitOfWork.GetRepository<Bungalow>().GetByFilterAsync(filter, b => b.Category, b => b.Images);
+        return await _unitOfWork.GetRepository<Bungalow>().GetByFilterAsync(filter, b => b.Category, b => b.Images, b => b.Amenities);
     }
 
     public async Task UpdateBungalowAsync(Bungalow bungalow)

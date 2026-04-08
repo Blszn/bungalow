@@ -9,4 +9,6 @@ public interface IReservationService
     Task AddReservationAsync(Reservation reservation);
     Task UpdateReservationAsync(Reservation reservation);
     Task DeleteReservationAsync(int id);
+    Task<bool> IsAvailableAsync(int bungalowId, DateTime checkIn, DateTime checkOut);
+    Task<List<DateTime>> GetBookedDatesAsync(int bungalowId);
 }

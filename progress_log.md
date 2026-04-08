@@ -32,3 +32,11 @@
 - **Arayüz (UI) Revizyonu:** `Index.cshtml` sayfası iki kolonlu (Sidebar + Content) bir yapıya dönüştürüldü. Sol menüye filtreler ve kategoriler, üst kısma ise arama çubuğu eklendi. Bootstrap Switch ve modern kart yapıları ile görsel kalite artırıldı.
 - **Otomasyon ve Rotalama:** Projeyi tek tıkla başlatmak için `baslat.bat` dosyası eklendi. Uygulamanın varsayılan açılış sayfası (Home -> Bungalow) olarak güncellenerek 404 hatası giderildi.
 - **Raporlama:** 6. hafta ilerleme raporu (`Hafta6_Rapor.md`) oluşturuldu ve dökümante edildi.
+
+## [2026-04-08] Dinamik Özellik Yönetimi ve Rezervasyon Motoru (7. Hafta)
+- **Dinamik Amenity Sistemi:** Sabit boolean özellikler kaldırılarak `Amenity` entity'si ve Many-to-Many ilişki kuruldu. Admin panelinden dinamik özellik yönetimi (CRUD) sağlandı.
+- **Rezervasyon Altyapısı:** `IReservationService` çakışma kontrolü ve dolu tarih listeleme özellikleriyle güncellendi.
+- **Takvim Entegrasyonu:** FullCalendar.js kullanılarak bungalov detay sayfasında müsaitlik takvimi oluşturuldu.
+- **Rezervasyon Akışı:** Tarih seçimi, anlık fiyat hesaplama, AJAX ile kayıt, e-posta bildirimi (simülasyon) ve SweetAlert2 ile görsel onay mekanizması kuruldu.
+- **UI Geliştirmeleri:** Bungalov kartlarında özellik isimlerinin gösterilmesi ve sidebar üzerinde özellik bazlı filtreleme yapılması sağlandı. Detay Sayfası tasarlandı.
+- **Raporlama:** 7. hafta ilerleme raporu (`Hafta7_Rapor.md`) oluşturuldu.

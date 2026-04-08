@@ -9,60 +9,87 @@ public class BungalowController : Controller
 {
     private readonly IBungalowService _bungalowService;
     private readonly ICategoryService _categoryService;
+    private readonly IAmenityService _amenityService;
     private readonly IWebHostEnvironment _env;
 
-    public BungalowController(IBungalowService bungalowService, ICategoryService categoryService, IWebHostEnvironment env)
+    public BungalowController(IBungalowService bungalowService, ICategoryService categoryService, IAmenityService amenityService, IWebHostEnvironment env)
     {
         _bungalowService = bungalowService;
         _categoryService = categoryService;
+        _amenityService = amenityService;
         _env = env;
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index(string? search, int? categoryId, int? minCapacity, bool hasJacuzzi, bool hasPool)
+    public async Task<IActionResult> Index(string? search, int? categoryId, int? minCapacity, int[]? amenityIds)
     {
+        // Temel filtreleme
         var bungalows = await _bungalowService.GetBungalowsByFilterAsync(b =>
             (string.IsNullOrEmpty(search) || b.Name.Contains(search) || b.Location.Contains(search)) &&
             (!categoryId.HasValue || b.CategoryId == categoryId.Value) &&
-            (!minCapacity.HasValue || b.Capacity >= minCapacity.Value) &&
-            (!hasJacuzzi || b.HasJacuzzi) &&
-            (!hasPool || b.HasPool));
+            (!minCapacity.HasValue || b.Capacity >= minCapacity.Value));
+
+        // Özellik filtrelemesi (Seçilen tüm özelliklere sahip olanları getir - AND mantığı)
+        if (amenityIds != null && amenityIds.Any())
+        {
+            bungalows = bungalows.Where(b => amenityIds.All(id => b.Amenities.Any(a => a.Id == id))).ToList();
+        }
 
         ViewBag.Search = search;
         ViewBag.CategoryId = categoryId;
         ViewBag.MinCapacity = minCapacity;
-        ViewBag.HasJacuzzi = hasJacuzzi;
-        ViewBag.HasPool = hasPool;
+        ViewBag.SelectedAmenityIds = amenityIds ?? Array.Empty<int>();
+        
+        // Sidebar için tüm aktif özellikleri getir
+        ViewBag.AllAmenities = await _amenityService.GetAllAmenitiesAsync();
 
         return View(bungalows);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        var bungalow = await _bungalowService.GetBungalowByIdAsync(id);
+        if (bungalow == null) return NotFound();
+
+        return View(bungalow);
     }
 
     [HttpGet]
     public async Task<IActionResult> Create()
     {
         var categories = await _categoryService.GetAllCategoriesAsync();
+        var amenities = await _amenityService.GetAllAmenitiesAsync();
+        
         ViewBag.Categories = new SelectList(categories, "Id", "CategoryName");
+        ViewBag.Amenities = amenities;
         return View();
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Bungalow bungalow, List<IFormFile>? newImages)
+    public async Task<IActionResult> Create(Bungalow bungalow, List<IFormFile>? newImages, int[] selectedAmenityIds)
     {
         ModelState.Remove("Category");
-        // Images içindeki Navigation property'lerin eksik olmasından dolayı ModelState hata verebilir.
-        var dict = ModelState.Keys.Where(k => k.StartsWith("Images[") && k.EndsWith(".Bungalow")).ToList();
+        var dict = ModelState.Keys.Where(k => (k.StartsWith("Images[") && k.EndsWith(".Bungalow")) || k == "Amenities").ToList();
         foreach (var key in dict) ModelState.Remove(key);
 
         if (ModelState.IsValid)
         {
+            // Seçilen özellikleri bağla
+            if (selectedAmenityIds != null)
+            {
+                foreach (var id in selectedAmenityIds)
+                {
+                    var amenity = await _amenityService.GetAmenityByIdAsync(id);
+                    if (amenity != null) bungalow.Amenities.Add(amenity);
+                }
+            }
+
             if (newImages != null && newImages.Count > 0)
             {
                 var location = Path.Combine(_env.WebRootPath, "images", "bungalows");
-                if (!Directory.Exists(location))
-                {
-                    Directory.CreateDirectory(location);
-                }
+                if (!Directory.Exists(location)) Directory.CreateDirectory(location);
 
                 foreach (var image in newImages)
                 {
@@ -77,10 +104,7 @@ public class BungalowController : Controller
                             await image.CopyToAsync(stream);
                         }
 
-                        bungalow.Images.Add(new BungalowImage
-                        {
-                            ImageUrl = "/images/bungalows/" + newImageName
-                        });
+                        bungalow.Images.Add(new BungalowImage { ImageUrl = "/images/bungalows/" + newImageName });
                     }
                 }
             }
@@ -91,51 +115,72 @@ public class BungalowController : Controller
 
         var categories = await _categoryService.GetAllCategoriesAsync();
         ViewBag.Categories = new SelectList(categories, "Id", "CategoryName");
+        ViewBag.Amenities = await _amenityService.GetAllAmenitiesAsync();
         return View(bungalow);
     }
 
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
-        var bungalow = await _bungalowService.GetBungalowByIdAsync(id);
+        // Bungalow'u özellikleri ile birlikte çekmek önemli
+        var bungalows = await _bungalowService.GetBungalowsByFilterAsync(b => b.Id == id);
+        var bungalow = bungalows.FirstOrDefault();
         if (bungalow == null) return NotFound();
 
+        // UnitOfWork tabanlı repository'miz Many-to-Many ilişkisini (Amenities) otomatik include etmiyor olabilir.
+        // Bu yüzden eğer bungalow.Amenities boş geliyorsa extra sorgu gerekebilir.
+        // Şimdilik repository'nin Include desteği olduğunu varsayıyorum (GetAllAsync içinde vardı).
+
         var categories = await _categoryService.GetAllCategoriesAsync();
+        var amenities = await _amenityService.GetAllAmenitiesAsync();
+
         ViewBag.Categories = new SelectList(categories, "Id", "CategoryName", bungalow.CategoryId);
+        ViewBag.Amenities = amenities;
         return View(bungalow);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(Bungalow bungalow, List<IFormFile>? newImages)
+    public async Task<IActionResult> Edit(Bungalow bungalow, List<IFormFile>? newImages, int[] selectedAmenityIds)
     {
         ModelState.Remove("Category");
-        var dict = ModelState.Keys.Where(k => k.StartsWith("Images[") && k.EndsWith(".Bungalow")).ToList();
+        var dict = ModelState.Keys.Where(k => (k.StartsWith("Images[") && k.EndsWith(".Bungalow")) || k == "Amenities").ToList();
         foreach (var key in dict) ModelState.Remove(key);
 
         if (ModelState.IsValid)
         {
+            // Bungalow'u tüm ilişkileriyle çek (Amenities dahil)
             var existingBungalow = await _bungalowService.GetBungalowByIdAsync(bungalow.Id);
             if (existingBungalow == null) return NotFound();
 
-            // Sadece formdan gelen, değişen verileri güncelleyelim
             existingBungalow.Name = bungalow.Name;
             existingBungalow.Description = bungalow.Description;
             existingBungalow.PricePerNight = bungalow.PricePerNight;
             existingBungalow.Capacity = bungalow.Capacity;
             existingBungalow.Location = bungalow.Location;
-            existingBungalow.HasJacuzzi = bungalow.HasJacuzzi;
-            existingBungalow.HasPool = bungalow.HasPool;
-            existingBungalow.IsWifiAvailable = bungalow.IsWifiAvailable;
+            existingBungalow.Province = bungalow.Province;
+            existingBungalow.District = bungalow.District;
+            existingBungalow.Neighborhood = bungalow.Neighborhood;
+            existingBungalow.Address = bungalow.Address;
+            existingBungalow.SizeM2 = bungalow.SizeM2;
+            existingBungalow.MinNights = bungalow.MinNights;
             existingBungalow.CategoryId = bungalow.CategoryId;
+
+            // Özellikleri güncelle (Önce temizle sonra yeni seçilenleri ekle)
+            existingBungalow.Amenities.Clear();
+            if (selectedAmenityIds != null)
+            {
+                foreach (var id in selectedAmenityIds)
+                {
+                    var amenity = await _amenityService.GetAmenityByIdAsync(id);
+                    if (amenity != null) existingBungalow.Amenities.Add(amenity);
+                }
+            }
 
             if (newImages != null && newImages.Count > 0)
             {
                 var location = Path.Combine(_env.WebRootPath, "images", "bungalows");
-                if (!Directory.Exists(location))
-                {
-                    Directory.CreateDirectory(location);
-                }
+                if (!Directory.Exists(location)) Directory.CreateDirectory(location);
 
                 foreach (var image in newImages)
                 {
@@ -165,6 +210,7 @@ public class BungalowController : Controller
 
         var categories = await _categoryService.GetAllCategoriesAsync();
         ViewBag.Categories = new SelectList(categories, "Id", "CategoryName", bungalow.CategoryId);
+        ViewBag.Amenities = await _amenityService.GetAllAmenitiesAsync();
         return View(bungalow);
     }
 
@@ -186,12 +232,8 @@ public class BungalowController : Controller
             var image = bungalow.Images.FirstOrDefault(i => i.Id == imageId);
             if (image != null)
             {
-                // Fiziksel dosyayı silme
                 var path = Path.Combine(_env.WebRootPath, image.ImageUrl.TrimStart('/'));
-                if (System.IO.File.Exists(path))
-                {
-                    System.IO.File.Delete(path);
-                }
+                if (System.IO.File.Exists(path)) System.IO.File.Delete(path);
 
                 bungalow.Images.Remove(image);
                 await _bungalowService.UpdateBungalowAsync(bungalow);

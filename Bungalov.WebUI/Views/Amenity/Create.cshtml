@@ -1,0 +1,55 @@
+@model Bungalov.Core.Varliklar.Amenity
+
+@{
+    ViewData["Title"] = "Yeni Olanak Ekle";
+}
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="d-flex align-items-center mb-4">
+            <a asp-action="Index" class="btn btn-outline-secondary me-3 shadow-sm rounded-circle p-2 d-flex" style="width: 40px; height: 40px;">
+                <i class="bi bi-arrow-left m-auto"></i>
+            </a>
+            <div>
+                <h1 class="display-6 mb-0">Yeni Olanak Ekle</h1>
+                <p class="text-muted mb-0">Bungalovlar için yeni bir özellik tanımlayın.</p>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="card-body p-4 p-md-5">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="form-floating mb-4">
+                        <input asp-for="Name" class="form-control" placeholder="Havuz, Jakuzi vb." />
+                        <label asp-for="Name"><i class="bi bi-tag me-1"></i>Olanak Adı</label>
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <input asp-for="IconCode" class="form-control" placeholder="bi-water" />
+                        <label asp-for="IconCode"><i class="bi bi-grid-fill me-1"></i>İkon Kodu (bi-...) </label>
+                        <span asp-validation-for="IconCode" class="text-danger small"></span>
+                        <div class="form-text mt-2">Örn: <code>bi-wifi</code>, <code>bi-fire</code>, <code>bi-water</code></div>
+                    </div>
+
+                    <div class="form-check form-switch mb-4 py-2">
+                        <input class="form-check-input fs-5" type="checkbox" role="switch" asp-for="Status" checked>
+                        <label class="form-check-label pt-1 ms-2" asp-for="Status">Aktif mi?</label>
+                    </div>
+
+                    <div class="d-grid mt-5">
+                        <button type="submit" class="btn btn-primary btn-lg py-3 shadow-sm rounded-3 fw-bold">
+                            <i class="bi bi-check2-circle me-2"></i> Olanağı Kaydet
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

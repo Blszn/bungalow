@@ -68,17 +68,24 @@ builder.Services.AddSignalR();
 
 var app = builder.Build();
 
-// Seed Roles and Admin User
+// Veritabanı Migrasyonlarını Uygula ve Seed İşlemlerini Başlat
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
     {
+        var context = services.GetRequiredService<AppDbContext>();
+        // Bekleyen migrasyonları otomatik olarak uygula
+        if ((await context.Database.GetPendingMigrationsAsync()).Any())
+        {
+            await context.Database.MigrateAsync();
+        }
+        
         await Bungalov.WebUI.Seeds.DbInitializer.SeedRolesAndUserAsync(services);
     }
     catch (Exception ex)
     {
-        Console.WriteLine("Seed Hatası: " + ex.Message);
+        Log.Error(ex, "Veritabanı yapılandırılırken bir hata oluştu.");
     }
 }
 

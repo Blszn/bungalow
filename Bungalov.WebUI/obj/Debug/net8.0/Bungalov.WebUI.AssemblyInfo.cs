@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Bungalov.WebUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6adf77a1c1b18f687ea8aef6ae861cecf247a81c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e21e09e8f2f67559314c001dc1d534c041c4f0d1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Bungalov.WebUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Bungalov.WebUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

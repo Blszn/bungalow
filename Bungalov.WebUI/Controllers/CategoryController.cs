@@ -1,9 +1,11 @@
 using Bungalov.Business.Interfaces;
 using Bungalov.Core.Varliklar;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bungalov.WebUI.Controllers;
 
+[Authorize(Roles = "Admin")]
 public class CategoryController : Controller
 {
     private readonly ICategoryService _categoryService;

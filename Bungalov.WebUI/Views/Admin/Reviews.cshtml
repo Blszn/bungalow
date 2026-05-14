@@ -1,0 +1,175 @@
+@model AdminReviewsViewModel
+
+@{
+    ViewData["Title"] = "Değerlendirme İstatistikleri";
+}
+
+<div class="container-fluid py-4">
+    <div class="row mb-4 align-items-center">
+        <div class="col">
+            <h2 class="fw-bold mb-1 text-dark">Değerlendirme Analizi</h2>
+            <p class="text-muted small">Misafirlerinizin deneyimlerini ve bungalov performanslarını takip edin.</p>
+        </div>
+        <div class="col-auto">
+            <div class="bg-white p-2 rounded-4 shadow-sm border d-flex align-items-center">
+                <div class="bg-warning bg-opacity-10 p-2 rounded-3 me-3">
+                    <i class="bi bi-star-fill text-warning fs-4"></i>
+                </div>
+                <div>
+                    <div class="small text-muted fw-bold text-uppercase">Genel Skor</div>
+                    <div class="h4 fw-bold mb-0">@Model.AverageRating.ToString("F1") / 5.0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <!-- Puan Dağılımı -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-white border-0 p-4 pb-0">
+                    <h5 class="fw-bold mb-0">Puan Dağılımı</h5>
+                </div>
+                <div class="card-body p-4">
+                    @for (int i = 5; i >= 1; i--)
+                    {
+                        var count = Model.RatingDistribution.ContainsKey(i) ? Model.RatingDistribution[i] : 0;
+                        var percentage = Model.TotalReviews > 0 ? (count * 100 / Model.TotalReviews) : 0;
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="me-2 text-warning small" style="width: 60px;">
+                                @for (int s = 0; s < i; s++) { <i class="bi bi-star-fill"></i> }
+                            </div>
+                            <div class="progress flex-grow-1 rounded-pill bg-light mx-3" style="height: 10px;">
+                                <div class="progress-bar rounded-pill @(i >= 4 ? "bg-success" : i == 3 ? "bg-warning" : "bg-danger")" role="progressbar" style="width: @percentage%;"></div>
+                            </div>
+                            <div class="text-muted small" style="width: 40px;">@count</div>
+                        </div>
+                    }
+                    <div class="mt-4 pt-3 border-top text-center">
+                        <div class="h3 fw-bold mb-0">@Model.TotalReviews</div>
+                        <div class="small text-muted text-uppercase fw-bold">Toplam Yorum</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bungalov Bazlı Performans -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-white border-0 p-4 pb-0">
+                    <h5 class="fw-bold mb-0">Bungalov Performans Skorları</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="text-muted small text-uppercase">
+                                <tr>
+                                    <th class="border-0">Bungalov Adı</th>
+                                    <th class="border-0 text-center">Yorum Sayısı</th>
+                                    <th class="border-0 text-end">Ortalama Puan</th>
+                                    <th class="border-0" style="width: 150px;">Görsel Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.BungalowRatings)
+                                {
+                                    <tr>
+                                        <td class="fw-bold text-dark">@item.BungalowName</td>
+                                        <td class="text-center">
+                                            <span class="badge bg-light text-dark border">@item.ReviewCount</span>
+                                        </td>
+                                        <td class="text-end fw-bold">
+                                            <span class="@(item.AverageRating >= 4 ? "text-success" : item.AverageRating >= 3 ? "text-warning" : "text-danger")">
+                                                @item.AverageRating.ToString("F1")
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="progress rounded-pill bg-light" style="height: 6px;">
+                                                <div class="progress-bar rounded-pill @(item.AverageRating >= 4 ? "bg-success" : item.AverageRating >= 3 ? "bg-warning" : "bg-danger")" style="width: @(item.AverageRating * 20)%;"></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tüm Yorumlar Listesi -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-header bg-white border-0 p-4 d-flex justify-content-between align-items-center">
+            <h5 class="fw-bold mb-0">Tüm Misafir Yorumları</h5>
+            <div class="dropdown">
+                <button class="btn btn-light btn-sm rounded-pill border shadow-none" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-filter me-1"></i> Filtrele
+                </button>
+                <ul class="dropdown-menu border-0 shadow">
+                    <li><a class="dropdown-item" href="#">En Yeni</a></li>
+                    <li><a class="dropdown-item" href="#">En Yüksek Puan</a></li>
+                    <li><a class="dropdown-item" href="#">En Düşük Puan</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light text-muted small text-uppercase">
+                        <tr>
+                            <th class="ps-4">Tarih</th>
+                            <th>Misafir</th>
+                            <th>Bungalov</th>
+                            <th>Puan</th>
+                            <th style="width: 40%;">Yorum</th>
+                            <th class="text-end pe-4">İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var review in Model.AllReviews)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="small">@review.CreatedDate.ToLocalTime().ToString("dd MMM yyyy")</div>
+                                    <div class="text-muted x-small">@review.CreatedDate.ToLocalTime().ToString("HH:mm")</div>
+                                </td>
+                                <td>
+                                    <div class="fw-bold">@review.AppUser?.UserName</div>
+                                    <div class="text-muted small">@review.AppUser?.Email</div>
+                                </td>
+                                <td>
+                                    <div class="small fw-semibold">@review.Bungalow?.Name</div>
+                                </td>
+                                <td>
+                                    <div class="text-warning small">
+                                        @for (int i = 0; i < review.Rating; i++) { <i class="bi bi-star-fill"></i> }
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="small text-dark mb-0 text-truncate-2" title="@review.Comment">@review.Comment</p>
+                                </td>
+                                <td class="text-end pe-4">
+                                    <button class="btn btn-outline-primary btn-sm rounded-pill px-3 shadow-none">İncele</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .x-small { font-size: 0.7rem; }
+    .text-truncate-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .bg-opacity-10 { --bs-bg-opacity: 0.1; }
+    .table thead th { font-weight: 600; letter-spacing: 0.5px; padding: 1rem 0.5rem; }
+    .table tbody td { padding: 1.25rem 0.5rem; }
+</style>

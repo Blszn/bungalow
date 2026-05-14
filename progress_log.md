@@ -40,3 +40,24 @@
 - **Rezervasyon Akışı:** Tarih seçimi, anlık fiyat hesaplama, AJAX ile kayıt, e-posta bildirimi (simülasyon) ve SweetAlert2 ile görsel onay mekanizması kuruldu.
 - **UI Geliştirmeleri:** Bungalov kartlarında özellik isimlerinin gösterilmesi ve sidebar üzerinde özellik bazlı filtreleme yapılması sağlandı. Detay Sayfası tasarlandı.
 - **Raporlama:** 7. hafta ilerleme raporu (`Hafta7_Rapor.md`) oluşturuldu.
+
+## [2026-05-07] Identity, Profil Yönetimi ve Rivora Markalaması (8. Hafta)
+- **Identity Entegrasyonu:** ASP.NET Core Identity kütüphanesi projeye dahil edildi. `AppUser` sınıfı ile genişletilmiş kullanıcı modeli (Ad, Soyad, Adres) oluşturuldu.
+- **Giriş/Kayıt Sistemi:** `AccountController` üzerinden kullanıcı kayıt, giriş ve çıkış işlemleri tamamlandı. Role tabanlı yetkilendirme (Admin/Customer) eklendi.
+- **Profil Paneli:** Kullanıcıların kendi bilgilerini güncelleyebileceği ve rezervasyonlarını takip edebileceği `ProfileController` ve ilgili görünümler oluşturuldu.
+- **Rivora Rebranding:** Proje ismi ve tüm arayüz metinleri "Bungalov"dan "Rivora"ya dönüştürüldü. Kurumsal kimlik çalışmaları uygulandı.
+- **Admin Dashboard:** Yönetici için özet istatistikler (toplam kazanç, rezervasyon sayısı vb.) içeren dashboard sayfası `AdminController` ile hayata geçirildi.
+- **Güvenlik İyileştirmesi:** Rezervasyon formlarından ve e-postalardan T.C. Kimlik No gösterimi kaldırılarak veri güvenliği artırıldı.
+- **Raporlama:** 8. hafta ilerleme raporu (`Hafta8_Rapor.md`) oluşturuldu.
+
+## [2026-05-07] Güvenlik ve Global Error Handling (9. Hafta)
+- **Serilog Entegrasyonu:** `Serilog.AspNetCore` ve `Serilog.Sinks.File` paketleri kurularak `Program.cs` üzerinde yapılandırıldı. Hatalar artık `Logs/` klasörüne kaydediliyor.
+- **Hata Yönetimi:** `ErrorController` ve özel hata görünümleri (`Index`, `NotFound`) oluşturuldu. `UseExceptionHandler` ve `UseStatusCodePagesWithReExecute` middleware'leri eklendi.
+- **CSRF Koruması:** Tüm POST action'larına `[ValidateAntiForgeryToken]` eklendi. AJAX (fetch) istekleri CSRF token desteğiyle güncellendi.
+## [2026-05-14] Değerlendirme Sistemi ve Canlı Destek (10. Hafta)
+- **Değerlendirme ve Yorum Sistemi:** Kullanıcıların konaklama sonrası bungalovları 1-5 yıldız arası puanlayabileceği ve yorum yapabileceği `Review` sistemi geliştirildi.
+- **Canlı Destek (SignalR):** Müşteri ve Admin arasında gerçek zamanlı iletişim sağlayan `ChatHub` oluşturuldu.
+- **Gelişmiş Mesajlaşma:** Yazıyor göstergesi (typing indicator), okunmamış mesaj bildirimleri ve mesajların veritabanında kalıcı olarak saklanması özellikleri eklendi.
+- **İstatistik Güncelleme:** Bungalov detay sayfasında ortalama puan ve toplam yorum sayısı dinamik olarak gösterilmeye başlandı.
+- **Raporlama:** 10. hafta ilerleme raporu (`Hafta10_Rapor.md`) oluşturuldu.
+

@@ -1,0 +1,202 @@
+@model AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Yönetim Dashboard";
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0 text-dark">Genel Durum</h2>
+            <p class="text-muted small">Bungalovlarınızın ve rezervasyonlarınızın anlık özeti.</p>
+        </div>
+        <div class="d-none d-md-block">
+            <span class="badge bg-white text-dark shadow-sm p-2 rounded-3 border">
+                <i class="bi bi-calendar3 me-2 text-primary"></i> @DateTime.Now.ToString("dd MMMM yyyy")
+            </span>
+        </div>
+    </div>
+
+    <!-- Stat Kartları -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-2">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-primary text-white h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-white-50 small fw-bold text-uppercase mb-1">Bungalov</h6>
+                        <h3 class="fw-bold mb-0">@Model.TotalBungalows</h3>
+                    </div>
+                    <div class="bg-white bg-opacity-25 p-2 rounded-3">
+                        <i class="bi bi-house-door fs-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-success text-white h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-white-50 small fw-bold text-uppercase mb-1">Rezervasyon</h6>
+                        <h3 class="fw-bold mb-0">@Model.TotalReservations</h3>
+                    </div>
+                    <div class="bg-white bg-opacity-25 p-2 rounded-3">
+                        <i class="bi bi-calendar-check fs-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-info text-white h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-white-50 small fw-bold text-uppercase mb-1">Toplam Kazanç</h6>
+                        <h3 class="fw-bold mb-0">₺@Model.TotalEarnings.ToString("N0")</h3>
+                    </div>
+                    <div class="bg-white bg-opacity-25 p-2 rounded-3">
+                        <i class="bi bi-wallet2 fs-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-warning text-dark h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-dark-50 small fw-bold text-uppercase mb-1">Ortalama Puan</h6>
+                        <h3 class="fw-bold mb-0">@Model.AverageRating.ToString("F1") / 5</h3>
+                    </div>
+                    <div class="bg-dark bg-opacity-10 p-2 rounded-3">
+                        <i class="bi bi-star-fill fs-4 text-dark"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 p-3 bg-dark text-white h-100">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-white-50 small fw-bold text-uppercase mb-1">Toplam Yorum</h6>
+                        <h3 class="fw-bold mb-0">@Model.TotalReviews</h3>
+                    </div>
+                    <div class="bg-white bg-opacity-25 p-2 rounded-3">
+                        <i class="bi bi-chat-left-quote fs-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Son Rezervasyonlar -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white border-0 p-4 pb-0">
+                    <h5 class="fw-bold mb-0">Son Rezervasyonlar</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="text-muted small text-uppercase">
+                                <tr>
+                                    <th class="border-0">Misafir / Tarih</th>
+                                    <th class="border-0">Bungalov</th>
+                                    <th class="border-0 text-center">Kişi</th>
+                                    <th class="border-0 text-end">Tutar</th>
+                                    <th class="border-0 text-center">Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var res in Model.RecentReservations)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="fw-bold">@res.AppUser?.UserName</div>
+                                            <div class="text-muted x-small">@res.CheckInDate.ToLocalTime().ToString("dd MMM") - @res.CheckOutDate.ToLocalTime().ToString("dd MMM yyyy")</div>
+                                        </td>
+                                        <td>
+                                            <div class="small">@res.Bungalow?.Name</div>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge bg-light text-dark fw-normal border">@res.Guests.Count Misafir</span>
+                                        </td>
+                                        <td class="text-end fw-bold">₺@res.TotalPrice.ToString("N2")</td>
+                                        <td class="text-center">
+                                            @if (res.IsPaid)
+                                            {
+                                                <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3">Ödendi</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3">Bekliyor</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kategorilere Göre Dağılım -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white border-0 p-4 pb-0">
+                    <h5 class="fw-bold mb-0">Kategori Dağılımı</h5>
+                </div>
+                <div class="card-body p-4">
+                    @foreach (var cat in Model.CategoryStats)
+                    {
+                        var percentage = Model.TotalBungalows > 0 ? (cat.BungalowCount * 100 / Model.TotalBungalows) : 0;
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="fw-semibold small text-dark">@cat.CategoryName</span>
+                                <span class="text-muted small">@cat.BungalowCount Ünite (%@percentage)</span>
+                            </div>
+                            <div class="progress rounded-pill shadow-none bg-light" style="height: 8px;">
+                                <div class="progress-bar rounded-pill bg-primary" role="progressbar" style="width: @percentage%;"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-white border-0 p-4 pb-0 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0">Son Yorumlar</h5>
+                    <span class="badge bg-soft-warning text-warning rounded-pill">@Model.TotalReviews Toplam</span>
+                </div>
+                <div class="card-body p-4">
+                    @if (Model.RecentReviews.Any())
+                    {
+                        @foreach (var review in Model.RecentReviews)
+                        {
+                            <div class="mb-3 pb-3 border-bottom last-child-border-0">
+                                <div class="d-flex justify-content-between align-items-start mb-1">
+                                    <h6 class="fw-bold mb-0 small">@review.AppUser?.UserName</h6>
+                                    <div class="text-warning small">
+                                        @for (int i = 0; i < review.Rating; i++) { <i class="bi bi-star-fill"></i> }
+                                    </div>
+                                </div>
+                                <div class="small text-muted mb-1">@review.Bungalow?.Name</div>
+                                <p class="small text-dark mb-0 fst-italic">"@review.Comment"</p>
+                                <div class="text-muted" style="font-size: 0.7rem;">@review.CreatedDate.ToLocalTime().ToString("dd MMM yyyy HH:mm")</div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted small text-center mb-0">Henüz yorum yapılmamış.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .x-small { font-size: 0.75rem; }
+    .table thead th { font-weight: 600; letter-spacing: 0.5px; }
+    .bg-opacity-10 { --bs-bg-opacity: 0.1; }
+</style>

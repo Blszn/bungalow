@@ -27,20 +27,26 @@
                     <h5 class="text-primary border-bottom pb-2 mb-4"><i class="bi bi-info-circle me-2"></i>Temel Bilgiler</h5>
 
                     <div class="row g-3 mb-4">
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <div class="form-floating">
                                 <input asp-for="Name" class="form-control" placeholder="Bungalov Adı" />
                                 <label asp-for="Name">Bungalov Adı</label>
                                 <span asp-validation-for="Name" class="text-danger small"></span>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-floating">
                                 <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categories">
                                     <option value="">Seçiniz...</option>
                                 </select>
                                 <label asp-for="CategoryId">Kategori</label>
                                 <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center">
+                            <div class="form-check form-switch ms-3">
+                                <input class="form-check-input fs-4" type="checkbox" asp-for="Status" id="statusSwitch">
+                                <label class="form-check-label ms-2 fw-bold text-muted" for="statusSwitch">Aktif mi?</label>
                             </div>
                         </div>
                     </div>
@@ -113,7 +119,7 @@
                     </div>
 
                     <div class="row g-3 mb-4">
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                             <div class="form-floating">
                                 <input asp-for="Address" class="form-control" placeholder="Tam Adres" />
                                 <label asp-for="Address"><i class="bi bi-signpost me-1"></i>Tam Adres</label>
@@ -121,6 +127,31 @@
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="Latitude" type="number" step="any" id="latInput" class="form-control" lang="en" placeholder="Enlem" readonly />
+                                <label asp-for="Latitude">Enlem (Latitude)</label>
+                                <span asp-validation-for="Latitude" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="Longitude" type="number" step="any" id="lngInput" class="form-control" lang="en" placeholder="Boylam" readonly />
+                                <label asp-for="Longitude">Boylam (Longitude)</label>
+                                <span asp-validation-for="Longitude" class="text-danger small"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <label class="form-label text-muted small fw-bold">HARİTA ÜZERİNDEN KONUM SEÇİN</label>
+                            <div id="adminPickerMap" class="rounded-4 border shadow-sm" style="height: 350px; cursor: crosshair;"></div>
+                            <div class="form-text mt-2"><i class="bi bi-info-circle me-1"></i> Mevcut konum işaretlenmiştir. Değiştirmek için harita üzerine tıklayabilirsiniz.</div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-12">
                             <div class="form-floating">
                                 <input asp-for="Location" class="form-control" placeholder="Konum Etiketi" />
                                 <label asp-for="Location">Konum Etiketi (Kısa)</label>
@@ -204,4 +235,58 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var latInput = document.getElementById('latInput');
+            var lngInput = document.getElementById('lngInput');
+
+            // Mevcut koordinatlar veya varsayılan (İstanbul)
+            var initialLat = parseFloat(latInput.value) || 41.0082;
+            var initialLng = parseFloat(lngInput.value) || 28.9784;
+
+            var map = L.map('adminPickerMap').setView([initialLat, initialLng], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
+
+            var marker;
+
+            function updateInputs(lat, lng) {
+                latInput.value = lat.toFixed(6);
+                lngInput.value = lng.toFixed(6);
+            }
+
+            // Başlangıçta kayıtlı konum varsa marker ekle
+            if (latInput.value && lngInput.value) {
+                marker = L.marker([initialLat, initialLng], { draggable: true }).addTo(map);
+                marker.on('dragend', function(event) {
+                    var m = event.target;
+                    var position = m.getLatLng();
+                    updateInputs(position.lat, position.lng);
+                });
+            }
+
+            map.on('click', function(e) {
+                var lat = e.latlng.lat;
+                var lng = e.latlng.lng;
+
+                if (marker) {
+                    marker.setLatLng(e.latlng);
+                } else {
+                    marker = L.marker(e.latlng, { draggable: true }).addTo(map);
+                    marker.on('dragend', function(event) {
+                        var m = event.target;
+                        var position = m.getLatLng();
+                        updateInputs(position.lat, position.lng);
+                    });
+                }
+                updateInputs(lat, lng);
+            });
+        });
+    </script>
 }

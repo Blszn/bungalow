@@ -1,0 +1,256 @@
+@model HomeViewModel
+
+@{
+    ViewData["Title"] = "Doğanın Kalbinde Huzuru Keşfedin";
+}
+
+<!-- Hero Section -->
+<div class="hero-wrapper">
+    <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1920');"></div>
+    <div class="hero-overlay"></div>
+    <div class="container h-100 position-relative d-flex flex-column justify-content-center align-items-center text-center text-white">
+        <h1 class="hero-title animate-up">Keşfedilmeyi Bekleyen <br><span class="text-gradient">Gizli Cennetler</span></h1>
+        <p class="hero-subtitle mb-5 animate-up-delay-1">Lüks bungalovlarda doğa ile iç içe unutulmaz bir deneyime hazır mısınız?</p>
+        
+        <!-- Premium Search Box -->
+        <div class="search-glass animate-up-delay-2">
+            <form asp-controller="Bungalow" asp-action="Index" method="get" class="row g-0 align-items-center">
+                <div class="col-lg-4 border-end-lg">
+                    <div class="px-4 py-3 d-flex align-items-center">
+                        <i class="bi bi-geo-alt text-primary fs-5 me-3"></i>
+                        <input type="text" name="search" class="form-control border-0 bg-transparent shadow-none p-0 text-white" placeholder="Nereye gidiyorsunuz?">
+                    </div>
+                </div>
+                <div class="col-lg-2 col-6 border-end">
+                    <div class="px-4 py-3">
+                        <label class="d-block small text-white-50 mb-1">Giriş</label>
+                        <input type="date" name="checkIn" class="form-control border-0 bg-transparent shadow-none p-0 text-white small-date">
+                    </div>
+                </div>
+                <div class="col-lg-2 col-6 border-end-lg">
+                    <div class="px-4 py-3">
+                        <label class="d-block small text-white-50 mb-1">Çıkış</label>
+                        <input type="date" name="checkOut" class="form-control border-0 bg-transparent shadow-none p-0 text-white small-date">
+                    </div>
+                </div>
+                <div class="col-lg-2 border-end-lg d-none d-lg-block">
+                    <div class="px-4 py-3">
+                        <label class="d-block small text-white-50 mb-1">Misafir</label>
+                        <input type="number" name="minCapacity" class="form-control border-0 bg-transparent shadow-none p-0 text-white" placeholder="Sayı">
+                    </div>
+                </div>
+                <div class="col-lg-2 p-2">
+                    <button type="submit" class="btn btn-primary w-100 rounded-pill py-3 d-flex align-items-center justify-content-center gap-2 shadow-lg">
+                        <i class="bi bi-search"></i> <span>Arama Yap</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Category Icons Section -->
+<div class="container mt-n5 position-relative z-3">
+    <div class="row g-4 justify-content-center">
+        @foreach (var category in Model.Categories)
+        {
+            <div class="col-lg-2 col-md-4 col-6">
+                <a asp-controller="Bungalow" asp-action="Index" asp-route-categoryId="@category.Id" class="text-decoration-none">
+                    <div class="category-icon-card glass-light text-center p-4 rounded-4 transition-all">
+                        <div class="icon-circle mb-3 mx-auto">
+                            <i class="bi bi-tree text-primary"></i>
+                        </div>
+                        <h6 class="mb-0 fw-bold text-dark">@category.CategoryName</h6>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Featured Bungalows -->
+<div class="container py-100">
+    <div class="d-flex justify-content-between align-items-end mb-5">
+        <div>
+            <span class="text-primary fw-bold text-uppercase ls-1">Özel Seçimler</span>
+            <h2 class="display-6 fw-bold text-dark">Popüler Konaklama Noktaları</h2>
+        </div>
+        <a asp-controller="Bungalow" asp-action="Index" class="btn btn-outline-primary rounded-pill px-4 py-2">Tümünü Gör</a>
+    </div>
+
+    <div class="row g-4">
+        @foreach (var bungalow in Model.FeaturedBungalows)
+        {
+            <div class="col-lg-3 col-md-6">
+                <div class="property-card rounded-4 overflow-hidden shadow-sm transition-all h-100 bg-white">
+                    <div class="property-img-wrapper position-relative">
+                        <img src="@(bungalow.Images.Any() ? bungalow.Images.First().ImageUrl : "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&q=80&w=800")" class="w-100 h-100 object-fit-cover property-img" alt="@bungalow.Name">
+                        <div class="property-badge position-absolute top-0 start-0 m-3 px-3 py-1 rounded-pill bg-primary text-white small fw-bold">₺@bungalow.PricePerNight.ToString("N0") / Gece</div>
+                        <button class="wishlist-btn position-absolute top-0 end-0 m-3 border-0 bg-white bg-opacity-75 rounded-circle p-2 shadow-sm text-danger"><i class="bi bi-heart"></i></button>
+                    </div>
+                    <div class="p-4">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i class="bi bi-geo-alt text-muted small"></i>
+                            <span class="text-muted small">@bungalow.Province, @bungalow.District</span>
+                        </div>
+                        <h5 class="fw-bold mb-3">@bungalow.Name</h5>
+                        <div class="d-flex gap-3 text-muted small border-top pt-3">
+                            <span><i class="bi bi-people me-1"></i> @bungalow.Capacity Kişi</span>
+                            <span><i class="bi bi-square me-1"></i> @(bungalow.SizeM2 ?? 45)m²</span>
+                            <a asp-controller="Bungalow" asp-action="Details" asp-route-id="@bungalow.Id" class="ms-auto text-primary text-decoration-none fw-bold">İncele <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Why Choose Us -->
+<div class="bg-light py-100 mt-5">
+    <div class="container text-center mb-5">
+        <h2 class="fw-bold text-dark">Neden Rivora?</h2>
+        <p class="text-muted">Unutulmaz anılar biriktirmeniz için her detayı düşündük.</p>
+    </div>
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <div class="p-4">
+                    <div class="bg-primary bg-opacity-10 rounded-circle w-80 h-80 d-flex align-items-center justify-content-center mx-auto mb-4">
+                        <i class="bi bi-shield-check text-primary fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold">Güvenli Ödeme</h5>
+                    <p class="text-muted small">iZico güvencesi ile tüm işlemleriniz uçtan uca şifrelenir.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4">
+                    <div class="bg-success bg-opacity-10 rounded-circle w-80 h-80 d-flex align-items-center justify-content-center mx-auto mb-4">
+                        <i class="bi bi-stars text-success fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold">Lüks ve Konfor</h5>
+                    <p class="text-muted small">Her biri özenle seçilmiş ve denetlenmiş yüksek kaliteli tesisler.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4">
+                    <div class="bg-info bg-opacity-10 rounded-circle w-80 h-80 d-flex align-items-center justify-content-center mx-auto mb-4">
+                        <i class="bi bi-headset text-info fs-2"></i>
+                    </div>
+                    <h5 class="fw-bold">7/24 Destek</h5>
+                    <p class="text-muted small">Tatiliniz boyunca dilediğiniz zaman ulaşabileceğiniz operasyon ekibimiz.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+    body { font-family: 'Outfit', sans-serif; }
+
+    .py-100 { padding-top: 100px; padding-bottom: 100px; }
+    .mt-n5 { margin-top: -5rem; }
+    .ls-1 { letter-spacing: 1px; }
+
+    /* Hero Section Styles */
+    .hero-wrapper {
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+        left: 50%;
+        margin-left: -50vw;
+        margin-top: -106px; /* Navbar ve main-container boşluklarını dengele */
+        overflow: hidden;
+    }
+
+    .hero-bg {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-size: cover;
+        background-position: center;
+        transition: transform 10s ease;
+    }
+    .hero-wrapper:hover .hero-bg { transform: scale(1.1); }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+    }
+
+    .hero-title {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1.1;
+    }
+    .text-gradient {
+        background: linear-gradient(135deg, #FFD700, #FFA500);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        max-width: 600px;
+        opacity: 0.9;
+    }
+
+    /* Search Glassmorphism */
+    .search-glass {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 100px;
+        padding: 5px;
+        width: 100%;
+        max-width: 1000px;
+    }
+    .search-glass input::placeholder { color: rgba(255,255,255,0.7); }
+    .search-glass .small-date { font-size: 0.9rem; color-scheme: dark; }
+    
+    .border-end-lg { border-color: rgba(255,255,255,0.2) !important; }
+    @@media (min-width: 992px) {
+        .border-end-lg { border-right: 1px solid rgba(255,255,255,0.2) !important; }
+    }
+
+    /* Category Cards */
+    .glass-light {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+    .category-icon-card { cursor: pointer; }
+    .category-icon-card:hover { transform: translateY(-10px); background: #fff; }
+    .icon-circle {
+        width: 60px; height: 60px;
+        background: var(--bs-primary-bg-subtle, #e7f1ff);
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    /* Property Cards */
+    .property-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important; }
+    .property-img-wrapper { height: 240px; }
+    .property-img { transition: transform 0.5s ease; }
+    .property-card:hover .property-img { transform: scale(1.1); }
+    .wishlist-btn { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; z-index: 2; transition: all 0.2s; }
+    .wishlist-btn:hover { background: #fff !important; transform: scale(1.1); }
+
+    .w-80 { width: 80px; }
+    .h-80 { height: 80px; }
+
+    /* Animations */
+    .animate-up { animation: up 0.8s ease-out both; }
+    .animate-up-delay-1 { animation: up 0.8s ease-out 0.2s both; }
+    .animate-up-delay-2 { animation: up 0.8s ease-out 0.4s both; }
+
+    @@keyframes up {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+

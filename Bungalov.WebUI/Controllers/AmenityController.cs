@@ -1,9 +1,11 @@
 using Bungalov.Business.Interfaces;
 using Bungalov.Core.Varliklar;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bungalov.WebUI.Controllers;
 
+[Authorize(Roles = "Admin")]
 public class AmenityController : Controller
 {
     private readonly IAmenityService _amenityService;

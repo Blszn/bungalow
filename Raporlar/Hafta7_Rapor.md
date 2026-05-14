@@ -10,20 +10,21 @@
 ### 1. Dinamik Olanak (Amenity) Yönetimi
 - **Esnek Altyapı:** Bungalov özellikleri (Jakuzi, Havuz vb.) kod içerisindeki sabit alanlardan çıkarılıp, veritabanı kontrollü dinamik bir yapıya (`Amenity` entity) dönüştürüldü.
 - **Many-to-Many İlişki:** Bungalovlar ve olanaklar arasında çoktan-çoka ilişki kurularak bir bungalovun sınırsız sayıda özelliğe sahip olabilmesi sağlandı.
-- **Admin Yönetimi:** Özelliklerin isimlerini ve ikonlarını (Bootstrap Icons) kod yazmadan admin panelinden yönetmeyi sağlayan **Olanak Yönetim Paneli** (CRUD) eklendi.
+- **Admin Yönetimi:** Özellik yönetimi için ikon ve isim destekli CRUD paneli eklendi.
 
 ### 2. Rezervasyon Motoru ve Takvim Entegrasyonu
-- **FullCalendar.js Entegrasyonu:** Bungalov detay sayfasında, veritabanındaki rezervasyonları anlık çekerek dolu tarihleri (kırmızı) gösteren interaktif bir takvim eklendi.
-- **Çakışma Kontrolü (Conflict Detection):** Aynı tarih aralığında mükerrer rezervasyon yapılmasını engelleyen, arka planda çalışan tarih çakışma kontrol mantığı geliştirildi.
-- **Dinamik Fiyat Hesaplama:** Kullanıcı giriş ve çıkış tarihlerini seçtiğinde "Gece Sayısı x Birim Fiyat" formülüyle toplam tutarın anlık olarak gösterilmesi sağlandı.
+- **FullCalendar.js:** Detay sayfasında dolu tarihleri gösteren interaktif takvim ve dinamik fiyat hesaplama motoru kuruldu.
+- **Çakışma Kontrolü:** Tarih çakışmalarını engelleyen arka plan mantığı geliştirildi.
+- **E-Posta Simülasyonu:** Rezervasyon sonrası e-posta bildirim altyapısı kuruldu.
 
-### 3. Bildirim ve Onay Sistemi
-- **IEmailService:** Rezervasyon tamamlandığında kullanıcıya onay e-postası gönderen servis altyapısı (simülasyon) kuruldu.
-- **SweetAlert2:** Rezervasyon işlemi sonunda kullanıcıya premium görünümlü, modern bir görsel onay mesajı sunuldu.
+### 3. Harita ve Konum Entegrasyonu
+- **İnteraktif Konum Seçici:** Adminlerin harita üzerinden tıklayarak (Map Picker) bungalov konumu belirleyebilmesi sağlandı.
+- **Google Maps Entegrasyonu:** Detay sayfasında konumu otomatik gösteren Google Maps penceresi ve "Haritalarda Aç" butonu eklendi.
+- **Culture Fix:** Ondalık ayırıcı (nokta/virgül) kaynaklı harita hataları %100 giderildi.
 
-### 4. UI/UX İyileştirmeleri
-- **Detay Sayfası (Details):** Bungalovlar için geniş fotoğraf galerisi, özellik listesi, takvim ve rezervasyon formunu içeren modern bir detay sayfası tasarlandı.
-- **Gelişmiş Filtreleme:** Ana sayfadaki sol menüye, veritabanındaki tüm dinamik özellikleri içeren bir checkbox listesi eklenerek özellik bazlı arama yapılması sağlandı.
+### 4. Admin Takvim ve Müsaitlik Yönetimi
+- **Tarih Bloklama:** Adminlerin istedikleri tarih aralığını "Kapatabilmesini" sağlayan yönetim modülü eklendi.
+- **Hızlı Bildirim:** İşlem sırasında admini bilgilendiren yükleme animasyonları ve uyarı mesajları entegre edildi.
 
 ---
 

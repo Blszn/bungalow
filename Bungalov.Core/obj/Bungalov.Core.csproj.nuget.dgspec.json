@@ -56,6 +56,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.12, )"
+            },
+            "Microsoft.Extensions.Identity.Stores": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             }
           },
           "imports": [

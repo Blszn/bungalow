@@ -27,12 +27,18 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
                 query = query.Include(include);
             }
         }
-        return await query.ToListAsync();
+        return await query
+            .AsNoTracking()
+            .ToListAsync();
     }
 
     public async Task<List<T>> GetByFilterAsync(Expression<Func<T, bool>> filter, params Expression<Func<T, object>>[] includes)
     {
-        IQueryable<T> query = _context.Set<T>().Where(filter);
+        IQueryable<T> query = _context.Set<T>();
+        if (filter != null)
+        {
+            query = query.Where(filter);
+        }
         if (includes != null)
         {
             foreach (var include in includes)

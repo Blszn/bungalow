@@ -1,0 +1,347 @@
+@model List<Bungalov.Core.Varliklar.Reservation>
+
+@{
+    ViewData["Title"] = "Hesabım";
+}
+
+<div class="row pt-4">
+    <div class="col-lg-4 mb-4">
+        <div class="profile-card glass-morphism p-4 border-0 shadow-lg">
+            <div class="text-center mb-4">
+                <div class="avatar-circle mb-3 shadow-sm">
+                    @ViewBag.FullName[0]
+                </div>
+                <h3 class="fw-bold">@ViewBag.FullName</h3>
+                @if (User.IsInRole("Admin"))
+                {
+                    <span class="badge bg-danger rounded-pill px-3 py-2 mt-2"><i class="bi bi-shield-lock me-1"></i> Sistem Yöneticisi</span>
+                }
+                else
+                {
+                    <span class="badge bg-soft-primary rounded-pill px-3 py-2 mt-2"><i class="bi bi-person-check me-1"></i> Üye</span>
+                }
+            </div>
+            <hr class="opacity-10" />
+            <div class="profile-info">
+                <div class="mb-3">
+                    <label class="small text-muted fw-bold text-uppercase d-block mb-1">E-posta</label>
+                    <div class="bg-light p-2 rounded-3">@ViewBag.Email</div>
+                </div>
+                <div class="mb-3">
+                    <label class="small text-muted fw-bold text-uppercase d-block mb-1">Telefon</label>
+                    <div class="bg-light p-2 rounded-3">@ViewBag.PhoneNumber</div>
+                </div>
+            </div>
+            <div class="d-grid mt-4">
+                <button type="button" class="btn btn-outline-dark rounded-pill py-2" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                    <i class="bi bi-pencil-square me-2"></i>Bilgilerimi Güncelle
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="reservations-section glass-morphism p-5 border-0 shadow-lg text-center">
+                <div class="admin-dashboard-header mb-5">
+                    <i class="bi bi-microsoft-teams display-1 text-primary opacity-50 mb-4 d-block"></i>
+                    <h2 class="fw-bold">Yönetim Paneline Hoş Geldiniz</h2>
+                    <p class="text-muted">Tüm bungalovları, kategorileri ve rezervasyon işlemlerini buradan yönetebilirsiniz.</p>
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <a asp-controller="Bungalow" asp-action="Index" class="card h-100 text-decoration-none admin-card p-4 border-0 shadow-sm rounded-4">
+                            <i class="bi bi-house-door fs-1 text-primary mb-3"></i>
+                            <h5 class="fw-bold text-dark">Bungalovlar</h5>
+                            <p class="small text-muted mb-0">Ekle, düzenle, sil</p>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a asp-controller="Category" asp-action="Index" class="card h-100 text-decoration-none admin-card p-4 border-0 shadow-sm rounded-4">
+                            <i class="bi bi-tags fs-1 text-warning mb-3"></i>
+                            <h5 class="fw-bold text-dark">Kategoriler</h5>
+                            <p class="small text-muted mb-0">Türleri yönetin</p>
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a asp-controller="Amenity" asp-action="Index" class="card h-100 text-decoration-none admin-card p-4 border-0 shadow-sm rounded-4">
+                            <i class="bi bi-stars fs-1 text-success mb-3"></i>
+                            <h5 class="fw-bold text-dark">Olanaklar</h5>
+                            <p class="small text-muted mb-0">Özellikleri tanımlayın</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="reservations-section glass-morphism p-4 border-0 shadow-lg">
+                <h4 class="fw-bold mb-4 pb-2 border-bottom">Rezervasyonlarım</h4>
+                
+                @if (Model != null && Model.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light border-0">
+                                <tr>
+                                    <th class="border-0">Bungalov</th>
+                                    <th class="border-0">Giriş / Çıkış</th>
+                                    <th class="border-0">Tutar</th>
+                                    <th class="border-0">Durum</th>
+                                    <th class="border-0">İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var res in Model)
+                                {
+                                    <tr>
+                                        <td class="border-0">
+                                            <div class="d-flex align-items-center">
+                                                @if (res.Bungalow.Images != null && res.Bungalow.Images.Any())
+                                                {
+                                                    <img src="@res.Bungalow.Images.First().ImageUrl" class="rounded-3 me-3" style="width: 50px; height: 50px; object-fit: cover;" />
+                                                }
+                                                <div>
+                                                    <h6 class="mb-0 fw-bold">@res.Bungalow.Name</h6>
+                                                    <small class="text-muted"><i class="bi bi-geo-alt me-1"></i>@res.Bungalow.Location</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="border-0">
+                                            <div class="small fw-medium">@res.CheckInDate.ToString("dd MMM yyyy")</div>
+                                            <div class="small text-muted">@res.CheckOutDate.ToString("dd MMM yyyy")</div>
+                                        </td>
+                                        <td class="border-0">
+                                            <span class="badge bg-success-subtle text-success fs-6">₺@res.TotalPrice.ToString("N0")</span>
+                                        </td>
+                                        <td class="border-0">
+                                            @if (res.CheckInDate > DateTime.Now)
+                                            {
+                                                <span class="badge bg-primary text-white rounded-pill px-3">Gelecek</span>
+                                            }
+                                            else if (res.CheckOutDate < DateTime.Now)
+                                            {
+                                                <span class="badge bg-secondary text-white rounded-pill px-3">Tamamlandı</span>
+                                            }
+                                            else
+                                            {
+                                            }
+                                        </td>
+                                        <td class="border-0 text-end">
+                                            @if (res.CheckInDate > DateTime.Now)
+                                            {
+                                                <button onclick="cancelReservation(@res.Id)" class="btn btn-outline-danger btn-sm rounded-pill px-3">
+                                                    <i class="bi bi-trash me-1"></i> İptal Et
+                                                </button>
+                                            }
+                                            else if (res.IsPaid) // TEST İÇİN: Tarih kontrolü kaldırıldı, sadece ödenmiş olması yeterli
+                                            {
+                                                <a asp-controller="Review" asp-action="Index" asp-route-bungalowId="@res.BungalowId" asp-route-reservationId="@res.Id" class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm">
+                                                    <i class="bi bi-star-fill me-1"></i> Puanla
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5">
+                        <div class="empty-state-icon bg-light rounded-circle mx-auto mb-4 d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
+                            <i class="bi bi-calendar-x display-4 text-muted opacity-50"></i>
+                        </div>
+                        <h5 class="fw-bold">Henüz Rezervasyonunuz Yok</h5>
+                        <p class="text-muted mb-4">Size uygun en güzel bungalovları şimdi incelemeye başlayın.</p>
+                        <a asp-controller="Bungalow" asp-action="Index" class="btn btn-primary rounded-pill px-5 py-3 fw-bold shadow-sm text-uppercase">Bungalovları Keşfedin</a>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Profil Güncelleme Modalı -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold" id="editProfileModalLabel">Profil Bilgilerini Güncelle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="updateProfileForm">
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label for="editEmail" class="form-label small fw-bold text-uppercase text-muted">E-posta Adresi</label>
+                        <input type="email" class="form-control form-control-lg rounded-3 fs-6" id="editEmail" name="email" value="@ViewBag.Email" required>
+                        <div class="form-text">Giriş yaparken bu e-posta adresini kullanacaksınız.</div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="editPhoneNumber" class="form-label small fw-bold text-uppercase text-muted">Telefon Numarası</label>
+                        <input type="tel" class="form-control form-control-lg rounded-3 fs-6" id="editPhoneNumber" name="phoneNumber" value="@ViewBag.PhoneNumber" required>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-premium py-3 rounded-3 shadow-sm">
+                            <i class="bi bi-check-circle me-2"></i>Değişiklikleri Kaydet
+                        </button>
+                        <button type="button" class="btn btn-light py-3 rounded-3" data-bs-dismiss="modal">Vazgeç</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById('updateProfileForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const email = formData.get('email');
+            const phoneNumber = formData.get('phoneNumber');
+
+            Swal.fire({
+                title: 'Güncelleniyor...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            fetch('/Profile/UpdateProfile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'RequestVerificationToken': document.querySelector('#updateProfileForm input[name="__RequestVerificationToken"]').value
+                },
+                body: new URLSearchParams({
+                    'email': email,
+                    'phoneNumber': phoneNumber
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        title: 'Başarılı!',
+                        text: data.message,
+                        icon: 'success',
+                        confirmButtonText: 'Tamam'
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Hata!',
+                        html: data.message,
+                        icon: 'error',
+                        confirmButtonText: 'Anladım'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Sistem Hatası!',
+                    text: 'Bir şeyler ters gitti, lütfen tekrar deneyin.',
+                    icon: 'error',
+                    confirmButtonText: 'Tamam'
+                });
+            });
+        });
+
+        function cancelReservation(id) {
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Bu rezervasyonu iptal etmek istediğinize emin misiniz? Bu işlem geri alınamaz.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Evet, İptal Et!',
+                cancelButtonText: 'Vazgeç'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('/Reservation/CancelReservation/' + id, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': document.querySelector('#updateProfileForm input[name="__RequestVerificationToken"]').value
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire(
+                                'İptal Edildi!',
+                                data.message,
+                                'success'
+                            ).then(() => {
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire(
+                                'Hata!',
+                                data.message,
+                                'error'
+                            );
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+}
+
+<style>
+    .glass-morphism {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .avatar-circle {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #f39c12, #d35400);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0 auto;
+    }
+
+    .bg-soft-primary {
+        background-color: rgba(243, 156, 18, 0.1);
+        color: #d35400;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+    }
+
+    .profile-info p {
+        margin-bottom: 1.25rem;
+        line-height: 1.4;
+    }
+
+    .btn-premium {
+        background: linear-gradient(135deg, #f39c12, #d35400);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+    }
+
+    .btn-premium:hover {
+        opacity: 0.9;
+        color: white;
+    }
+</style>

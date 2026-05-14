@@ -2,6 +2,7 @@ using Bungalov.Business.Interfaces;
 using Bungalov.Core.Varliklar;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bungalov.WebUI.Controllers;
 
@@ -10,22 +11,40 @@ public class BungalowController : Controller
     private readonly IBungalowService _bungalowService;
     private readonly ICategoryService _categoryService;
     private readonly IAmenityService _amenityService;
+    private readonly IReservationService _reservationService;
+    private readonly IReviewService _reviewService;
+    private readonly Microsoft.AspNetCore.Identity.UserManager<AppUser> _userManager;
     private readonly IWebHostEnvironment _env;
 
-    public BungalowController(IBungalowService bungalowService, ICategoryService categoryService, IAmenityService amenityService, IWebHostEnvironment env)
+    public BungalowController(IBungalowService bungalowService, 
+        ICategoryService categoryService, 
+        IAmenityService amenityService, 
+        IReservationService reservationService,
+        IReviewService reviewService,
+        Microsoft.AspNetCore.Identity.UserManager<AppUser> userManager,
+        IWebHostEnvironment env)
     {
         _bungalowService = bungalowService;
         _categoryService = categoryService;
         _amenityService = amenityService;
+        _reservationService = reservationService;
+        _reviewService = reviewService;
+        _userManager = userManager;
         _env = env;
     }
 
     [HttpGet]
-    public async Task<IActionResult> Index(string? search, int? categoryId, int? minCapacity, int[]? amenityIds)
+    public async Task<IActionResult> Index(string? search, int? categoryId, int? minCapacity, int[]? amenityIds, DateTime? checkIn, DateTime? checkOut)
     {
         // Temel filtreleme
         var bungalows = await _bungalowService.GetBungalowsByFilterAsync(b =>
-            (string.IsNullOrEmpty(search) || b.Name.Contains(search) || b.Location.Contains(search)) &&
+            (User.IsInRole("Admin") || b.Status) &&
+            (string.IsNullOrEmpty(search) || 
+             b.Name.ToLower().Contains(search.ToLower()) || 
+             b.Location.ToLower().Contains(search.ToLower()) ||
+             b.Province.ToLower().Contains(search.ToLower()) ||
+             b.District.ToLower().Contains(search.ToLower()) ||
+             b.Address.ToLower().Contains(search.ToLower())) &&
             (!categoryId.HasValue || b.CategoryId == categoryId.Value) &&
             (!minCapacity.HasValue || b.Capacity >= minCapacity.Value));
 
@@ -38,6 +57,8 @@ public class BungalowController : Controller
         ViewBag.Search = search;
         ViewBag.CategoryId = categoryId;
         ViewBag.MinCapacity = minCapacity;
+        ViewBag.CheckIn = checkIn?.ToString("yyyy-MM-dd");
+        ViewBag.CheckOut = checkOut?.ToString("yyyy-MM-dd");
         ViewBag.SelectedAmenityIds = amenityIds ?? Array.Empty<int>();
         
         // Sidebar için tüm aktif özellikleri getir
@@ -52,10 +73,36 @@ public class BungalowController : Controller
         var bungalow = await _bungalowService.GetBungalowByIdAsync(id);
         if (bungalow == null) return NotFound();
 
+        // Kullanıcı bu bungalovu puanlayabilir mi?
+        if (User.Identity!.IsAuthenticated)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                var userReservations = await _reservationService.GetReservationsByUserIdAsync(user.Id);
+                var relevantReservation = userReservations
+                    .Where(r => r.BungalowId == id && r.IsPaid)
+                    .OrderByDescending(r => r.CreatedDate)
+                    .FirstOrDefault();
+
+                if (relevantReservation != null)
+                {
+                    // Daha önce yorum yapılmış mı kontrol et
+                    var existingReview = await _reviewService.GetReviewByReservationIdAsync(relevantReservation.Id);
+                    if (existingReview == null)
+                    {
+                        ViewBag.CanReview = true;
+                        ViewBag.ReservationId = relevantReservation.Id;
+                    }
+                }
+            }
+        }
+
         return View(bungalow);
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create()
     {
         var categories = await _categoryService.GetAllCategoriesAsync();
@@ -68,6 +115,7 @@ public class BungalowController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(Bungalow bungalow, List<IFormFile>? newImages, int[] selectedAmenityIds)
     {
         ModelState.Remove("Category");
@@ -120,6 +168,7 @@ public class BungalowController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(int id)
     {
         // Bungalow'u özellikleri ile birlikte çekmek önemli
@@ -141,6 +190,7 @@ public class BungalowController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Edit(Bungalow bungalow, List<IFormFile>? newImages, int[] selectedAmenityIds)
     {
         ModelState.Remove("Category");
@@ -162,9 +212,12 @@ public class BungalowController : Controller
             existingBungalow.District = bungalow.District;
             existingBungalow.Neighborhood = bungalow.Neighborhood;
             existingBungalow.Address = bungalow.Address;
+            existingBungalow.Latitude = bungalow.Latitude;
+            existingBungalow.Longitude = bungalow.Longitude;
             existingBungalow.SizeM2 = bungalow.SizeM2;
             existingBungalow.MinNights = bungalow.MinNights;
             existingBungalow.CategoryId = bungalow.CategoryId;
+            existingBungalow.Status = bungalow.Status;
 
             // Özellikleri güncelle (Önce temizle sonra yeni seçilenleri ekle)
             existingBungalow.Amenities.Clear();
@@ -216,6 +269,7 @@ public class BungalowController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
     {
         await _bungalowService.DeleteBungalowAsync(id);
@@ -224,6 +278,7 @@ public class BungalowController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteImage(int imageId, int bungalowId)
     {
         var bungalow = await _bungalowService.GetBungalowByIdAsync(bungalowId);

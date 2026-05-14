@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "Sayfa Bulunamadı - Rivora";
+    Layout = "_Layout";
+}
+
+<div class="container my-5 py-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="notfound-container p-5 shadow-lg rounded-4 bg-white border-0">
+                <div class="display-1 text-primary mb-4" style="font-size: 8rem; font-weight: 800; opacity: 0.2;">
+                    404
+                </div>
+                <h1 class="fw-bold text-dark mb-3">Aradığınız Sayfa Bulunamadı</h1>
+                <p class="lead text-secondary mb-5">
+                    Görünüşe göre aradığınız sayfa kaldırılmış, adı değiştirilmiş veya geçici olarak kullanım dışı kalmış.
+                </p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="/" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm">
+                        <i class="bi bi-house-door me-2"></i>Ana Sayfa'ya Dön
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .notfound-container {
+        position: relative;
+        overflow: hidden;
+    }
+    .notfound-container::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(13, 110, 253, 0.05) 0%, transparent 70%);
+        z-index: 0;
+    }
+    .notfound-container * {
+        position: relative;
+        z-index: 1;
+    }
+</style>

@@ -30,8 +30,11 @@
 
                     <div class="form-floating mb-4">
                         <div class="input-group">
-                            <span class="input-group-text bg-light border-end-0 fs-4"><i class="bi @Model.IconCode"></i></span>
-                            <input asp-for="IconCode" class="form-control border-start-0" placeholder="bi-water" />
+                            <span class="input-group-text bg-light border-end-0 fs-4" id="icon-preview-container"><i class="bi @Model.IconCode" id="icon-preview"></i></span>
+                            <input asp-for="IconCode" class="form-control border-start-0" placeholder="bi-water" oninput="updateIconPreview(this.value)" />
+                            <button type="button" class="btn btn-outline-info border-start-0" data-bs-toggle="modal" data-bs-target="#iconRefModal" title="İkon Rehberi">
+                                <i class="bi bi-info-circle-fill"></i>
+                            </button>
                         </div>
                         <label asp-for="IconCode" class="ms-5"><i class="bi bi-grid-fill me-1"></i>İkon Kodu</label>
                         <span asp-validation-for="IconCode" class="text-danger small"></span>
@@ -54,6 +57,99 @@
     </div>
 </div>
 
+<!-- İkon Rehberi Modalı -->
+<div class="modal fade" id="iconRefModal" tabindex="-1" aria-labelledby="iconRefModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header bg-primary text-white border-0 py-3">
+                <h5 class="modal-title d-flex align-items-center" id="iconRefModalLabel">
+                    <i class="bi bi-grid-3x3-gap-fill me-2"></i> Kullanılabilir İkonlar
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <p class="text-muted mb-4 small">Aşağıdaki kodları kopyalayıp "İkon Kodu" alanına yapıştırabilirsiniz. Bungalovlar için en çok tercih edilen ikonlar:</p>
+                
+                <div class="row g-3">
+                    @{
+                        var icons = new Dictionary<string, string> {
+                            { "bi-wifi", "WiFi / İnternet" },
+                            { "bi-tv", "Televizyon" },
+                            { "bi-fire", "Şömine / Ateş" },
+                            { "bi-water", "Havuz / Su" },
+                            { "bi-thermometer-half", "Isıtma / Klima" },
+                            { "bi-cup-hot", "Mutfak / Kahve" },
+                            { "bi-car-front", "Otopark" },
+                            { "bi-p-circle", "Otopark" },
+                            { "bi-tree", "Doğa / Orman" },
+                            { "bi-mountain", "Manzara" },
+                            { "bi-snow", "Klima / Soğutma" },
+                            { "bi-wind", "Vantilatör" },
+                            { "bi-bicycle", "Bisiklet" },
+                            { "bi-egg-fried", "Kahvaltı" },
+                            { "bi-umbrella", "Plaj / Şemsiye" },
+                            { "bi-shield-check", "Güvenlik" },
+                            { "bi-camera-video", "Kamera" },
+                            { "bi-briefcase", "Çalışma Alanı" },
+                            { "bi-sun", "Güneşlenme" },
+                            { "bi-house-heart", "Romantik / Balayı" },
+                            { "bi-plugin", "Elektrik / Şarj" },
+                            { "bi-key", "Güvenli Giriş" },
+                            { "bi-music-note-beamed", "Müzik Sistemi" },
+                            { "bi-stars", "Jakuzi / SPA" }
+                        };
+                    }
+
+                    @foreach (var icon in icons)
+                    {
+                        <div class="col-6 col-sm-4 col-md-3">
+                            <div class="card h-100 border-light shadow-sm text-center p-3 hover-effect" onclick="copyToClipboard('@icon.Key')" style="cursor: pointer;">
+                                <i class="bi @icon.Key fs-1 text-primary mb-2"></i>
+                                <div class="fw-bold small text-dark mb-1">@icon.Key</div>
+                                <div class="text-muted" style="font-size: 0.7rem;">@icon.Value</div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-light rounded-3" data-bs-dismiss="modal">Kapat</button>
+                <a href="https://icons.getbootstrap.com/" target="_blank" class="btn btn-primary rounded-3 px-4">
+                    <i class="bi bi-box-arrow-up-right me-2"></i>Tüm İkonları Gör
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-effect { transition: all 0.3s ease; }
+    .hover-effect:hover { transform: translateY(-5px); background-color: #f8f9fa; border-color: #0d6efd !important; }
+</style>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function updateIconPreview(value) {
+            const preview = document.getElementById('icon-preview');
+            if(preview) {
+                preview.className = 'bi ' + value;
+            }
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                const input = document.querySelector('input[name="IconCode"]');
+                if(input) {
+                    input.value = text;
+                    updateIconPreview(text);
+                    input.dispatchEvent(new Event('input'));
+                    input.dispatchEvent(new Event('change'));
+                }
+                
+                var modal = bootstrap.Modal.getInstance(document.getElementById('iconRefModal'));
+                modal.hide();
+            });
+        }
+    </script>
 }

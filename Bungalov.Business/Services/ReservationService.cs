@@ -36,7 +36,8 @@ public class ReservationService : IReservationService
 
     public async Task<Reservation?> GetReservationByIdAsync(int id)
     {
-        return await _unitOfWork.GetRepository<Reservation>().GetByIdAsync(id);
+        var reservations = await _unitOfWork.GetRepository<Reservation>().GetByFilterAsync(r => r.Id == id, r => r.Guests, r => r.Bungalow);
+        return reservations.FirstOrDefault();
     }
 
     public async Task UpdateReservationAsync(Reservation reservation)
@@ -72,5 +73,14 @@ public class ReservationService : IReservationService
             }
         }
         return dates.Distinct().ToList();
+    }
+
+    public async Task<List<Reservation>> GetReservationsByUserIdAsync(string userId)
+    {
+        return await _unitOfWork.GetRepository<Reservation>().GetByFilterAsync(r => r.AppUserId == userId, r => r.Bungalow);
+    }
+    public async Task<List<Reservation>> GetReservationsWithDetailsAsync()
+    {
+        return await _unitOfWork.GetRepository<Reservation>().GetAllAsync(r => r.Bungalow, r => r.AppUser, r => r.Guests);
     }
 }

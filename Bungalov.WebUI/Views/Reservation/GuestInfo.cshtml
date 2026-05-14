@@ -1,0 +1,232 @@
+@model MakeReservationViewModel
+
+@{
+    ViewData["Title"] = "Misafir Bilgileri";
+}
+
+<div class="container py-5">
+    <div class="row g-4">
+        <!-- Sol Kolon: Misafir Formu -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                <div class="card-header bg-white border-0 p-4 pt-5">
+                    <h2 class="fw-bold mb-0">Misafir Bilgileri</h2>
+                    <p class="text-muted">Konaklayacak misafirlerin bilgilerini eksiksiz doldurunuz.</p>
+                </div>
+                <div class="card-body p-4">
+                    <form id="guestInfoForm">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" id="BungalowId" name="BungalowId" value="@Model.BungalowId" />
+                        <input type="hidden" id="CheckIn" name="CheckIn" value="@Model.CheckIn.ToString("yyyy-MM-dd")" />
+                        <input type="hidden" id="CheckOut" name="CheckOut" value="@Model.CheckOut.ToString("yyyy-MM-dd")" />
+                        <input type="hidden" id="GuestCount" name="GuestCount" value="@Model.GuestCount" />
+
+                        @for (int i = 0; i < Model.GuestCount; i++)
+                        {
+                            <div class="guest-card bg-light p-4 rounded-4 mb-4 animate__animated animate__fadeInUp" style="animation-delay: @(i * 0.1)s">
+                                <h5 class="fw-bold text-primary mb-3">
+                                    <i class="bi bi-person-badge me-2"></i>@(i + 1). Misafir
+                                </h5>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">Ad</label>
+                                        <input type="text" name="Guests[@i].FirstName" class="form-control form-control-lg border-white shadow-sm guest-firstname" required placeholder="Adı" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-bold">Soyad</label>
+                                        <input type="text" name="Guests[@i].LastName" class="form-control form-control-lg border-white shadow-sm guest-lastname" required placeholder="Soyadı" />
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        <label class="form-label small fw-bold">T.C. Kimlik Numarası</label>
+                                        <input type="text" name="Guests[@i].IdentityNumber" class="form-control form-control-lg border-white shadow-sm guest-id" required placeholder="11 Haneli TC Kimlik No" maxlength="11" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <hr class="my-5 op-10">
+
+                        <div class="mb-4">
+                            <h5 class="fw-bold mb-3">Sözleşmeler</h5>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="kvkkCheck" required>
+                                <label class="form-check-label text-muted" for="kvkkCheck">
+                                    <a href="#" class="text-primary text-decoration-none fw-bold" data-bs-toggle="modal" data-bs-target="#kvkkModal">KVKK Aydınlatma Metni</a>'ni okudum ve Kabul ediyorum.
+                                </label>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="contractCheck" required>
+                                <label class="form-check-label text-muted" for="contractCheck">
+                                    <a href="#" class="text-primary text-decoration-none fw-bold" data-bs-toggle="modal" data-bs-target="#contractModal">Mesafeli Satış Sözleşmesi</a>'ni okudum ve Kabul ediyorum.
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-5">
+                            <a href="/Bungalow/Details/@Model.BungalowId" class="btn btn-link text-muted text-decoration-none">
+                                <i class="bi bi-arrow-left me-1"></i> Geri Dön
+                            </a>
+                            <button type="button" id="btnContinue" class="btn btn-primary btn-xl px-5 py-3 rounded-3 shadow fw-bold">
+                                Ödemeye Geç <i class="bi bi-chevron-right ms-2"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sağ Kolon: Rezervasyon Özeti -->
+        <div class="col-lg-4">
+            <div class="sticky-top" style="top: 100px;">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                    <div class="card-header bg-dark text-white p-4">
+                        <h5 class="mb-0">Rezervasyon Özeti</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="flex-grow-1">
+                                <h6 class="fw-bold mb-1">@Model.BungalowName</h6>
+                                <p class="text-muted small mb-0">@Model.CheckIn.ToString("dd MMM") - @Model.CheckOut.ToString("dd MMM yyyy")</p>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-light rounded-3 mb-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted small">Kişi Sayısı</span>
+                                <span class="fw-bold small">@Model.GuestCount Misafir</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted small">Toplam Gün</span>
+                                <span class="fw-bold small">@((Model.CheckOut - Model.CheckIn).Days) Gece</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0 fw-bold">Toplam Tutar</h5>
+                            <h4 class="mb-0 fw-bold text-success">₺@Model.TotalPrice.ToString("N2")</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-primary bg-opacity-10 rounded-4 border border-primary border-opacity-10">
+                    <div class="d-flex">
+                        <i class="bi bi-shield-lock-fill text-primary fs-3 me-3"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Güvenli Rezervasyon</h6>
+                            <p class="text-muted small mb-0">Verileriniz 256-bit SSL ile korunmaktadır.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Modals -->
+<div class="modal fade" id="kvkkModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold">KVKK Aydınlatma Metni</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <p>Kişisel verileriniz, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, veri sorumlusu sıfatıyla tarafımızca aşağıda açıklanan kapsamda işlenebilecektir...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="contractModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold">Mesafeli Satış Sözleşmesi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <p>İşbu sözleşme, alıcının satıcı tarafından işletilen web sitesi üzerinden elektronik ortamda verdiği rezervasyon hizmetinin satışı ve teslimi ile ilgili olarak tarafların hak ve yükümlülüklerini düzenler...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById('btnContinue').addEventListener('click', function() {
+            const form = document.getElementById('guestInfoForm');
+            const kvkk = document.getElementById('kvkkCheck').checked;
+            const contract = document.getElementById('contractCheck').checked;
+
+            if (!kvkk || !contract) {
+                Swal.fire('Hata', 'Lütfen sözleşmeleri onaylayın.', 'warning');
+                return;
+            }
+
+            // Misafir bilgilerini topla
+            const guests = [];
+            const cards = document.querySelectorAll('.guest-card');
+            let isValid = true;
+
+            cards.forEach((card, index) => {
+                const firstName = card.querySelector('.guest-firstname').value;
+                const lastName = card.querySelector('.guest-lastname').value;
+                const id = card.querySelector('.guest-id').value;
+
+                if (!firstName || !lastName || id.length !== 11 || isNaN(id)) {
+                    isValid = false;
+                    card.classList.add('border', 'border-danger');
+                } else {
+                    card.classList.remove('border', 'border-danger');
+                    guests.push({
+                        firstName: firstName,
+                        lastName: lastName,
+                        identityNumber: id
+                    });
+                }
+            });
+
+            if (!isValid) {
+                Swal.fire('Hata', 'Lütfen tüm misafir bilgilerini kontrol edin.', 'error');
+                return;
+            }
+
+            const data = {
+                bungalowId: parseInt(document.getElementById('BungalowId').value),
+                checkIn: document.getElementById('CheckIn').value,
+                checkOut: document.getElementById('CheckOut').value,
+                guestCount: parseInt(document.getElementById('GuestCount').value),
+                guests: guests
+            };
+
+            this.disabled = true;
+            this.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> İşleniyor...';
+
+            fetch('/Reservation/CreateReservation', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = data.redirectUrl;
+                } else {
+                    Swal.fire('Hata', data.message, 'error');
+                    this.disabled = false;
+                    this.innerHTML = 'Ödemeye Geç <i class="bi bi-chevron-right ms-2"></i>';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire('Hata', 'İşlem sırasında bir hata oluştu.', 'error');
+                this.disabled = false;
+                this.innerHTML = 'Ödemeye Geç <i class="bi bi-chevron-right ms-2"></i>';
+            });
+        });
+    </script>
+}

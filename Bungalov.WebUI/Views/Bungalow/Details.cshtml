@@ -116,6 +116,30 @@
                 </div>
             </div>
             
+            <!-- Konum ve Harita Bölümü -->
+            @if (Model.Latitude.HasValue && Model.Longitude.HasValue)
+            {
+                var lat = Model.Latitude.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                var lng = Model.Longitude.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+                <div class="bg-white p-4 shadow-sm rounded-4 mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+                        <h4 class="fw-bold mb-0">Konum</h4>
+                        <a href="https://www.google.com/maps/search/?api=1&query=@lat,@lng" target="_blank" class="btn btn-outline-primary btn-sm rounded-3">
+                            <i class="bi bi-geo-alt me-1"></i> Google Haritalar'da Aç
+                        </a>
+                    </div>
+                    <div class="card border-0 rounded-4 overflow-hidden shadow-sm">
+                        <iframe width="100%" height="350" frameborder="0" style="border:0" 
+                            src="https://maps.google.com/maps?q=@lat,@lng&z=15&output=embed" allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="mt-3 text-muted small">
+                        <i class="bi bi-info-circle me-1"></i> Kesin adres bilgisi rezervasyon sonrası paylaşılacaktır.
+                    </div>
+                </div>
+            }
+
             <!-- Müsaitlik Takvimi -->
             <div class="bg-white p-4 shadow-sm rounded-4 mb-4">
                 <h4 class="fw-bold mb-4 border-bottom pb-2">Müsaitlik Durumu</h4>
@@ -135,6 +159,17 @@
                         <h4 class="mb-0">Rezervasyon Yap</h4>
                         <p class="small text-white-50 mb-0">Hızlıca yerini ayırt.</p>
                     </div>
+                    
+                    @if (ViewBag.CanReview == true)
+                    {
+                        <div class="alert alert-warning m-3 border-0 shadow-sm d-flex align-items-center justify-content-between">
+                            <div>
+                                <h6 class="fw-bold mb-1"><i class="bi bi-star-fill me-2"></i>Deneyiminizi Paylaşın</h6>
+                                <small>Bu bungalovda konaklamışsınız!</small>
+                            </div>
+                            <a asp-controller="Review" asp-action="Index" asp-route-bungalowId="@Model.Id" asp-route-reservationId="@ViewBag.ReservationId" class="btn btn-dark btn-sm rounded-pill px-3">Puanla</a>
+                        </div>
+                    }
                     <div class="card-body p-4">
                         <form id="reservationForm">
                             <input type="hidden" id="bungalowId" value="@Model.Id" />
@@ -150,25 +185,18 @@
                                 <input type="date" id="checkOut" class="form-control form-control-lg border-light bg-light shadow-none" required min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" />
                             </div>
 
-                            <hr class="my-4 op-10">
-
-                            <div id="priceSummary" class="d-none animate__animated animate__fadeIn">
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span class="text-muted" id="calcText">₺@Model.PricePerNight x 0 gece</span>
-                                    <span class="fw-bold" id="nightPrice">₺0</span>
-                                </div>
-                                <div class="d-flex justify-content-between fs-4 fw-bold text-primary mt-2">
-                                    <span>Toplam Tutar</span>
-                                    <span id="totalPriceResult">₺0</span>
-                                </div>
-                            </div>
-
-                            <div id="pricePlaceholder" class="text-center py-3 text-muted border border-dashed rounded-3 mb-4">
-                                <small>Tarih seçtiğinizde fiyat hesaplanacaktır.</small>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">Misafir Sayısı</label>
+                                <select id="guestCount" class="form-select form-select-lg border-light bg-light shadow-none">
+                                    @for (int i = 1; i <= Model.Capacity; i++)
+                                    {
+                                        <option value="@i">@i Misafir</option>
+                                    }
+                                </select>
                             </div>
 
                             <button type="button" id="btnBook" class="btn btn-primary btn-lg w-100 py-3 rounded-3 shadow-sm fw-bold mt-2">
-                                <i class="bi bi-calendar-check me-2"></i> Rezervasyon Talebi Gönder
+                                <i class="bi bi-arrow-right-circle me-2"></i> Misafir Bilgilerine Geç
                             </button>
                         </form>
                     </div>
@@ -184,6 +212,38 @@
     </div>
 </div>
 
+<!-- KVKK Modal -->
+<div class="modal fade" id="kvkkModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold">KVKK Aydınlatma Metni</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <p>Kişisel verileriniz, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, veri sorumlusu sıfatıyla tarafımızca aşağıda açıklanan kapsamda işlenebilecektir...</p>
+                <p>Misafirlerimizin ad, soyad ve TC kimlik numaraları, yasal konaklama bildirim zorunlulukları ve rezervasyon işlemlerinin yönetilmesi amacıyla işlenmektedir.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sözleşme Modal -->
+<div class="modal fade" id="contractModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold">Mesafeli Satış Sözleşmesi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <p>İşbu sözleşme, alıcının satıcı tarafından işletilen web sitesi üzerinden elektronik ortamda verdiği rezervasyon hizmetinin satışı ve teslimi ile ilgili olarak tarafların hak ve yükümlülüklerini düzenler...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -194,106 +254,59 @@
             const pricePerNight = parseFloat(document.getElementById('pricePerNight').value);
             const checkInInput = document.getElementById('checkIn');
             const checkOutInput = document.getElementById('checkOut');
-            const priceSummary = document.getElementById('priceSummary');
-            const pricePlaceholder = document.getElementById('pricePlaceholder');
+            const guestCountSelect = document.getElementById('guestCount');
             const btnBook = document.getElementById('btnBook');
+
+            // URL'deki hata mesajlarını yakala
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            if (error) {
+                Swal.fire('Hata', error, 'error');
+                // URL'yi temizle (history'yi bozmadan)
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
 
             // 1. Takvim Entegrasyonu
             const calendarEl = document.getElementById('availabilityCalendar');
-            const calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                locale: 'tr',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,listMonth'
-                },
-                events: function(info, successCallback, failureCallback) {
-                    fetch(`/Reservation/GetBookedDates?bungalowId=${bungalowId}`)
-                        .then(response => response.json())
-                        .then(dates => {
-                            const events = dates.map(date => ({
-                                start: date,
-                                allDay: true,
-                                display: 'background',
-                                color: '#dc3545' // Dolu tarihler kırmızı
-                            }));
-                            successCallback(events);
-                        });
-                }
-            });
-            calendar.render();
-
-            // 2. Fiyat Hesaplama Mantığı
-            function calculatePrice() {
-                const checkIn = new Date(checkInInput.value);
-                const checkOut = new Date(checkOutInput.value);
-
-                if (checkIn && checkOut && checkOut > checkIn) {
-                    const diffTime = Math.abs(checkOut - checkIn);
-                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                    const total = diffDays * pricePerNight;
-
-                    document.getElementById('calcText').innerText = `₺${pricePerNight.toLocaleString('tr-TR')} x ${diffDays} gece`;
-                    document.getElementById('nightPrice').innerText = `₺${total.toLocaleString('tr-TR')}`;
-                    document.getElementById('totalPriceResult').innerText = `₺${total.toLocaleString('tr-TR')}`;
-
-                    priceSummary.classList.remove('d-none');
-                    pricePlaceholder.classList.add('d-none');
-                } else {
-                    priceSummary.classList.add('d-none');
-                    pricePlaceholder.classList.remove('d-none');
-                }
+            if (calendarEl) {
+                const calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    locale: 'tr',
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,listMonth'
+                    },
+                    events: function(info, successCallback, failureCallback) {
+                        fetch(`/Reservation/GetBookedDates?bungalowId=${bungalowId}`)
+                            .then(response => response.json())
+                            .then(dates => {
+                                const events = dates.map(date => ({
+                                    start: date,
+                                    allDay: true,
+                                    display: 'background',
+                                    color: '#dc3545'
+                                }));
+                                successCallback(events);
+                            });
+                    }
+                });
+                calendar.render();
             }
 
-            checkInInput.addEventListener('change', calculatePrice);
-            checkOutInput.addEventListener('change', calculatePrice);
-
-            // 3. Rezervasyon Gönderimi
+            // 2. Rezervasyon Redirect
             btnBook.addEventListener('click', function() {
                 const checkIn = checkInInput.value;
                 const checkOut = checkOutInput.value;
+                const guestCount = guestCountSelect.value;
 
                 if (!checkIn || !checkOut) {
                     Swal.fire('Hata', 'Lütfen giriş ve çıkış tarihlerini seçin.', 'error');
                     return;
                 }
 
-                btnBook.disabled = true;
-                btnBook.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> İşleniyor...';
-
-                const formData = new FormData();
-                formData.append('bungalowId', bungalowId);
-                formData.append('checkIn', checkIn);
-                formData.append('checkOut', checkOut);
-
-                fetch('/Reservation/MakeReservation', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire({
-                            title: 'Başarılı!',
-                            text: data.message,
-                            icon: 'success',
-                            confirmButtonText: 'Tamam'
-                        }).then(() => {
-                            window.location.reload();
-                        });
-                    } else {
-                        Swal.fire('Hata', data.message, 'error');
-                        btnBook.disabled = false;
-                        btnBook.innerHTML = '<i class="bi bi-calendar-check me-2"></i> Rezervasyon Talebi Gönder';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire('Hata', 'Sunucu ile bağlantı kurulurken bir hata oluştu.', 'error');
-                    btnBook.disabled = false;
-                    btnBook.innerHTML = '<i class="bi bi-calendar-check me-2"></i> Rezervasyon Talebi Gönder';
-                });
+                const url = `/Reservation/GuestInfo?bungalowId=${bungalowId}&checkIn=${checkIn.split('T')[0]}&checkOut=${checkOut.split('T')[0]}&guestCount=${guestCount}`;
+                window.location.href = url;
             });
         });
     </script>

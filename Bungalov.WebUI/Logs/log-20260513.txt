@@ -1,0 +1,874 @@
+2026-05-13 19:37:10.576 +03:00 [INF] User profile is available. Using 'C:\Users\karal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-05-13 19:37:11.572 +03:00 [INF] Executed DbCommand (38ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2026-05-13 19:37:11.623 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2026-05-13 19:37:11.638 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2026-05-13 19:37:12.124 +03:00 [INF] Now listening on: http://localhost:5234
+2026-05-13 19:37:12.127 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-13 19:37:12.128 +03:00 [INF] Hosting environment: Development
+2026-05-13 19:37:12.128 +03:00 [INF] Content root path: C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI
+2026-05-13 19:37:14.947 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/ - null null
+2026-05-13 19:37:14.990 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.HomeController.Index (Bungalov.WebUI)'
+2026-05-13 19:37:15.006 +03:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller Bungalov.WebUI.Controllers.HomeController (Bungalov.WebUI).
+2026-05-13 19:37:15.080 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status]
+FROM [Categories] AS [c]
+2026-05-13 19:37:15.173 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-05-13 19:37:15.192 +03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[Address], [b].[Capacity], [b].[CategoryId], [b].[CheckInTime], [b].[CheckOutTime], [b].[CreatedDate], [b].[Description], [b].[District], [b].[Latitude], [b].[Location], [b].[Longitude], [b].[MinNights], [b].[Name], [b].[Neighborhood], [b].[PricePerNight], [b].[Province], [b].[SizeM2], [b].[Status], [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status], [b0].[Id], [b0].[BungalowId], [b0].[CreatedDate], [b0].[ImageUrl], [b0].[Status], [t].[Id], [t].[CreatedDate], [t].[IconCode], [t].[Name], [t].[Status], [t].[AmenitiesId], [t].[BungalowsId]
+FROM [Bungalows] AS [b]
+INNER JOIN [Categories] AS [c] ON [b].[CategoryId] = [c].[Id]
+LEFT JOIN [BungalowImages] AS [b0] ON [b].[Id] = [b0].[BungalowId]
+LEFT JOIN (
+    SELECT [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status], [b1].[AmenitiesId], [b1].[BungalowsId]
+    FROM [BungalowAmenities] AS [b1]
+    INNER JOIN [Amenities] AS [a] ON [b1].[AmenitiesId] = [a].[Id]
+) AS [t] ON [b].[Id] = [t].[BungalowsId]
+ORDER BY [b].[Id], [c].[Id], [b0].[Id], [t].[AmenitiesId], [t].[BungalowsId]
+2026-05-13 19:37:15.220 +03:00 [INF] Executing ViewResult, running view Index.
+2026-05-13 19:37:15.297 +03:00 [INF] Executed ViewResult - view Index executed in 78.4084ms.
+2026-05-13 19:37:15.300 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.HomeController.Index (Bungalov.WebUI) in 292.0321ms
+2026-05-13 19:37:15.302 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.HomeController.Index (Bungalov.WebUI)'
+2026-05-13 19:37:15.308 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/ - 200 null text/html; charset=utf-8 363.6861ms
+2026-05-13 19:37:15.311 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/images/bungalows/a9d66598-8e03-4782-8024-a7b350728c07.png - null null
+2026-05-13 19:37:15.315 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/images/bungalows/6629a987-fd60-4c84-a304-69e02de619f9.jpg - null null
+2026-05-13 19:37:15.351 +03:00 [INF] Sending file. Request path: '/images/bungalows/a9d66598-8e03-4782-8024-a7b350728c07.png'. Physical path: 'C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI\wwwroot\images\bungalows\a9d66598-8e03-4782-8024-a7b350728c07.png'
+2026-05-13 19:37:15.353 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/images/bungalows/a9d66598-8e03-4782-8024-a7b350728c07.png - 200 941826 image/png 41.5517ms
+2026-05-13 19:37:15.376 +03:00 [INF] Sending file. Request path: '/images/bungalows/6629a987-fd60-4c84-a304-69e02de619f9.jpg'. Physical path: 'C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI\wwwroot\images\bungalows\6629a987-fd60-4c84-a304-69e02de619f9.jpg'
+2026-05-13 19:37:15.378 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/images/bungalows/6629a987-fd60-4c84-a304-69e02de619f9.jpg - 200 3576335 image/jpeg 62.3495ms
+2026-05-13 19:37:15.697 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2026-05-13 19:37:15.703 +03:00 [INF] Executing endpoint '/chatHub/negotiate'
+2026-05-13 19:37:15.717 +03:00 [INF] Executed endpoint '/chatHub/negotiate'
+2026-05-13 19:37:15.719 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 21.556ms
+2026-05-13 19:37:15.721 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/chatHub?id=tsE5PSnEzl7AqtWuiOWwJA - null null
+2026-05-13 19:37:15.728 +03:00 [INF] Executing endpoint '/chatHub'
+2026-05-13 19:37:16.284 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/favicon.ico - null null
+2026-05-13 19:37:16.291 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.ErrorController.NotFound (Bungalov.WebUI)'
+2026-05-13 19:37:16.298 +03:00 [INF] Route matched with {action = "NotFound", controller = "Error"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult NotFound(Int32) on controller Bungalov.WebUI.Controllers.ErrorController (Bungalov.WebUI).
+2026-05-13 19:37:16.317 +03:00 [WRN] 404 Hatası - Yol: /favicon.ico
+2026-05-13 19:37:16.321 +03:00 [INF] Executing ViewResult, running view NotFound.
+2026-05-13 19:37:16.328 +03:00 [INF] Executed ViewResult - view NotFound executed in 8.0861ms.
+2026-05-13 19:37:16.330 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.ErrorController.NotFound (Bungalov.WebUI) in 30.215ms
+2026-05-13 19:37:16.331 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.ErrorController.NotFound (Bungalov.WebUI)'
+2026-05-13 19:37:16.333 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/favicon.ico - 404 null text/html; charset=utf-8 48.7541ms
+2026-05-13 19:37:16.337 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5234/favicon.ico, Response status code: 404
+2026-05-13 19:37:19.444 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Bungalow?search=&checkIn=&checkOut=&minCapacity= - null null
+2026-05-13 19:37:19.447 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:37:19.454 +03:00 [INF] Route matched with {action = "Index", controller = "Bungalow"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], Int32[], System.Nullable`1[System.DateTime], System.Nullable`1[System.DateTime]) on controller Bungalov.WebUI.Controllers.BungalowController (Bungalov.WebUI).
+2026-05-13 19:37:19.517 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-05-13 19:37:19.533 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[Address], [b].[Capacity], [b].[CategoryId], [b].[CheckInTime], [b].[CheckOutTime], [b].[CreatedDate], [b].[Description], [b].[District], [b].[Latitude], [b].[Location], [b].[Longitude], [b].[MinNights], [b].[Name], [b].[Neighborhood], [b].[PricePerNight], [b].[Province], [b].[SizeM2], [b].[Status], [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status], [b0].[Id], [b0].[BungalowId], [b0].[CreatedDate], [b0].[ImageUrl], [b0].[Status], [t].[AmenitiesId], [t].[BungalowsId], [t].[Id], [t].[CreatedDate], [t].[IconCode], [t].[Name], [t].[Status]
+FROM [Bungalows] AS [b]
+INNER JOIN [Categories] AS [c] ON [b].[CategoryId] = [c].[Id]
+LEFT JOIN [BungalowImages] AS [b0] ON [b].[Id] = [b0].[BungalowId]
+LEFT JOIN (
+    SELECT [b1].[AmenitiesId], [b1].[BungalowsId], [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+    FROM [BungalowAmenities] AS [b1]
+    INNER JOIN [Amenities] AS [a] ON [b1].[AmenitiesId] = [a].[Id]
+) AS [t] ON [b].[Id] = [t].[BungalowsId]
+WHERE [b].[Status] = CAST(1 AS bit)
+ORDER BY [b].[Id], [c].[Id], [b0].[Id], [t].[AmenitiesId], [t].[BungalowsId]
+2026-05-13 19:37:19.650 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+FROM [Amenities] AS [a]
+2026-05-13 19:37:19.655 +03:00 [INF] Executing ViewResult, running view Index.
+2026-05-13 19:37:19.682 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status]
+FROM [Categories] AS [c]
+2026-05-13 19:37:19.737 +03:00 [INF] Executed ViewResult - view Index executed in 83.0742ms.
+2026-05-13 19:37:19.739 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI) in 283.4355ms
+2026-05-13 19:37:19.740 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:37:19.741 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Bungalow?search=&checkIn=&checkOut=&minCapacity= - 200 null text/html; charset=utf-8 297.4338ms
+2026-05-13 19:37:19.883 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/images/bungalows/63c84f7b-cf72-4055-b75e-bfcfa380e5b0.jpg - null null
+2026-05-13 19:37:19.884 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/images/bungalows/57c8e396-7e95-467c-b205-812da8805d8b.jpg - null null
+2026-05-13 19:37:19.884 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/images/bungalows/185e6db1-1768-4d98-9006-5ca77fd974d1.jpg - null null
+2026-05-13 19:37:19.887 +03:00 [INF] Sending file. Request path: '/images/bungalows/63c84f7b-cf72-4055-b75e-bfcfa380e5b0.jpg'. Physical path: 'C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI\wwwroot\images\bungalows\63c84f7b-cf72-4055-b75e-bfcfa380e5b0.jpg'
+2026-05-13 19:37:19.890 +03:00 [INF] Sending file. Request path: '/images/bungalows/57c8e396-7e95-467c-b205-812da8805d8b.jpg'. Physical path: 'C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI\wwwroot\images\bungalows\57c8e396-7e95-467c-b205-812da8805d8b.jpg'
+2026-05-13 19:37:19.892 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/images/bungalows/3eb9815b-4340-4c8a-8e9b-8d28eda5894c.jpg - null null
+2026-05-13 19:37:19.893 +03:00 [INF] Sending file. Request path: '/images/bungalows/185e6db1-1768-4d98-9006-5ca77fd974d1.jpg'. Physical path: 'C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI\wwwroot\images\bungalows\185e6db1-1768-4d98-9006-5ca77fd974d1.jpg'
+2026-05-13 19:37:19.893 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/images/bungalows/63c84f7b-cf72-4055-b75e-bfcfa380e5b0.jpg - 200 6420 image/jpeg 10.3905ms
+2026-05-13 19:37:19.895 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/images/bungalows/57c8e396-7e95-467c-b205-812da8805d8b.jpg - 200 6539 image/jpeg 10.7269ms
+2026-05-13 19:37:19.900 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/images/bungalows/185e6db1-1768-4d98-9006-5ca77fd974d1.jpg - 200 7286 image/jpeg 15.3204ms
+2026-05-13 19:37:19.901 +03:00 [INF] Executed endpoint '/chatHub'
+2026-05-13 19:37:19.903 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/images/bungalows/7b1ef629-6eba-4f92-9155-b3a637167bf7.jpg - null null
+2026-05-13 19:37:19.911 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/chatHub?id=tsE5PSnEzl7AqtWuiOWwJA - 101 null null 4189.425ms
+2026-05-13 19:37:19.913 +03:00 [INF] Sending file. Request path: '/images/bungalows/3eb9815b-4340-4c8a-8e9b-8d28eda5894c.jpg'. Physical path: 'C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI\wwwroot\images\bungalows\3eb9815b-4340-4c8a-8e9b-8d28eda5894c.jpg'
+2026-05-13 19:37:19.919 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/images/bungalows/3eb9815b-4340-4c8a-8e9b-8d28eda5894c.jpg - 200 1127218 image/jpeg 26.3542ms
+2026-05-13 19:37:19.937 +03:00 [INF] Sending file. Request path: '/images/bungalows/7b1ef629-6eba-4f92-9155-b3a637167bf7.jpg'. Physical path: 'C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI\wwwroot\images\bungalows\7b1ef629-6eba-4f92-9155-b3a637167bf7.jpg'
+2026-05-13 19:37:19.938 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/images/bungalows/7b1ef629-6eba-4f92-9155-b3a637167bf7.jpg - 200 1487805 image/jpeg 35.3412ms
+2026-05-13 19:37:19.964 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2026-05-13 19:37:19.967 +03:00 [INF] Executing endpoint '/chatHub/negotiate'
+2026-05-13 19:37:19.969 +03:00 [INF] Executed endpoint '/chatHub/negotiate'
+2026-05-13 19:37:19.970 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 5.4939ms
+2026-05-13 19:37:20.126 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/chatHub?id=a4AnL6n6gSIJiGYfxO9kRw - null null
+2026-05-13 19:37:20.129 +03:00 [INF] Executing endpoint '/chatHub'
+2026-05-13 19:37:21.332 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Account/Login - null null
+2026-05-13 19:37:21.334 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI)'
+2026-05-13 19:37:21.336 +03:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(System.String) on controller Bungalov.WebUI.Controllers.AccountController (Bungalov.WebUI).
+2026-05-13 19:37:21.341 +03:00 [INF] Executing ViewResult, running view Login.
+2026-05-13 19:37:21.377 +03:00 [INF] Executed ViewResult - view Login executed in 36.9042ms.
+2026-05-13 19:37:21.379 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI) in 40.6461ms
+2026-05-13 19:37:21.380 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI)'
+2026-05-13 19:37:21.381 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Account/Login - 200 null text/html; charset=utf-8 49.1352ms
+2026-05-13 19:37:21.399 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2026-05-13 19:37:21.400 +03:00 [INF] Executed endpoint '/chatHub'
+2026-05-13 19:37:21.404 +03:00 [INF] Executing endpoint '/chatHub/negotiate'
+2026-05-13 19:37:21.404 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/chatHub?id=a4AnL6n6gSIJiGYfxO9kRw - 101 null null 1277.7057ms
+2026-05-13 19:37:21.405 +03:00 [INF] Executed endpoint '/chatHub/negotiate'
+2026-05-13 19:37:21.409 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 9.7617ms
+2026-05-13 19:37:21.417 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/chatHub?id=nCRy-LiDIF3bqRQYSOMm-g - null null
+2026-05-13 19:37:21.420 +03:00 [INF] Executing endpoint '/chatHub'
+2026-05-13 19:37:28.142 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/Account/Login - application/x-www-form-urlencoded 251
+2026-05-13 19:37:28.145 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI)'
+2026-05-13 19:37:28.150 +03:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(Bungalov.WebUI.Models.LoginViewModel, System.String) on controller Bungalov.WebUI.Controllers.AccountController (Bungalov.WebUI).
+2026-05-13 19:37:28.175 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2026-05-13 19:37:28.277 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+2026-05-13 19:37:28.295 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2026-05-13 19:37:28.301 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2026-05-13 19:37:28.314 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @__role_Id_0
+2026-05-13 19:37:28.321 +03:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2026-05-13 19:37:28.324 +03:00 [INF] Executing RedirectResult, redirecting to /Bungalow.
+2026-05-13 19:37:28.326 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI) in 173.6056ms
+2026-05-13 19:37:28.327 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI)'
+2026-05-13 19:37:28.331 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/Account/Login - 302 0 null 189.7042ms
+2026-05-13 19:37:28.335 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Bungalow - null null
+2026-05-13 19:37:28.341 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:37:28.342 +03:00 [INF] Route matched with {action = "Index", controller = "Bungalow"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], Int32[], System.Nullable`1[System.DateTime], System.Nullable`1[System.DateTime]) on controller Bungalov.WebUI.Controllers.BungalowController (Bungalov.WebUI).
+2026-05-13 19:37:28.349 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[Address], [b].[Capacity], [b].[CategoryId], [b].[CheckInTime], [b].[CheckOutTime], [b].[CreatedDate], [b].[Description], [b].[District], [b].[Latitude], [b].[Location], [b].[Longitude], [b].[MinNights], [b].[Name], [b].[Neighborhood], [b].[PricePerNight], [b].[Province], [b].[SizeM2], [b].[Status], [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status], [b0].[Id], [b0].[BungalowId], [b0].[CreatedDate], [b0].[ImageUrl], [b0].[Status], [t].[AmenitiesId], [t].[BungalowsId], [t].[Id], [t].[CreatedDate], [t].[IconCode], [t].[Name], [t].[Status]
+FROM [Bungalows] AS [b]
+INNER JOIN [Categories] AS [c] ON [b].[CategoryId] = [c].[Id]
+LEFT JOIN [BungalowImages] AS [b0] ON [b].[Id] = [b0].[BungalowId]
+LEFT JOIN (
+    SELECT [b1].[AmenitiesId], [b1].[BungalowsId], [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+    FROM [BungalowAmenities] AS [b1]
+    INNER JOIN [Amenities] AS [a] ON [b1].[AmenitiesId] = [a].[Id]
+) AS [t] ON [b].[Id] = [t].[BungalowsId]
+WHERE [b].[Status] = CAST(1 AS bit)
+ORDER BY [b].[Id], [c].[Id], [b0].[Id], [t].[AmenitiesId], [t].[BungalowsId]
+2026-05-13 19:37:28.355 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+FROM [Amenities] AS [a]
+2026-05-13 19:37:28.358 +03:00 [INF] Executing ViewResult, running view Index.
+2026-05-13 19:37:28.362 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status]
+FROM [Categories] AS [c]
+2026-05-13 19:37:28.370 +03:00 [INF] Executed ViewResult - view Index executed in 11.8287ms.
+2026-05-13 19:37:28.371 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI) in 26.4842ms
+2026-05-13 19:37:28.373 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:37:28.374 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Bungalow - 200 null text/html; charset=utf-8 38.923ms
+2026-05-13 19:37:28.375 +03:00 [INF] Executed endpoint '/chatHub'
+2026-05-13 19:37:28.380 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/chatHub?id=nCRy-LiDIF3bqRQYSOMm-g - 101 null null 6962.6988ms
+2026-05-13 19:37:28.394 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2026-05-13 19:37:28.400 +03:00 [INF] Executing endpoint '/chatHub/negotiate'
+2026-05-13 19:37:28.401 +03:00 [INF] Executed endpoint '/chatHub/negotiate'
+2026-05-13 19:37:28.402 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 7.7121ms
+2026-05-13 19:37:28.406 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/chatHub?id=-8gfc1fPtxrGmyy2ovKClA - null null
+2026-05-13 19:37:28.415 +03:00 [INF] Executing endpoint '/chatHub'
+2026-05-13 19:37:31.148 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@__email_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[AppUserId], [c].[CreatedDate], [c].[IsAdminMessage], [c].[IsEdited], [c].[Message], [c].[SenderEmail], [c].[SenderName], [c].[SentDate], [c].[Status]
+FROM [ChatMessages] AS [c]
+WHERE [c].[SenderEmail] = @__email_0
+2026-05-13 19:37:39.267 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Bungalow - null null
+2026-05-13 19:37:39.270 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:37:39.271 +03:00 [INF] Route matched with {action = "Index", controller = "Bungalow"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], Int32[], System.Nullable`1[System.DateTime], System.Nullable`1[System.DateTime]) on controller Bungalov.WebUI.Controllers.BungalowController (Bungalov.WebUI).
+2026-05-13 19:37:39.278 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[Address], [b].[Capacity], [b].[CategoryId], [b].[CheckInTime], [b].[CheckOutTime], [b].[CreatedDate], [b].[Description], [b].[District], [b].[Latitude], [b].[Location], [b].[Longitude], [b].[MinNights], [b].[Name], [b].[Neighborhood], [b].[PricePerNight], [b].[Province], [b].[SizeM2], [b].[Status], [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status], [b0].[Id], [b0].[BungalowId], [b0].[CreatedDate], [b0].[ImageUrl], [b0].[Status], [t].[AmenitiesId], [t].[BungalowsId], [t].[Id], [t].[CreatedDate], [t].[IconCode], [t].[Name], [t].[Status]
+FROM [Bungalows] AS [b]
+INNER JOIN [Categories] AS [c] ON [b].[CategoryId] = [c].[Id]
+LEFT JOIN [BungalowImages] AS [b0] ON [b].[Id] = [b0].[BungalowId]
+LEFT JOIN (
+    SELECT [b1].[AmenitiesId], [b1].[BungalowsId], [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+    FROM [BungalowAmenities] AS [b1]
+    INNER JOIN [Amenities] AS [a] ON [b1].[AmenitiesId] = [a].[Id]
+) AS [t] ON [b].[Id] = [t].[BungalowsId]
+WHERE [b].[Status] = CAST(1 AS bit)
+ORDER BY [b].[Id], [c].[Id], [b0].[Id], [t].[AmenitiesId], [t].[BungalowsId]
+2026-05-13 19:37:39.290 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+FROM [Amenities] AS [a]
+2026-05-13 19:37:39.298 +03:00 [INF] Executing ViewResult, running view Index.
+2026-05-13 19:37:39.304 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status]
+FROM [Categories] AS [c]
+2026-05-13 19:37:39.308 +03:00 [INF] Executed ViewResult - view Index executed in 10.8891ms.
+2026-05-13 19:37:39.327 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI) in 53.4115ms
+2026-05-13 19:37:39.331 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:37:39.332 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Bungalow - 200 null text/html; charset=utf-8 65.1657ms
+2026-05-13 19:37:39.335 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/images/bungalows/63c84f7b-cf72-4055-b75e-bfcfa380e5b0.jpg - null null
+2026-05-13 19:37:39.335 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/images/bungalows/57c8e396-7e95-467c-b205-812da8805d8b.jpg - null null
+2026-05-13 19:37:39.336 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/images/bungalows/185e6db1-1768-4d98-9006-5ca77fd974d1.jpg - null null
+2026-05-13 19:37:39.336 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/images/bungalows/a9d66598-8e03-4782-8024-a7b350728c07.png - null null
+2026-05-13 19:37:39.337 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/images/bungalows/6629a987-fd60-4c84-a304-69e02de619f9.jpg - null null
+2026-05-13 19:37:39.339 +03:00 [INF] Sending file. Request path: '/images/bungalows/63c84f7b-cf72-4055-b75e-bfcfa380e5b0.jpg'. Physical path: 'C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI\wwwroot\images\bungalows\63c84f7b-cf72-4055-b75e-bfcfa380e5b0.jpg'
+2026-05-13 19:37:39.341 +03:00 [INF] Sending file. Request path: '/images/bungalows/185e6db1-1768-4d98-9006-5ca77fd974d1.jpg'. Physical path: 'C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI\wwwroot\images\bungalows\185e6db1-1768-4d98-9006-5ca77fd974d1.jpg'
+2026-05-13 19:37:39.341 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/images/bungalows/3eb9815b-4340-4c8a-8e9b-8d28eda5894c.jpg - null null
+2026-05-13 19:37:39.346 +03:00 [INF] Sending file. Request path: '/images/bungalows/57c8e396-7e95-467c-b205-812da8805d8b.jpg'. Physical path: 'C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI\wwwroot\images\bungalows\57c8e396-7e95-467c-b205-812da8805d8b.jpg'
+2026-05-13 19:37:39.348 +03:00 [INF] Sending file. Request path: '/images/bungalows/a9d66598-8e03-4782-8024-a7b350728c07.png'. Physical path: 'C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI\wwwroot\images\bungalows\a9d66598-8e03-4782-8024-a7b350728c07.png'
+2026-05-13 19:37:39.353 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/images/bungalows/63c84f7b-cf72-4055-b75e-bfcfa380e5b0.jpg - 200 6420 image/jpeg 17.4352ms
+2026-05-13 19:37:39.361 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/images/bungalows/7b1ef629-6eba-4f92-9155-b3a637167bf7.jpg - null null
+2026-05-13 19:37:39.366 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/images/bungalows/57c8e396-7e95-467c-b205-812da8805d8b.jpg - 200 6539 image/jpeg 30.3152ms
+2026-05-13 19:37:39.367 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/images/bungalows/a9d66598-8e03-4782-8024-a7b350728c07.png - 200 941826 image/png 30.8908ms
+2026-05-13 19:37:39.368 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/images/bungalows/185e6db1-1768-4d98-9006-5ca77fd974d1.jpg - 200 7286 image/jpeg 32.6582ms
+2026-05-13 19:37:39.386 +03:00 [INF] Sending file. Request path: '/images/bungalows/3eb9815b-4340-4c8a-8e9b-8d28eda5894c.jpg'. Physical path: 'C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI\wwwroot\images\bungalows\3eb9815b-4340-4c8a-8e9b-8d28eda5894c.jpg'
+2026-05-13 19:37:39.388 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/images/bungalows/3eb9815b-4340-4c8a-8e9b-8d28eda5894c.jpg - 200 1127218 image/jpeg 46.778ms
+2026-05-13 19:37:39.401 +03:00 [INF] Sending file. Request path: '/images/bungalows/7b1ef629-6eba-4f92-9155-b3a637167bf7.jpg'. Physical path: 'C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI\wwwroot\images\bungalows\7b1ef629-6eba-4f92-9155-b3a637167bf7.jpg'
+2026-05-13 19:37:39.403 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/images/bungalows/7b1ef629-6eba-4f92-9155-b3a637167bf7.jpg - 200 1487805 image/jpeg 41.2309ms
+2026-05-13 19:37:39.412 +03:00 [INF] Sending file. Request path: '/images/bungalows/6629a987-fd60-4c84-a304-69e02de619f9.jpg'. Physical path: 'C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI\wwwroot\images\bungalows\6629a987-fd60-4c84-a304-69e02de619f9.jpg'
+2026-05-13 19:37:39.414 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/images/bungalows/6629a987-fd60-4c84-a304-69e02de619f9.jpg - 200 3576335 image/jpeg 76.3741ms
+2026-05-13 19:37:39.847 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2026-05-13 19:37:39.849 +03:00 [INF] Executing endpoint '/chatHub/negotiate'
+2026-05-13 19:37:39.851 +03:00 [INF] Executed endpoint '/chatHub/negotiate'
+2026-05-13 19:37:39.852 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 4.6842ms
+2026-05-13 19:37:39.862 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/chatHub?id=-FSERsLswOegsbFfNG2ksg - null null
+2026-05-13 19:37:39.865 +03:00 [INF] Executing endpoint '/chatHub'
+2026-05-13 19:37:47.653 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Account/Login - null null
+2026-05-13 19:37:47.655 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI)'
+2026-05-13 19:37:47.656 +03:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(System.String) on controller Bungalov.WebUI.Controllers.AccountController (Bungalov.WebUI).
+2026-05-13 19:37:47.659 +03:00 [INF] Executing ViewResult, running view Login.
+2026-05-13 19:37:47.661 +03:00 [INF] Executed ViewResult - view Login executed in 2.8029ms.
+2026-05-13 19:37:47.663 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI) in 4.7186ms
+2026-05-13 19:37:47.664 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI)'
+2026-05-13 19:37:47.665 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Account/Login - 200 null text/html; charset=utf-8 12.3142ms
+2026-05-13 19:37:47.682 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2026-05-13 19:37:47.683 +03:00 [INF] Executed endpoint '/chatHub'
+2026-05-13 19:37:47.686 +03:00 [INF] Executing endpoint '/chatHub/negotiate'
+2026-05-13 19:37:47.686 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/chatHub?id=-FSERsLswOegsbFfNG2ksg - 101 null null 7824.2336ms
+2026-05-13 19:37:47.687 +03:00 [INF] Executed endpoint '/chatHub/negotiate'
+2026-05-13 19:37:47.691 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 8.3585ms
+2026-05-13 19:37:47.703 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/chatHub?id=I76nvCtrGTmQnpzubxs9cw - null null
+2026-05-13 19:37:47.706 +03:00 [INF] Executing endpoint '/chatHub'
+2026-05-13 19:37:54.067 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2026-05-13 19:37:54.069 +03:00 [INF] Executing endpoint '/chatHub/negotiate'
+2026-05-13 19:37:54.070 +03:00 [INF] Executed endpoint '/chatHub/negotiate'
+2026-05-13 19:37:54.070 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 3.5412ms
+2026-05-13 19:37:54.073 +03:00 [INF] Executed endpoint '/chatHub'
+2026-05-13 19:37:54.076 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/chatHub?id=I76nvCtrGTmQnpzubxs9cw - 101 null null 6373.5387ms
+2026-05-13 19:37:54.078 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/chatHub?id=ht8SYsK9spzVNGhaoXGWpg - null null
+2026-05-13 19:37:54.084 +03:00 [INF] Executing endpoint '/chatHub'
+2026-05-13 19:37:54.696 +03:00 [INF] Executed endpoint '/chatHub'
+2026-05-13 19:37:54.697 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/chatHub?id=ht8SYsK9spzVNGhaoXGWpg - 101 null null 619.8703ms
+2026-05-13 19:37:56.008 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2026-05-13 19:37:56.010 +03:00 [INF] Executing endpoint '/chatHub/negotiate'
+2026-05-13 19:37:56.011 +03:00 [INF] Executed endpoint '/chatHub/negotiate'
+2026-05-13 19:37:56.012 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 3.5164ms
+2026-05-13 19:37:56.018 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/chatHub?id=hf_ZS0zj-UUt3KUZvucbHg - null null
+2026-05-13 19:37:56.021 +03:00 [INF] Executing endpoint '/chatHub'
+2026-05-13 19:37:59.313 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Account/Login - null null
+2026-05-13 19:37:59.315 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI)'
+2026-05-13 19:37:59.316 +03:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(System.String) on controller Bungalov.WebUI.Controllers.AccountController (Bungalov.WebUI).
+2026-05-13 19:37:59.320 +03:00 [INF] Executing ViewResult, running view Login.
+2026-05-13 19:37:59.322 +03:00 [INF] Executed ViewResult - view Login executed in 2.7431ms.
+2026-05-13 19:37:59.323 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI) in 5.5763ms
+2026-05-13 19:37:59.325 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI)'
+2026-05-13 19:37:59.326 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Account/Login - 200 null text/html; charset=utf-8 12.4191ms
+2026-05-13 19:37:59.339 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2026-05-13 19:37:59.342 +03:00 [INF] Executing endpoint '/chatHub/negotiate'
+2026-05-13 19:37:59.342 +03:00 [INF] Executed endpoint '/chatHub/negotiate'
+2026-05-13 19:37:59.343 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 3.6219ms
+2026-05-13 19:37:59.355 +03:00 [INF] Executed endpoint '/chatHub'
+2026-05-13 19:37:59.356 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/chatHub?id=hf_ZS0zj-UUt3KUZvucbHg - 101 null null 3337.839ms
+2026-05-13 19:37:59.359 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/chatHub?id=eiMARRyki2u1NhWlCQLmIQ - null null
+2026-05-13 19:37:59.364 +03:00 [INF] Executing endpoint '/chatHub'
+2026-05-13 19:38:04.994 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/Account/Login - application/x-www-form-urlencoded 247
+2026-05-13 19:38:04.996 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI)'
+2026-05-13 19:38:04.997 +03:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(Bungalov.WebUI.Models.LoginViewModel, System.String) on controller Bungalov.WebUI.Controllers.AccountController (Bungalov.WebUI).
+2026-05-13 19:38:05.003 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2026-05-13 19:38:05.055 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+2026-05-13 19:38:05.060 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2026-05-13 19:38:05.063 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2026-05-13 19:38:05.067 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @__role_Id_0
+2026-05-13 19:38:05.070 +03:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2026-05-13 19:38:05.071 +03:00 [INF] Executing RedirectResult, redirecting to /Bungalow.
+2026-05-13 19:38:05.072 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI) in 73.8265ms
+2026-05-13 19:38:05.073 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI)'
+2026-05-13 19:38:05.074 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/Account/Login - 302 0 null 79.393ms
+2026-05-13 19:38:05.076 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Bungalow - null null
+2026-05-13 19:38:05.078 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:38:05.079 +03:00 [INF] Route matched with {action = "Index", controller = "Bungalow"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], Int32[], System.Nullable`1[System.DateTime], System.Nullable`1[System.DateTime]) on controller Bungalov.WebUI.Controllers.BungalowController (Bungalov.WebUI).
+2026-05-13 19:38:05.089 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-05-13 19:38:05.106 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[Address], [b].[Capacity], [b].[CategoryId], [b].[CheckInTime], [b].[CheckOutTime], [b].[CreatedDate], [b].[Description], [b].[District], [b].[Latitude], [b].[Location], [b].[Longitude], [b].[MinNights], [b].[Name], [b].[Neighborhood], [b].[PricePerNight], [b].[Province], [b].[SizeM2], [b].[Status], [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status], [b0].[Id], [b0].[BungalowId], [b0].[CreatedDate], [b0].[ImageUrl], [b0].[Status], [t].[AmenitiesId], [t].[BungalowsId], [t].[Id], [t].[CreatedDate], [t].[IconCode], [t].[Name], [t].[Status]
+FROM [Bungalows] AS [b]
+INNER JOIN [Categories] AS [c] ON [b].[CategoryId] = [c].[Id]
+LEFT JOIN [BungalowImages] AS [b0] ON [b].[Id] = [b0].[BungalowId]
+LEFT JOIN (
+    SELECT [b1].[AmenitiesId], [b1].[BungalowsId], [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+    FROM [BungalowAmenities] AS [b1]
+    INNER JOIN [Amenities] AS [a] ON [b1].[AmenitiesId] = [a].[Id]
+) AS [t] ON [b].[Id] = [t].[BungalowsId]
+ORDER BY [b].[Id], [c].[Id], [b0].[Id], [t].[AmenitiesId], [t].[BungalowsId]
+2026-05-13 19:38:05.110 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+FROM [Amenities] AS [a]
+2026-05-13 19:38:05.112 +03:00 [INF] Executing ViewResult, running view Index.
+2026-05-13 19:38:05.116 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status]
+FROM [Categories] AS [c]
+2026-05-13 19:38:05.123 +03:00 [INF] Executed ViewResult - view Index executed in 10.7582ms.
+2026-05-13 19:38:05.124 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI) in 43.1573ms
+2026-05-13 19:38:05.125 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:38:05.126 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Bungalow - 200 null text/html; charset=utf-8 50.0719ms
+2026-05-13 19:38:05.127 +03:00 [INF] Executed endpoint '/chatHub'
+2026-05-13 19:38:05.131 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/chatHub?id=eiMARRyki2u1NhWlCQLmIQ - 101 null null 5771.9801ms
+2026-05-13 19:38:07.336 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Admin/Chat - null null
+2026-05-13 19:38:07.341 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AdminController.Chat (Bungalov.WebUI)'
+2026-05-13 19:38:07.343 +03:00 [INF] Route matched with {action = "Chat", controller = "Admin"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Chat() on controller Bungalov.WebUI.Controllers.AdminController (Bungalov.WebUI).
+2026-05-13 19:38:07.345 +03:00 [INF] Executing ViewResult, running view Chat.
+2026-05-13 19:38:07.350 +03:00 [INF] Executed ViewResult - view Chat executed in 5.0267ms.
+2026-05-13 19:38:07.351 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AdminController.Chat (Bungalov.WebUI) in 6.5193ms
+2026-05-13 19:38:07.352 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AdminController.Chat (Bungalov.WebUI)'
+2026-05-13 19:38:07.353 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Admin/Chat - 200 null text/html; charset=utf-8 16.9107ms
+2026-05-13 19:38:07.363 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2026-05-13 19:38:07.365 +03:00 [INF] Executing endpoint '/chatHub/negotiate'
+2026-05-13 19:38:07.366 +03:00 [INF] Executed endpoint '/chatHub/negotiate'
+2026-05-13 19:38:07.367 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 4.4204ms
+2026-05-13 19:38:07.374 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/chatHub?id=niNUuJPOrfv7n57HEpoheQ - null null
+2026-05-13 19:38:07.376 +03:00 [INF] Executing endpoint '/chatHub'
+2026-05-13 19:38:07.382 +03:00 [INF] Admin admin@bungalov.com joined Support group
+2026-05-13 19:38:07.394 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[AppUserId], [c].[CreatedDate], [c].[IsAdminMessage], [c].[IsEdited], [c].[Message], [c].[SenderEmail], [c].[SenderName], [c].[SentDate], [c].[Status]
+FROM [ChatMessages] AS [c]
+2026-05-13 19:38:14.677 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2026-05-13 19:38:14.766 +03:00 [INF] Executed DbCommand (8ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Boolean), @p3='?' (DbType = Boolean), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (DbType = DateTime2), @p8='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ChatMessages] ([AppUserId], [CreatedDate], [IsAdminMessage], [IsEdited], [Message], [SenderEmail], [SenderName], [SentDate], [Status])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+2026-05-13 19:38:14.783 +03:00 [INF] SendMessageToSupport called by atilla kaya: selam
+2026-05-13 19:38:14.790 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/favicon.ico - null null
+2026-05-13 19:38:14.794 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.ErrorController.NotFound (Bungalov.WebUI)'
+2026-05-13 19:38:14.795 +03:00 [INF] Route matched with {action = "NotFound", controller = "Error"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult NotFound(Int32) on controller Bungalov.WebUI.Controllers.ErrorController (Bungalov.WebUI).
+2026-05-13 19:38:14.797 +03:00 [WRN] 404 Hatası - Yol: /favicon.ico
+2026-05-13 19:38:14.798 +03:00 [INF] Executing ViewResult, running view NotFound.
+2026-05-13 19:38:14.799 +03:00 [INF] Executed ViewResult - view NotFound executed in 1.041ms.
+2026-05-13 19:38:14.799 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.ErrorController.NotFound (Bungalov.WebUI) in 2.732ms
+2026-05-13 19:38:14.800 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.ErrorController.NotFound (Bungalov.WebUI)'
+2026-05-13 19:38:14.801 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/favicon.ico - 404 null text/html; charset=utf-8 11.0843ms
+2026-05-13 19:38:14.803 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5234/favicon.ico, Response status code: 404
+2026-05-13 19:38:16.658 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__email_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[AppUserId], [c].[CreatedDate], [c].[IsAdminMessage], [c].[IsEdited], [c].[Message], [c].[SenderEmail], [c].[SenderName], [c].[SentDate], [c].[Status]
+FROM [ChatMessages] AS [c]
+WHERE [c].[SenderEmail] = @__email_0
+2026-05-13 19:38:22.263 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2026-05-13 19:38:22.271 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Boolean), @p3='?' (DbType = Boolean), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (DbType = DateTime2), @p8='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ChatMessages] ([AppUserId], [CreatedDate], [IsAdminMessage], [IsEdited], [Message], [SenderEmail], [SenderName], [SentDate], [Status])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+2026-05-13 19:38:22.273 +03:00 [INF] SendMessageToSupport called by atilla kaya: selamlar
+2026-05-13 19:38:29.530 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[AppUserId], [c].[CreatedDate], [c].[IsAdminMessage], [c].[IsEdited], [c].[Message], [c].[SenderEmail], [c].[SenderName], [c].[SentDate], [c].[Status]
+FROM [ChatMessages] AS [c]
+WHERE [c].[Id] = @__p_0
+2026-05-13 19:38:29.542 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@p9='?' (DbType = Int32), @p0='?' (Size = 450), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Boolean), @p3='?' (DbType = Boolean), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (DbType = DateTime2), @p8='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [ChatMessages] SET [AppUserId] = @p0, [CreatedDate] = @p1, [IsAdminMessage] = @p2, [IsEdited] = @p3, [Message] = @p4, [SenderEmail] = @p5, [SenderName] = @p6, [SentDate] = @p7, [Status] = @p8
+OUTPUT 1
+WHERE [Id] = @p9;
+2026-05-13 19:38:44.159 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[AppUserId], [c].[CreatedDate], [c].[IsAdminMessage], [c].[IsEdited], [c].[Message], [c].[SenderEmail], [c].[SenderName], [c].[SentDate], [c].[Status]
+FROM [ChatMessages] AS [c]
+WHERE [c].[Id] = @__p_0
+2026-05-13 19:38:44.165 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[@p9='?' (DbType = Int32), @p0='?' (Size = 450), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Boolean), @p3='?' (DbType = Boolean), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (DbType = DateTime2), @p8='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [ChatMessages] SET [AppUserId] = @p0, [CreatedDate] = @p1, [IsAdminMessage] = @p2, [IsEdited] = @p3, [Message] = @p4, [SenderEmail] = @p5, [SenderName] = @p6, [SentDate] = @p7, [Status] = @p8
+OUTPUT 1
+WHERE [Id] = @p9;
+2026-05-13 19:38:47.629 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[AppUserId], [c].[CreatedDate], [c].[IsAdminMessage], [c].[IsEdited], [c].[Message], [c].[SenderEmail], [c].[SenderName], [c].[SentDate], [c].[Status]
+FROM [ChatMessages] AS [c]
+WHERE [c].[Id] = @__p_0
+2026-05-13 19:38:47.640 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [ChatMessages]
+OUTPUT 1
+WHERE [Id] = @p0;
+2026-05-13 19:38:49.872 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[AppUserId], [c].[CreatedDate], [c].[IsAdminMessage], [c].[IsEdited], [c].[Message], [c].[SenderEmail], [c].[SenderName], [c].[SentDate], [c].[Status]
+FROM [ChatMessages] AS [c]
+WHERE [c].[Id] = @__p_0
+2026-05-13 19:38:49.878 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [ChatMessages]
+OUTPUT 1
+WHERE [Id] = @p0;
+2026-05-13 19:38:52.954 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2026-05-13 19:38:52.960 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Boolean), @p3='?' (DbType = Boolean), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (DbType = DateTime2), @p8='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ChatMessages] ([AppUserId], [CreatedDate], [IsAdminMessage], [IsEdited], [Message], [SenderEmail], [SenderName], [SentDate], [Status])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+2026-05-13 19:38:52.962 +03:00 [INF] SendMessageToSupport called by atilla kaya: sd
+2026-05-13 19:38:55.331 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@__email_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[AppUserId], [c].[CreatedDate], [c].[IsAdminMessage], [c].[IsEdited], [c].[Message], [c].[SenderEmail], [c].[SenderName], [c].[SentDate], [c].[Status]
+FROM [ChatMessages] AS [c]
+WHERE [c].[SenderEmail] = @__email_0
+2026-05-13 19:38:55.338 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+DELETE FROM [ChatMessages]
+OUTPUT 1
+WHERE [Id] = @p0;
+2026-05-13 19:38:55.340 +03:00 [INF] Chat for atilla06@gmail.com deleted by admin
+2026-05-13 19:39:01.242 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/Account/Logout - application/x-www-form-urlencoded 225
+2026-05-13 19:39:01.245 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AccountController.Logout (Bungalov.WebUI)'
+2026-05-13 19:39:01.250 +03:00 [INF] Route matched with {action = "Logout", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Logout() on controller Bungalov.WebUI.Controllers.AccountController (Bungalov.WebUI).
+2026-05-13 19:39:01.254 +03:00 [INF] AuthenticationScheme: Identity.Application signed out.
+2026-05-13 19:39:01.256 +03:00 [INF] AuthenticationScheme: Identity.External signed out.
+2026-05-13 19:39:01.257 +03:00 [INF] AuthenticationScheme: Identity.TwoFactorUserId signed out.
+2026-05-13 19:39:01.258 +03:00 [INF] Executing RedirectResult, redirecting to /Bungalow.
+2026-05-13 19:39:01.259 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AccountController.Logout (Bungalov.WebUI) in 7.3547ms
+2026-05-13 19:39:01.260 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AccountController.Logout (Bungalov.WebUI)'
+2026-05-13 19:39:01.261 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/Account/Logout - 302 0 null 18.4271ms
+2026-05-13 19:39:01.265 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Bungalow - null null
+2026-05-13 19:39:01.268 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:39:01.269 +03:00 [INF] Route matched with {action = "Index", controller = "Bungalow"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], Int32[], System.Nullable`1[System.DateTime], System.Nullable`1[System.DateTime]) on controller Bungalov.WebUI.Controllers.BungalowController (Bungalov.WebUI).
+2026-05-13 19:39:01.274 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[Address], [b].[Capacity], [b].[CategoryId], [b].[CheckInTime], [b].[CheckOutTime], [b].[CreatedDate], [b].[Description], [b].[District], [b].[Latitude], [b].[Location], [b].[Longitude], [b].[MinNights], [b].[Name], [b].[Neighborhood], [b].[PricePerNight], [b].[Province], [b].[SizeM2], [b].[Status], [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status], [b0].[Id], [b0].[BungalowId], [b0].[CreatedDate], [b0].[ImageUrl], [b0].[Status], [t].[AmenitiesId], [t].[BungalowsId], [t].[Id], [t].[CreatedDate], [t].[IconCode], [t].[Name], [t].[Status]
+FROM [Bungalows] AS [b]
+INNER JOIN [Categories] AS [c] ON [b].[CategoryId] = [c].[Id]
+LEFT JOIN [BungalowImages] AS [b0] ON [b].[Id] = [b0].[BungalowId]
+LEFT JOIN (
+    SELECT [b1].[AmenitiesId], [b1].[BungalowsId], [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+    FROM [BungalowAmenities] AS [b1]
+    INNER JOIN [Amenities] AS [a] ON [b1].[AmenitiesId] = [a].[Id]
+) AS [t] ON [b].[Id] = [t].[BungalowsId]
+WHERE [b].[Status] = CAST(1 AS bit)
+ORDER BY [b].[Id], [c].[Id], [b0].[Id], [t].[AmenitiesId], [t].[BungalowsId]
+2026-05-13 19:39:01.279 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+FROM [Amenities] AS [a]
+2026-05-13 19:39:01.282 +03:00 [INF] Executing ViewResult, running view Index.
+2026-05-13 19:39:01.285 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status]
+FROM [Categories] AS [c]
+2026-05-13 19:39:01.288 +03:00 [INF] Executed ViewResult - view Index executed in 6.6694ms.
+2026-05-13 19:39:01.290 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI) in 19.5ms
+2026-05-13 19:39:01.290 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:39:01.291 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Bungalow - 200 null text/html; charset=utf-8 26.3983ms
+2026-05-13 19:39:01.296 +03:00 [INF] Executed endpoint '/chatHub'
+2026-05-13 19:39:01.297 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/chatHub?id=-8gfc1fPtxrGmyy2ovKClA - 101 null null 92891.078ms
+2026-05-13 19:39:01.316 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2026-05-13 19:39:01.319 +03:00 [INF] Executing endpoint '/chatHub/negotiate'
+2026-05-13 19:39:01.320 +03:00 [INF] Executed endpoint '/chatHub/negotiate'
+2026-05-13 19:39:01.321 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 4.7551ms
+2026-05-13 19:39:01.335 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/chatHub?id=tAB2GqP2qaxBAy2lyamtyw - null null
+2026-05-13 19:39:01.339 +03:00 [INF] Executing endpoint '/chatHub'
+2026-05-13 19:39:05.359 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Boolean), @p3='?' (DbType = Boolean), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (DbType = DateTime2), @p8='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ChatMessages] ([AppUserId], [CreatedDate], [IsAdminMessage], [IsEdited], [Message], [SenderEmail], [SenderName], [SentDate], [Status])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+2026-05-13 19:39:05.361 +03:00 [INF] SendMessageToSupport called by Misafir: selam
+2026-05-13 19:39:07.607 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__email_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[AppUserId], [c].[CreatedDate], [c].[IsAdminMessage], [c].[IsEdited], [c].[Message], [c].[SenderEmail], [c].[SenderName], [c].[SentDate], [c].[Status]
+FROM [ChatMessages] AS [c]
+WHERE [c].[SenderEmail] = @__email_0
+2026-05-13 19:39:13.861 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (Size = 450), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Boolean), @p3='?' (DbType = Boolean), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (DbType = DateTime2), @p8='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [ChatMessages] ([AppUserId], [CreatedDate], [IsAdminMessage], [IsEdited], [Message], [SenderEmail], [SenderName], [SentDate], [Status])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8);
+2026-05-13 19:39:13.864 +03:00 [INF] SendResponseToUser called for Q1I_RVywA0l4rmcBP6okTA: nedir amaç
+2026-05-13 19:39:13.868 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/favicon.ico - null null
+2026-05-13 19:39:13.870 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.ErrorController.NotFound (Bungalov.WebUI)'
+2026-05-13 19:39:13.871 +03:00 [INF] Route matched with {action = "NotFound", controller = "Error"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult NotFound(Int32) on controller Bungalov.WebUI.Controllers.ErrorController (Bungalov.WebUI).
+2026-05-13 19:39:13.873 +03:00 [WRN] 404 Hatası - Yol: /favicon.ico
+2026-05-13 19:39:13.874 +03:00 [INF] Executing ViewResult, running view NotFound.
+2026-05-13 19:39:13.874 +03:00 [INF] Executed ViewResult - view NotFound executed in 0.8215ms.
+2026-05-13 19:39:13.875 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.ErrorController.NotFound (Bungalov.WebUI) in 2.3739ms
+2026-05-13 19:39:13.876 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.ErrorController.NotFound (Bungalov.WebUI)'
+2026-05-13 19:39:13.877 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/favicon.ico - 404 null text/html; charset=utf-8 9.1444ms
+2026-05-13 19:39:13.879 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5234/favicon.ico, Response status code: 404
+2026-05-13 19:39:16.375 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__email_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[AppUserId], [c].[CreatedDate], [c].[IsAdminMessage], [c].[IsEdited], [c].[Message], [c].[SenderEmail], [c].[SenderName], [c].[SentDate], [c].[Status]
+FROM [ChatMessages] AS [c]
+WHERE [c].[SenderEmail] = @__email_0
+2026-05-13 19:39:16.392 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+DELETE FROM [ChatMessages]
+OUTPUT 1
+WHERE [Id] = @p0;
+DELETE FROM [ChatMessages]
+OUTPUT 1
+WHERE [Id] = @p1;
+2026-05-13 19:39:16.407 +03:00 [INF] Chat for Misafir deleted by admin
+2026-05-13 19:39:24.140 +03:00 [INF] Executed endpoint '/chatHub'
+2026-05-13 19:39:24.141 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/chatHub?id=niNUuJPOrfv7n57HEpoheQ - 101 null null 76767.0897ms
+2026-05-13 19:39:27.679 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Account/Login - null null
+2026-05-13 19:39:27.682 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI)'
+2026-05-13 19:39:27.683 +03:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login(System.String) on controller Bungalov.WebUI.Controllers.AccountController (Bungalov.WebUI).
+2026-05-13 19:39:27.684 +03:00 [INF] Executing ViewResult, running view Login.
+2026-05-13 19:39:27.686 +03:00 [INF] Executed ViewResult - view Login executed in 2.0333ms.
+2026-05-13 19:39:27.688 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI) in 3.6471ms
+2026-05-13 19:39:27.689 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI)'
+2026-05-13 19:39:27.690 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Account/Login - 200 null text/html; charset=utf-8 10.3874ms
+2026-05-13 19:39:27.704 +03:00 [INF] Executed endpoint '/chatHub'
+2026-05-13 19:39:27.706 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/chatHub?id=tAB2GqP2qaxBAy2lyamtyw - 101 null null 26370.7746ms
+2026-05-13 19:39:27.726 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - text/plain;charset=UTF-8 0
+2026-05-13 19:39:27.728 +03:00 [INF] Executing endpoint '/chatHub/negotiate'
+2026-05-13 19:39:27.730 +03:00 [INF] Executed endpoint '/chatHub/negotiate'
+2026-05-13 19:39:27.731 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/chatHub/negotiate?negotiateVersion=1 - 200 316 application/json 5.2331ms
+2026-05-13 19:39:27.734 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/chatHub?id=CRjG_aAVrzuRBCty1GPSKQ - null null
+2026-05-13 19:39:27.736 +03:00 [INF] Executing endpoint '/chatHub'
+2026-05-13 19:39:35.798 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/Account/Login - application/x-www-form-urlencoded 247
+2026-05-13 19:39:35.801 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI)'
+2026-05-13 19:39:35.802 +03:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(Bungalov.WebUI.Models.LoginViewModel, System.String) on controller Bungalov.WebUI.Controllers.AccountController (Bungalov.WebUI).
+2026-05-13 19:39:35.808 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2026-05-13 19:39:35.873 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+2026-05-13 19:39:35.878 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2026-05-13 19:39:35.882 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2026-05-13 19:39:35.886 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @__role_Id_0
+2026-05-13 19:39:35.889 +03:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2026-05-13 19:39:35.890 +03:00 [INF] Executing RedirectResult, redirecting to /Bungalow.
+2026-05-13 19:39:35.891 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI) in 87.7787ms
+2026-05-13 19:39:35.892 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AccountController.Login (Bungalov.WebUI)'
+2026-05-13 19:39:35.893 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/Account/Login - 302 0 null 94.8967ms
+2026-05-13 19:39:35.897 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Bungalow - null null
+2026-05-13 19:39:35.899 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:39:35.900 +03:00 [INF] Route matched with {action = "Index", controller = "Bungalow"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], Int32[], System.Nullable`1[System.DateTime], System.Nullable`1[System.DateTime]) on controller Bungalov.WebUI.Controllers.BungalowController (Bungalov.WebUI).
+2026-05-13 19:39:35.906 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[Address], [b].[Capacity], [b].[CategoryId], [b].[CheckInTime], [b].[CheckOutTime], [b].[CreatedDate], [b].[Description], [b].[District], [b].[Latitude], [b].[Location], [b].[Longitude], [b].[MinNights], [b].[Name], [b].[Neighborhood], [b].[PricePerNight], [b].[Province], [b].[SizeM2], [b].[Status], [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status], [b0].[Id], [b0].[BungalowId], [b0].[CreatedDate], [b0].[ImageUrl], [b0].[Status], [t].[AmenitiesId], [t].[BungalowsId], [t].[Id], [t].[CreatedDate], [t].[IconCode], [t].[Name], [t].[Status]
+FROM [Bungalows] AS [b]
+INNER JOIN [Categories] AS [c] ON [b].[CategoryId] = [c].[Id]
+LEFT JOIN [BungalowImages] AS [b0] ON [b].[Id] = [b0].[BungalowId]
+LEFT JOIN (
+    SELECT [b1].[AmenitiesId], [b1].[BungalowsId], [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+    FROM [BungalowAmenities] AS [b1]
+    INNER JOIN [Amenities] AS [a] ON [b1].[AmenitiesId] = [a].[Id]
+) AS [t] ON [b].[Id] = [t].[BungalowsId]
+ORDER BY [b].[Id], [c].[Id], [b0].[Id], [t].[AmenitiesId], [t].[BungalowsId]
+2026-05-13 19:39:35.911 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+FROM [Amenities] AS [a]
+2026-05-13 19:39:35.913 +03:00 [INF] Executing ViewResult, running view Index.
+2026-05-13 19:39:35.916 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status]
+FROM [Categories] AS [c]
+2026-05-13 19:39:35.919 +03:00 [INF] Executed ViewResult - view Index executed in 6.5542ms.
+2026-05-13 19:39:35.921 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI) in 18.8705ms
+2026-05-13 19:39:35.922 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:39:35.923 +03:00 [INF] Executed endpoint '/chatHub'
+2026-05-13 19:39:35.924 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Bungalow - 200 null text/html; charset=utf-8 26.966ms
+2026-05-13 19:39:35.925 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/chatHub?id=CRjG_aAVrzuRBCty1GPSKQ - 101 null null 8191.0149ms
+2026-05-13 19:39:38.727 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Profile - null null
+2026-05-13 19:39:38.732 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.ProfileController.Index (Bungalov.WebUI)'
+2026-05-13 19:39:38.737 +03:00 [INF] Route matched with {action = "Index", controller = "Profile"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller Bungalov.WebUI.Controllers.ProfileController (Bungalov.WebUI).
+2026-05-13 19:39:38.743 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2026-05-13 19:39:38.762 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[Id], [r].[AppUserId], [r].[BungalowId], [r].[CheckInDate], [r].[CheckOutDate], [r].[CreatedDate], [r].[IsBlockedByAdmin], [r].[IsPaid], [r].[Note], [r].[PaymentId], [r].[PaymentToken], [r].[Status], [r].[TotalPrice], [b].[Id], [b].[Address], [b].[Capacity], [b].[CategoryId], [b].[CheckInTime], [b].[CheckOutTime], [b].[CreatedDate], [b].[Description], [b].[District], [b].[Latitude], [b].[Location], [b].[Longitude], [b].[MinNights], [b].[Name], [b].[Neighborhood], [b].[PricePerNight], [b].[Province], [b].[SizeM2], [b].[Status]
+FROM [Reservations] AS [r]
+INNER JOIN [Bungalows] AS [b] ON [r].[BungalowId] = [b].[Id]
+WHERE [r].[AppUserId] = @__userId_0
+2026-05-13 19:39:38.788 +03:00 [INF] Executing ViewResult, running view Index.
+2026-05-13 19:39:38.813 +03:00 [INF] Executed ViewResult - view Index executed in 25.2977ms.
+2026-05-13 19:39:38.814 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.ProfileController.Index (Bungalov.WebUI) in 76.3788ms
+2026-05-13 19:39:38.816 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.ProfileController.Index (Bungalov.WebUI)'
+2026-05-13 19:39:38.818 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Profile - 200 null text/html; charset=utf-8 90.0787ms
+2026-05-13 19:39:40.123 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Bungalow - null null
+2026-05-13 19:39:40.125 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:39:40.127 +03:00 [INF] Route matched with {action = "Index", controller = "Bungalow"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], Int32[], System.Nullable`1[System.DateTime], System.Nullable`1[System.DateTime]) on controller Bungalov.WebUI.Controllers.BungalowController (Bungalov.WebUI).
+2026-05-13 19:39:40.134 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[Address], [b].[Capacity], [b].[CategoryId], [b].[CheckInTime], [b].[CheckOutTime], [b].[CreatedDate], [b].[Description], [b].[District], [b].[Latitude], [b].[Location], [b].[Longitude], [b].[MinNights], [b].[Name], [b].[Neighborhood], [b].[PricePerNight], [b].[Province], [b].[SizeM2], [b].[Status], [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status], [b0].[Id], [b0].[BungalowId], [b0].[CreatedDate], [b0].[ImageUrl], [b0].[Status], [t].[AmenitiesId], [t].[BungalowsId], [t].[Id], [t].[CreatedDate], [t].[IconCode], [t].[Name], [t].[Status]
+FROM [Bungalows] AS [b]
+INNER JOIN [Categories] AS [c] ON [b].[CategoryId] = [c].[Id]
+LEFT JOIN [BungalowImages] AS [b0] ON [b].[Id] = [b0].[BungalowId]
+LEFT JOIN (
+    SELECT [b1].[AmenitiesId], [b1].[BungalowsId], [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+    FROM [BungalowAmenities] AS [b1]
+    INNER JOIN [Amenities] AS [a] ON [b1].[AmenitiesId] = [a].[Id]
+) AS [t] ON [b].[Id] = [t].[BungalowsId]
+ORDER BY [b].[Id], [c].[Id], [b0].[Id], [t].[AmenitiesId], [t].[BungalowsId]
+2026-05-13 19:39:40.138 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+FROM [Amenities] AS [a]
+2026-05-13 19:39:40.141 +03:00 [INF] Executing ViewResult, running view Index.
+2026-05-13 19:39:40.144 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status]
+FROM [Categories] AS [c]
+2026-05-13 19:39:40.147 +03:00 [INF] Executed ViewResult - view Index executed in 5.7739ms.
+2026-05-13 19:39:40.148 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI) in 18.3484ms
+2026-05-13 19:39:40.149 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:39:40.151 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Bungalow - 200 null text/html; charset=utf-8 27.6259ms
+2026-05-13 19:39:45.761 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Amenity - null null
+2026-05-13 19:39:45.765 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AmenityController.Index (Bungalov.WebUI)'
+2026-05-13 19:39:45.768 +03:00 [INF] Route matched with {action = "Index", controller = "Amenity"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller Bungalov.WebUI.Controllers.AmenityController (Bungalov.WebUI).
+2026-05-13 19:39:45.773 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+FROM [Amenities] AS [a]
+2026-05-13 19:39:45.777 +03:00 [INF] Executing ViewResult, running view Index.
+2026-05-13 19:39:45.784 +03:00 [INF] Executed ViewResult - view Index executed in 7.9851ms.
+2026-05-13 19:39:45.785 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AmenityController.Index (Bungalov.WebUI) in 15.2411ms
+2026-05-13 19:39:45.786 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AmenityController.Index (Bungalov.WebUI)'
+2026-05-13 19:39:45.787 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Amenity - 200 null text/html; charset=utf-8 25.986ms
+2026-05-13 19:39:50.057 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Amenity/Create - null null
+2026-05-13 19:39:50.059 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI)'
+2026-05-13 19:39:50.061 +03:00 [INF] Route matched with {action = "Create", controller = "Amenity"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Create() on controller Bungalov.WebUI.Controllers.AmenityController (Bungalov.WebUI).
+2026-05-13 19:39:50.063 +03:00 [INF] Executing ViewResult, running view Create.
+2026-05-13 19:39:50.076 +03:00 [INF] Executed ViewResult - view Create executed in 13.3993ms.
+2026-05-13 19:39:50.078 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI) in 14.9869ms
+2026-05-13 19:39:50.079 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI)'
+2026-05-13 19:39:50.080 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Amenity/Create - 200 null text/html; charset=utf-8 22.8409ms
+2026-05-13 19:45:29.635 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Amenity/Create - null null
+2026-05-13 19:45:29.638 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI)'
+2026-05-13 19:45:29.639 +03:00 [INF] Route matched with {action = "Create", controller = "Amenity"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Create() on controller Bungalov.WebUI.Controllers.AmenityController (Bungalov.WebUI).
+2026-05-13 19:45:29.641 +03:00 [INF] Executing ViewResult, running view Create.
+2026-05-13 19:45:29.643 +03:00 [INF] Executed ViewResult - view Create executed in 2.0216ms.
+2026-05-13 19:45:29.644 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI) in 3.1866ms
+2026-05-13 19:45:29.645 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI)'
+2026-05-13 19:45:29.646 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Amenity/Create - 200 null text/html; charset=utf-8 11.7082ms
+2026-05-13 19:45:30.714 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Amenity/Create - null null
+2026-05-13 19:45:30.717 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI)'
+2026-05-13 19:45:30.717 +03:00 [INF] Route matched with {action = "Create", controller = "Amenity"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Create() on controller Bungalov.WebUI.Controllers.AmenityController (Bungalov.WebUI).
+2026-05-13 19:45:30.719 +03:00 [INF] Executing ViewResult, running view Create.
+2026-05-13 19:45:30.721 +03:00 [INF] Executed ViewResult - view Create executed in 1.8939ms.
+2026-05-13 19:45:30.722 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI) in 2.9942ms
+2026-05-13 19:45:30.723 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI)'
+2026-05-13 19:45:30.724 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Amenity/Create - 200 null text/html; charset=utf-8 9.9631ms
+2026-05-13 19:45:31.185 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Amenity/Create - null null
+2026-05-13 19:45:31.188 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI)'
+2026-05-13 19:45:31.189 +03:00 [INF] Route matched with {action = "Create", controller = "Amenity"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Create() on controller Bungalov.WebUI.Controllers.AmenityController (Bungalov.WebUI).
+2026-05-13 19:45:31.191 +03:00 [INF] Executing ViewResult, running view Create.
+2026-05-13 19:45:31.193 +03:00 [INF] Executed ViewResult - view Create executed in 2.0546ms.
+2026-05-13 19:45:31.194 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI) in 3.3572ms
+2026-05-13 19:45:31.195 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI)'
+2026-05-13 19:45:31.196 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Amenity/Create - 200 null text/html; charset=utf-8 10.8657ms
+2026-05-13 19:45:31.384 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Amenity/Create - null null
+2026-05-13 19:45:31.386 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI)'
+2026-05-13 19:45:31.387 +03:00 [INF] Route matched with {action = "Create", controller = "Amenity"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Create() on controller Bungalov.WebUI.Controllers.AmenityController (Bungalov.WebUI).
+2026-05-13 19:45:31.389 +03:00 [INF] Executing ViewResult, running view Create.
+2026-05-13 19:45:31.390 +03:00 [INF] Executed ViewResult - view Create executed in 1.4473ms.
+2026-05-13 19:45:31.392 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI) in 2.7341ms
+2026-05-13 19:45:31.393 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI)'
+2026-05-13 19:45:31.394 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Amenity/Create - 200 null text/html; charset=utf-8 9.9776ms
+2026-05-13 19:45:34.901 +03:00 [INF] Application is shutting down...
+2026-05-13 19:45:46.912 +03:00 [INF] User profile is available. Using 'C:\Users\karal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-05-13 19:45:47.610 +03:00 [INF] Executed DbCommand (19ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2026-05-13 19:45:47.657 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2026-05-13 19:45:47.669 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[Address], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2026-05-13 19:45:47.812 +03:00 [INF] Now listening on: http://localhost:5234
+2026-05-13 19:45:47.814 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-13 19:45:47.815 +03:00 [INF] Hosting environment: Development
+2026-05-13 19:45:47.816 +03:00 [INF] Content root path: C:\Users\karal\Desktop\Bungalov\Bungalov.WebUI
+2026-05-13 19:45:51.443 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/ - null null
+2026-05-13 19:45:51.483 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.HomeController.Index (Bungalov.WebUI)'
+2026-05-13 19:45:51.496 +03:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller Bungalov.WebUI.Controllers.HomeController (Bungalov.WebUI).
+2026-05-13 19:45:51.559 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status]
+FROM [Categories] AS [c]
+2026-05-13 19:45:51.637 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-05-13 19:45:51.646 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[Address], [b].[Capacity], [b].[CategoryId], [b].[CheckInTime], [b].[CheckOutTime], [b].[CreatedDate], [b].[Description], [b].[District], [b].[Latitude], [b].[Location], [b].[Longitude], [b].[MinNights], [b].[Name], [b].[Neighborhood], [b].[PricePerNight], [b].[Province], [b].[SizeM2], [b].[Status], [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status], [b0].[Id], [b0].[BungalowId], [b0].[CreatedDate], [b0].[ImageUrl], [b0].[Status], [t].[Id], [t].[CreatedDate], [t].[IconCode], [t].[Name], [t].[Status], [t].[AmenitiesId], [t].[BungalowsId]
+FROM [Bungalows] AS [b]
+INNER JOIN [Categories] AS [c] ON [b].[CategoryId] = [c].[Id]
+LEFT JOIN [BungalowImages] AS [b0] ON [b].[Id] = [b0].[BungalowId]
+LEFT JOIN (
+    SELECT [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status], [b1].[AmenitiesId], [b1].[BungalowsId]
+    FROM [BungalowAmenities] AS [b1]
+    INNER JOIN [Amenities] AS [a] ON [b1].[AmenitiesId] = [a].[Id]
+) AS [t] ON [b].[Id] = [t].[BungalowsId]
+ORDER BY [b].[Id], [c].[Id], [b0].[Id], [t].[AmenitiesId], [t].[BungalowsId]
+2026-05-13 19:45:51.670 +03:00 [INF] Executing ViewResult, running view Index.
+2026-05-13 19:45:51.724 +03:00 [INF] Executed ViewResult - view Index executed in 54.769ms.
+2026-05-13 19:45:51.727 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.HomeController.Index (Bungalov.WebUI) in 228.3794ms
+2026-05-13 19:45:51.729 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.HomeController.Index (Bungalov.WebUI)'
+2026-05-13 19:45:51.734 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/ - 200 null text/html; charset=utf-8 292.3174ms
+2026-05-13 19:46:02.335 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Bungalow?search=&checkIn=&checkOut=&minCapacity= - null null
+2026-05-13 19:46:02.342 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:46:02.355 +03:00 [INF] Route matched with {action = "Index", controller = "Bungalow"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String, System.Nullable`1[System.Int32], System.Nullable`1[System.Int32], Int32[], System.Nullable`1[System.DateTime], System.Nullable`1[System.DateTime]) on controller Bungalov.WebUI.Controllers.BungalowController (Bungalov.WebUI).
+2026-05-13 19:46:02.434 +03:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-05-13 19:46:02.444 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[Address], [b].[Capacity], [b].[CategoryId], [b].[CheckInTime], [b].[CheckOutTime], [b].[CreatedDate], [b].[Description], [b].[District], [b].[Latitude], [b].[Location], [b].[Longitude], [b].[MinNights], [b].[Name], [b].[Neighborhood], [b].[PricePerNight], [b].[Province], [b].[SizeM2], [b].[Status], [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status], [b0].[Id], [b0].[BungalowId], [b0].[CreatedDate], [b0].[ImageUrl], [b0].[Status], [t].[AmenitiesId], [t].[BungalowsId], [t].[Id], [t].[CreatedDate], [t].[IconCode], [t].[Name], [t].[Status]
+FROM [Bungalows] AS [b]
+INNER JOIN [Categories] AS [c] ON [b].[CategoryId] = [c].[Id]
+LEFT JOIN [BungalowImages] AS [b0] ON [b].[Id] = [b0].[BungalowId]
+LEFT JOIN (
+    SELECT [b1].[AmenitiesId], [b1].[BungalowsId], [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+    FROM [BungalowAmenities] AS [b1]
+    INNER JOIN [Amenities] AS [a] ON [b1].[AmenitiesId] = [a].[Id]
+) AS [t] ON [b].[Id] = [t].[BungalowsId]
+ORDER BY [b].[Id], [c].[Id], [b0].[Id], [t].[AmenitiesId], [t].[BungalowsId]
+2026-05-13 19:46:02.565 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+FROM [Amenities] AS [a]
+2026-05-13 19:46:02.571 +03:00 [INF] Executing ViewResult, running view Index.
+2026-05-13 19:46:02.601 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status]
+FROM [Categories] AS [c]
+2026-05-13 19:46:02.655 +03:00 [INF] Executed ViewResult - view Index executed in 85.4684ms.
+2026-05-13 19:46:02.657 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI) in 299.8469ms
+2026-05-13 19:46:02.658 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.BungalowController.Index (Bungalov.WebUI)'
+2026-05-13 19:46:02.659 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Bungalow?search=&checkIn=&checkOut=&minCapacity= - 200 null text/html; charset=utf-8 324.4175ms
+2026-05-13 19:46:10.085 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Amenity - null null
+2026-05-13 19:46:10.109 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AmenityController.Index (Bungalov.WebUI)'
+2026-05-13 19:46:10.113 +03:00 [INF] Route matched with {action = "Index", controller = "Amenity"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller Bungalov.WebUI.Controllers.AmenityController (Bungalov.WebUI).
+2026-05-13 19:46:10.118 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+FROM [Amenities] AS [a]
+2026-05-13 19:46:10.122 +03:00 [INF] Executing ViewResult, running view Index.
+2026-05-13 19:46:10.130 +03:00 [INF] Executed ViewResult - view Index executed in 9.4554ms.
+2026-05-13 19:46:10.132 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AmenityController.Index (Bungalov.WebUI) in 17.0997ms
+2026-05-13 19:46:10.134 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AmenityController.Index (Bungalov.WebUI)'
+2026-05-13 19:46:10.135 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Amenity - 200 null text/html; charset=utf-8 50.2353ms
+2026-05-13 19:46:11.924 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Amenity/Create - null null
+2026-05-13 19:46:11.928 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI)'
+2026-05-13 19:46:11.930 +03:00 [INF] Route matched with {action = "Create", controller = "Amenity"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Create() on controller Bungalov.WebUI.Controllers.AmenityController (Bungalov.WebUI).
+2026-05-13 19:46:11.934 +03:00 [INF] Executing ViewResult, running view Create.
+2026-05-13 19:46:11.984 +03:00 [INF] Executed ViewResult - view Create executed in 50.4532ms.
+2026-05-13 19:46:11.985 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI) in 53.4245ms
+2026-05-13 19:46:11.987 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI)'
+2026-05-13 19:46:11.988 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Amenity/Create - 200 null text/html; charset=utf-8 63.9275ms
+2026-05-13 19:46:40.749 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/.well-known/appspecific/com.chrome.devtools.json - null null
+2026-05-13 19:46:40.756 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.ErrorController.NotFound (Bungalov.WebUI)'
+2026-05-13 19:46:40.758 +03:00 [INF] Route matched with {action = "NotFound", controller = "Error"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult NotFound(Int32) on controller Bungalov.WebUI.Controllers.ErrorController (Bungalov.WebUI).
+2026-05-13 19:46:40.762 +03:00 [WRN] 404 Hatası - Yol: /.well-known/appspecific/com.chrome.devtools.json
+2026-05-13 19:46:40.765 +03:00 [INF] Executing ViewResult, running view NotFound.
+2026-05-13 19:46:40.769 +03:00 [INF] Executed ViewResult - view NotFound executed in 4.6245ms.
+2026-05-13 19:46:40.770 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.ErrorController.NotFound (Bungalov.WebUI) in 10.8436ms
+2026-05-13 19:46:40.772 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.ErrorController.NotFound (Bungalov.WebUI)'
+2026-05-13 19:46:40.774 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/.well-known/appspecific/com.chrome.devtools.json - 404 null text/html; charset=utf-8 24.5765ms
+2026-05-13 19:46:40.777 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5234/.well-known/appspecific/com.chrome.devtools.json, Response status code: 404
+2026-05-13 19:50:17.954 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/.well-known/appspecific/com.chrome.devtools.json - null null
+2026-05-13 19:50:17.959 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.ErrorController.NotFound (Bungalov.WebUI)'
+2026-05-13 19:50:17.960 +03:00 [INF] Route matched with {action = "NotFound", controller = "Error"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult NotFound(Int32) on controller Bungalov.WebUI.Controllers.ErrorController (Bungalov.WebUI).
+2026-05-13 19:50:17.963 +03:00 [WRN] 404 Hatası - Yol: /.well-known/appspecific/com.chrome.devtools.json
+2026-05-13 19:50:17.964 +03:00 [INF] Executing ViewResult, running view NotFound.
+2026-05-13 19:50:17.965 +03:00 [INF] Executed ViewResult - view NotFound executed in 1.9699ms.
+2026-05-13 19:50:17.967 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.ErrorController.NotFound (Bungalov.WebUI) in 5.1514ms
+2026-05-13 19:50:17.969 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.ErrorController.NotFound (Bungalov.WebUI)'
+2026-05-13 19:50:17.970 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/.well-known/appspecific/com.chrome.devtools.json - 404 null text/html; charset=utf-8 16.0511ms
+2026-05-13 19:50:17.973 +03:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5234/.well-known/appspecific/com.chrome.devtools.json, Response status code: 404
+2026-05-13 19:50:35.475 +03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5234/Amenity/Create - application/x-www-form-urlencoded 282
+2026-05-13 19:50:35.481 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI)'
+2026-05-13 19:50:35.497 +03:00 [INF] Route matched with {action = "Create", controller = "Amenity"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(Bungalov.Core.Varliklar.Amenity) on controller Bungalov.WebUI.Controllers.AmenityController (Bungalov.WebUI).
+2026-05-13 19:50:35.601 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (DbType = Boolean)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Amenities] ([CreatedDate], [IconCode], [Name], [Status])
+OUTPUT INSERTED.[Id]
+VALUES (@p0, @p1, @p2, @p3);
+2026-05-13 19:50:35.621 +03:00 [INF] Executing RedirectResult, redirecting to /Amenity.
+2026-05-13 19:50:35.622 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI) in 123.8392ms
+2026-05-13 19:50:35.623 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AmenityController.Create (Bungalov.WebUI)'
+2026-05-13 19:50:35.624 +03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5234/Amenity/Create - 302 0 null 149.1176ms
+2026-05-13 19:50:35.629 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/Amenity - null null
+2026-05-13 19:50:35.632 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.AmenityController.Index (Bungalov.WebUI)'
+2026-05-13 19:50:35.633 +03:00 [INF] Route matched with {action = "Index", controller = "Amenity"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller Bungalov.WebUI.Controllers.AmenityController (Bungalov.WebUI).
+2026-05-13 19:50:35.637 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status]
+FROM [Amenities] AS [a]
+2026-05-13 19:50:35.640 +03:00 [INF] Executing ViewResult, running view Index.
+2026-05-13 19:50:35.642 +03:00 [INF] Executed ViewResult - view Index executed in 2.571ms.
+2026-05-13 19:50:35.644 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.AmenityController.Index (Bungalov.WebUI) in 9.2799ms
+2026-05-13 19:50:35.646 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.AmenityController.Index (Bungalov.WebUI)'
+2026-05-13 19:50:35.647 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/Amenity - 200 null text/html; charset=utf-8 18.1201ms
+2026-05-13 19:50:48.867 +03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5234/ - null null
+2026-05-13 19:50:48.870 +03:00 [INF] Executing endpoint 'Bungalov.WebUI.Controllers.HomeController.Index (Bungalov.WebUI)'
+2026-05-13 19:50:48.873 +03:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller Bungalov.WebUI.Controllers.HomeController (Bungalov.WebUI).
+2026-05-13 19:50:48.878 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status]
+FROM [Categories] AS [c]
+2026-05-13 19:50:48.882 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [b].[Id], [b].[Address], [b].[Capacity], [b].[CategoryId], [b].[CheckInTime], [b].[CheckOutTime], [b].[CreatedDate], [b].[Description], [b].[District], [b].[Latitude], [b].[Location], [b].[Longitude], [b].[MinNights], [b].[Name], [b].[Neighborhood], [b].[PricePerNight], [b].[Province], [b].[SizeM2], [b].[Status], [c].[Id], [c].[CategoryName], [c].[CreatedDate], [c].[Description], [c].[ImageUrl], [c].[Status], [b0].[Id], [b0].[BungalowId], [b0].[CreatedDate], [b0].[ImageUrl], [b0].[Status], [t].[Id], [t].[CreatedDate], [t].[IconCode], [t].[Name], [t].[Status], [t].[AmenitiesId], [t].[BungalowsId]
+FROM [Bungalows] AS [b]
+INNER JOIN [Categories] AS [c] ON [b].[CategoryId] = [c].[Id]
+LEFT JOIN [BungalowImages] AS [b0] ON [b].[Id] = [b0].[BungalowId]
+LEFT JOIN (
+    SELECT [a].[Id], [a].[CreatedDate], [a].[IconCode], [a].[Name], [a].[Status], [b1].[AmenitiesId], [b1].[BungalowsId]
+    FROM [BungalowAmenities] AS [b1]
+    INNER JOIN [Amenities] AS [a] ON [b1].[AmenitiesId] = [a].[Id]
+) AS [t] ON [b].[Id] = [t].[BungalowsId]
+ORDER BY [b].[Id], [c].[Id], [b0].[Id], [t].[AmenitiesId], [t].[BungalowsId]
+2026-05-13 19:50:48.886 +03:00 [INF] Executing ViewResult, running view Index.
+2026-05-13 19:50:48.888 +03:00 [INF] Executed ViewResult - view Index executed in 2.015ms.
+2026-05-13 19:50:48.889 +03:00 [INF] Executed action Bungalov.WebUI.Controllers.HomeController.Index (Bungalov.WebUI) in 14.3892ms
+2026-05-13 19:50:48.890 +03:00 [INF] Executed endpoint 'Bungalov.WebUI.Controllers.HomeController.Index (Bungalov.WebUI)'
+2026-05-13 19:50:48.892 +03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5234/ - 200 null text/html; charset=utf-8 24.3306ms
+2026-05-13 19:51:01.928 +03:00 [INF] Application is shutting down...

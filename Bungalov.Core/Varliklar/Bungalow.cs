@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-
+    
 namespace Bungalov.Core.Varliklar;
 
 public class Bungalow : BaseEntity
@@ -16,6 +16,8 @@ public class Bungalow : BaseEntity
     public string District { get; set; } = string.Empty;
     public string Neighborhood { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
+    public double? Latitude { get; set; }
+    public double? Longitude { get; set; }
 
     // ── Fiziksel Bilgiler ────────────────────────────────────────────
     public int? SizeM2 { get; set; }
@@ -34,4 +36,5 @@ public class Bungalow : BaseEntity
     
     public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
     public ICollection<BungalowImage> Images { get; set; } = new List<BungalowImage>();
+    public ICollection<Review> Reviews { get; set; } = new List<Review>();
 }

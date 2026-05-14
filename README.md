@@ -30,6 +30,10 @@ Haftalık ilerleme raporları ve teknik detaylara aşağıdaki tablodan ulaşabi
 | **Hafta 5** | [Hafta 5 Raporu](./Raporlar/Hafta5_Rapor.md) | PostgreSQL entegrasyonu, veritabanı güncellemeleri ve Admin panel. |
 | **Hafta 6** | [Hafta 6 Raporu](./Raporlar/Hafta6_Rapor.md) | Dinamik listeleme, gelişmiş filtreleme ve ViewComponent entegrasyonu. |
 | **Hafta 7** | [Hafta 7 Raporu](./Raporlar/Hafta7_Rapor.md) | Dinamik özellik yönetimi, Rezervasyon motoru ve Takvim entegrasyonu. |
+| **Hafta 8** | [Hafta 8 Raporu](./Raporlar/Hafta8_Rapor.md) | Identity entegrasyonu, Profil yönetimi ve Rivora markalaması. |
+| **Hafta 9** | [Hafta 9 Raporu](./Raporlar/Hafta9_Rapor.md) | Güvenlik (CSRF/XSS), Global Hata Yönetimi ve Logging (Serilog). |
+| **Hafta 10** | [Hafta 10 Raporu](./Raporlar/Hafta10_Rapor.md) | Değerlendirme Sistemi, Canlı Destek (SignalR) ve UX İyileştirmeleri. |
+
 
 ---
 

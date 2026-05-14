@@ -1,0 +1,83 @@
+@{
+    ViewData["Title"] = "Konaklamanı Değerlendir";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-lg overflow-hidden" style="border-radius: 20px;">
+                <div class="bg-primary p-5 text-white text-center position-relative">
+                    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(45deg, rgba(0,0,0,0.2) 0%, transparent 100%);"></div>
+                    <h2 class="display-6 fw-bold mb-2 position-relative">Deneyiminizi Paylaşın</h2>
+                    <p class="lead mb-0 position-relative opacity-75">@ViewBag.BungalowName</p>
+                </div>
+                
+                <div class="card-body p-5 bg-light">
+                    <form asp-action="Submit" method="post" id="reviewForm">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="bungalowId" value="@ViewBag.BungalowId" />
+                        <input type="hidden" name="reservationId" value="@ViewBag.ReservationId" />
+                        
+                        <div class="text-center mb-5">
+                            <label class="form-label d-block mb-3 fw-bold text-uppercase tracking-wider">Puanınız</label>
+                            <div class="star-rating d-inline-flex flex-row-reverse">
+                                <input type="radio" id="star5" name="rating" value="5" required /><label for="star5" title="5 stars"><i class="bi bi-star-fill"></i></label>
+                                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars"><i class="bi bi-star-fill"></i></label>
+                                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars"><i class="bi bi-star-fill"></i></label>
+                                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars"><i class="bi bi-star-fill"></i></label>
+                                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"><i class="bi bi-star-fill"></i></label>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="comment" class="form-label fw-bold">Yorumunuz</label>
+                            <textarea class="form-control border-0 shadow-sm p-3" id="comment" name="comment" rows="5" placeholder="Konaklamanız hakkında neler düşünüyorsunuz? Diğer misafirlerimize yardımcı olun..." required style="border-radius: 15px;"></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg shadow-sm py-3 fw-bold" style="border-radius: 15px; transition: all 0.3s ease;">
+                                <i class="bi bi-send me-2"></i>Değerlendirmeyi Gönder
+                            </button>
+                            <a asp-controller="Profile" asp-action="Index" class="btn btn-link text-muted mt-2">Vazgeç</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .star-rating {
+        font-size: 2.5rem;
+    }
+    .star-rating input {
+        display: none;
+    }
+    .star-rating label {
+        color: #ddd;
+        cursor: pointer;
+        padding: 0 5px;
+        transition: all 0.2s ease-in-out;
+    }
+    .star-rating input:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+        color: #ffc107;
+        transform: scale(1.1);
+    }
+    
+    .card {
+        transition: transform 0.3s ease;
+    }
+    
+    .form-control:focus {
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2);
+    }
+</style>

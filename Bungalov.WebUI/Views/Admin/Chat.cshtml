@@ -1,0 +1,624 @@
+@{
+    ViewData["Title"] = "Canlı Destek Paneli";
+}
+
+<div class="container-fluid pt-4">
+    <div class="row g-4" style="height: 80vh;">
+        <!-- Aktif Sohbet Listesi -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100 rounded-4 overflow-hidden">
+                <div class="card-header bg-dark text-white p-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="bi bi-people me-2"></i>Aktif Sohbetler</h5>
+                    <div>
+                        <span id="connection-status" class="badge bg-secondary">Bağlanıyor...</span>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div id="active-chats" class="list-group list-group-flush">
+                        <!-- Sohbetler buraya dinamik eklenecek -->
+                        <div class="text-center p-5 text-muted" id="no-chats-msg">
+                            <i class="bi bi-chat-left-dots fs-1 d-block mb-3 opacity-50"></i>
+                            <p>Henüz aktif bir sohbet yok.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sohbet Detayı -->
+        <div class="col-md-8">
+            <div id="chat-detail" class="card border-0 shadow-sm h-100 rounded-4 overflow-hidden d-none">
+                <div class="card-header bg-primary text-white p-3 d-flex justify-content-between align-items-center" style="min-height: 70px;">
+                    <div>
+                        <h6 class="mb-0 fw-bold" id="selected-user-name">Kullanıcı Adı</h6>
+                        <small id="selected-user-id" class="opacity-75 d-none">Bağlantı ID</small>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span id="online-badge" class="badge bg-white text-primary rounded-pill px-3">Aktif</span>
+                        <button class="btn btn-sm btn-danger rounded-circle p-0 d-flex align-items-center justify-content-center" 
+                                style="width: 32px; height: 32px;" 
+                                onclick="confirmDeleteChat()" 
+                                title="Sohbeti Tamamen Sil">
+                            <i class="bi bi-trash3-fill"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="admin-chat-messages" class="card-body p-4 overflow-y-auto d-flex flex-column" style="background: #f4f7f6; height: 0; flex-grow: 1;">
+                    <!-- Mesajlar buraya gelecek -->
+                </div>
+                <div id="typing-container" class="px-4 py-2">
+                    <div id="typing-indicator" class="typing-indicator">
+                        <span id="typing-user">Kullanıcı</span> yazıyor
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                        <span class="typing-dot"></span>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-white border-top-0 p-3">
+                    <div id="edit-indicator" class="alert alert-warning py-1 px-3 mb-2 d-none" style="font-size: 0.8rem;">
+                        <i class="bi bi-pencil"></i> Mesaj düzenleniyor... 
+                        <button type="button" class="btn-close float-end" style="font-size: 0.6rem;" onclick="cancelEdit()"></button>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="admin-chat-input" class="form-control form-control-lg border-0 bg-light" placeholder="Yanıtınızı yazın..." />
+                        <button id="admin-chat-send" class="btn btn-primary px-4">
+                            <i class="bi bi-send-fill"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seçim Bekleniyor Ekranı -->
+            <div id="empty-detail" class="card border-0 shadow-sm h-100 rounded-4 d-flex align-items-center justify-content-center text-center p-5">
+                <div class="opacity-25">
+                    <i class="bi bi-chat-square-text" style="font-size: 8rem;"></i>
+                    <h3 class="mt-4">Bir Sohbet Seçin</h3>
+                    <p>Yanıt vermek istediğiniz müşteriyi sol taraftaki listeden seçebilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .chat-item {
+        cursor: pointer;
+        transition: background 0.2s;
+        border-left: 4px solid transparent;
+    }
+    .chat-item:hover { background: #f8f9fa; }
+    .chat-item.active {
+        background: #e7f1ff;
+        border-left-color: #0d6efd;
+    }
+    .admin-msg {
+        background: #0d6efd;
+        color: white !important;
+        align-self: flex-end;
+        margin-left: auto;
+        border-radius: 15px 15px 2px 15px;
+    }
+    .user-msg {
+        background: white;
+        color: #333 !important;
+        border: 1px solid #dee2e6;
+        align-self: flex-start;
+        margin-right: auto;
+        border-radius: 15px 15px 15px 2px;
+    }
+    .msg-bubble {
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        max-width: 75%;
+        display: block;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        word-wrap: break-word;
+        font-size: 0.95rem;
+    }
+    .system-msg {
+        background: #e9ecef;
+        color: #6c757d;
+        align-self: center;
+        margin: 15px auto;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-style: italic;
+        max-width: 90%;
+        text-align: center;
+    }
+    .edit-mode-active {
+        background-color: #fff3cd !important;
+        border-color: #ffeeba !important;
+    }
+    .cancel-edit {
+        display: none;
+        cursor: pointer;
+        color: #6c757d;
+        margin-right: 10px;
+    }
+    .edited-label {
+        display: block;
+        font-size: 0.7rem;
+        opacity: 0.6;
+        margin-top: 4px;
+        font-style: italic;
+    }
+    .context-menu {
+        position: absolute;
+        display: none;
+        background: white;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        z-index: 10000;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .context-menu-item {
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        color: #dc3545;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .context-menu-item:hover {
+        background: #f8f9fa;
+    }
+    .typing-indicator {
+        display: none;
+        padding: 10px 15px;
+        background: #e9ecef;
+        border-radius: 15px;
+        width: fit-content;
+        margin-bottom: 10px;
+        font-size: 0.8rem;
+        color: #6c757d;
+    }
+    .typing-dot {
+        display: inline-block;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: #6c757d;
+        margin-right: 2px;
+        animation: typingAnimation 1.5s infinite ease-in-out;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @@keyframes typingAnimation {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@@11"></script>
+
+<div id="context-menu" class="context-menu">
+    <div class="context-menu-item" onclick="editMessageUI()">
+        <i class="bi bi-pencil"></i> Mesajı Düzenle
+    </div>
+    <div class="context-menu-item" onclick="deleteMessage()">
+        <i class="bi bi-trash"></i> Mesajı Geri Al / Sil
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+    <script>
+    {
+        const notificationSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2358/2358-preview.mp3');
+        
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chatHub")
+            .withAutomaticReconnect()
+            .build();
+
+        let activeConnectionId = null;
+        let activeEmail = null;
+        const chats = {}; // { email: { name: '', connectionId: '', messages: [] } }
+
+        function sendTestMessage() {
+            connection.invoke("SendMessageToSupport", "Sistem Test", "Bu bir test mesajıdır.")
+                .catch(err => alert("Test gönderimi başarısız: " + err));
+        }
+
+        connection.on("ReceiveMessage", (user, message, connectionId, email, messageId) => {
+            console.log("Mesaj yakalandı:", { user, message, connectionId, email, messageId });
+            
+            // Görsel uyarı
+            const toast = document.createElement('div');
+            toast.className = "alert alert-success position-fixed top-0 end-0 m-3";
+            toast.style.zIndex = "9999";
+            toast.innerHTML = `<strong>Yeni Mesaj!</strong><br>${user}: ${message}`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
+
+            // Veri yapısını güncelle
+            if (!chats[email]) {
+                chats[email] = { name: user, connectionId: connectionId, messages: [] };
+            } else {
+                chats[email].connectionId = connectionId; // ID güncellenmiş olabilir
+            }
+            chats[email].messages.push({ user, message, type: 'user', id: messageId });
+            
+            // Listeye ekle (Eğer listede yoksa)
+            let chatEl = document.querySelector(`[data-email="${email}"]`);
+            if (!chatEl) {
+                addChatToList(connectionId, user, email);
+                chatEl = document.querySelector(`[data-email="${email}"]`);
+            } else {
+                // Mevcut öğeyi güncelle
+                chatEl.dataset.id = connectionId;
+            }
+            
+            // Bildirim sesini ve rozetini güncelle
+            notificationSound.play().catch(e => console.warn("Ses çalınamadı"));
+            
+            if (activeEmail === email) {
+                activeConnectionId = connectionId; // Aktif sohbetteysek ID'yi anlık güncelle
+                appendMessage(user, message, 'user-msg', messageId);
+            } else {
+                const badge = chatEl.querySelector('.badge');
+                if (badge) badge.classList.remove('d-none');
+                // Listeyi en üste taşı
+                chatEl.parentElement.prepend(chatEl);
+            }
+        });
+
+        connection.on("UserStatusChanged", (email, connectionId, isOnline) => {
+            console.log("Durum değişti:", { email, connectionId, isOnline });
+            if (chats[email]) {
+                chats[email].connectionId = isOnline ? connectionId : '';
+                if (activeEmail === email) {
+                    activeConnectionId = chats[email].connectionId;
+                    updateOnlineStatus(isOnline);
+                }
+            }
+            
+            // UI güncelle
+            const chatEl = document.querySelector(`[data-email="${email}"]`);
+            if (chatEl) {
+                const indicator = chatEl.querySelector('.status-dot');
+                if (indicator) {
+                    indicator.className = `status-dot position-absolute bottom-0 end-0 border border-white rounded-circle ${isOnline ? 'bg-success' : 'bg-secondary'}`;
+                }
+            }
+        });
+
+        connection.on("ChatDeleted", (email) => {
+            if (activeEmail === email) {
+                document.getElementById('chat-detail').classList.add('d-none');
+                document.getElementById('empty-detail').classList.remove('d-none');
+                activeEmail = null;
+                activeConnectionId = null;
+            }
+            const chatEl = document.querySelector(`[data-email="${email}"]`);
+            if (chatEl) chatEl.remove();
+            delete chats[email];
+            
+            if (Object.keys(chats).length === 0) {
+                document.getElementById('no-chats-msg').classList.remove('d-none');
+            }
+        });
+
+        connection.on("MessageDeleted", (messageId) => {
+            const msgEl = document.querySelector(`[data-id="${messageId}"]`);
+            if (msgEl) {
+                msgEl.style.transition = "all 0.3s ease";
+                msgEl.style.opacity = "0";
+                msgEl.style.transform = "scale(0.8)";
+                setTimeout(() => msgEl.remove(), 300);
+            }
+        });
+
+        connection.on("MessageEdited", (messageId, newMessage) => {
+            const msgEl = document.querySelector(`[data-id="${messageId}"]`);
+            if (msgEl) {
+                const textEl = msgEl.querySelector('.msg-content');
+                if (textEl) {
+                    textEl.innerText = newMessage;
+                    
+                    if (!msgEl.querySelector('.edited-label')) {
+                        const editedLabel = document.createElement('small');
+                        editedLabel.className = 'edited-label';
+                        editedLabel.innerText = 'bu mesaj düzenlendi';
+                        msgEl.appendChild(editedLabel);
+                    }
+                    
+                    msgEl.classList.add('bg-warning', 'bg-opacity-10');
+                    setTimeout(() => msgEl.classList.remove('bg-warning', 'bg-opacity-10'), 2000);
+                }
+            }
+        });
+
+        connection.on("UserTyping", (email, isTyping) => {
+            if (activeEmail === email) {
+                const indicator = document.getElementById('typing-indicator');
+                const typingUser = document.getElementById('typing-user');
+                if (isTyping) {
+                    typingUser.innerText = chats[email].name;
+                    indicator.style.display = 'block';
+                    const msgContainer = document.getElementById('admin-chat-messages');
+                    msgContainer.scrollTop = msgContainer.scrollHeight;
+                } else {
+                    indicator.style.display = 'none';
+                }
+            }
+        });
+
+        connection.on("UserTyping", (email, isTyping) => {
+            if (activeEmail === email) {
+                const indicator = document.getElementById('typing-indicator');
+                const typingUser = document.getElementById('typing-user');
+                if (isTyping) {
+                    typingUser.innerText = chats[email].name;
+                    indicator.style.display = 'block';
+                    const msgContainer = document.getElementById('admin-chat-messages');
+                    msgContainer.scrollTop = msgContainer.scrollHeight;
+                } else {
+                    indicator.style.display = 'none';
+                }
+            }
+        });
+
+        connection.on("MessageSentConfirmation", (messageId) => {
+            const bubbles = document.querySelectorAll('.admin-msg');
+            const lastBubble = bubbles[bubbles.length - 1];
+            if (lastBubble && !lastBubble.dataset.id) {
+                lastBubble.dataset.id = messageId;
+                // Sağ tık menüsünü yeni ID ile tekrar bağlayalım
+                lastBubble.oncontextmenu = (e) => showContextMenu(e, messageId);
+            }
+        });
+
+        function updateOnlineStatus(isOnline) {
+            const badge = document.getElementById('online-badge');
+            if (badge) {
+                badge.innerText = isOnline ? "Çevrimiçi" : "Çevrimdışı";
+                badge.className = `badge ${isOnline ? 'bg-white text-primary' : 'bg-secondary text-white'} rounded-pill`;
+            }
+        }
+
+        connection.start()
+            .then(() => {
+                console.log("Bağlantı kuruldu");
+                document.getElementById('connection-status').innerText = "Bağlı";
+                document.getElementById('connection-status').className = "badge bg-success";
+                connection.invoke("JoinSupportGroup");
+                
+                // Son sohbetleri yükle
+                connection.invoke("GetRecentChats").then(recentChats => {
+                    recentChats.forEach(chat => {
+                        if (!chats[chat.email]) {
+                            chats[chat.email] = { name: chat.name, connectionId: '', messages: [] };
+                        }
+                        addChatToList('', chat.name, chat.email);
+                    });
+                });
+            })
+            .catch(err => {
+                console.error(err.toString());
+                document.getElementById('connection-status').innerText = "Hata";
+                document.getElementById('connection-status').className = "badge bg-danger";
+            });
+
+        connection.onreconnecting(() => {
+            document.getElementById('connection-status').innerText = "Yeniden Bağlanıyor...";
+            document.getElementById('connection-status').className = "badge bg-warning text-dark";
+        });
+
+        connection.onreconnected(() => {
+            document.getElementById('connection-status').innerText = "Bağlı";
+            document.getElementById('connection-status').className = "badge bg-success";
+            connection.invoke("JoinSupportGroup");
+        });
+
+        function addChatToList(connectionId, user, email) {
+            document.getElementById('no-chats-msg').classList.add('d-none');
+            const chatList = document.getElementById('active-chats');
+            const html = `
+                <div class="list-group-item chat-item p-3" data-id="${connectionId}" data-email="${email}" onclick="selectChat('${email}')">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <div class="position-relative">
+                                <div class="avatar-sm bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    ${user[0]}
+                                </div>
+                                <div class="status-dot position-absolute bottom-0 end-0 border border-white rounded-circle ${connectionId ? 'bg-success' : 'bg-secondary'}" style="width: 12px; height: 12px; transform: translate(-10px, 0);"></div>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold">${user}</h6>
+                                <small class="text-muted">${email}</small>
+                            </div>
+                        </div>
+                        <span class="badge bg-danger rounded-pill d-none">Yeni</span>
+                    </div>
+                </div>
+            `;
+            chatList.insertAdjacentHTML('afterbegin', html);
+        }
+
+        // Globalden erişilmesi gereken fonksiyonları pencereye ekleyelim
+        window.selectChat = function(email) {
+            activeEmail = email;
+            activeConnectionId = chats[email].connectionId;
+            
+            document.querySelectorAll('.chat-item').forEach(el => el.classList.remove('active'));
+            const target = document.querySelector(`[data-email="${email}"]`);
+            if(target) target.classList.add('active');
+            
+            const badge = document.querySelector(`[data-email="${email}"] .badge`);
+            if(badge) badge.classList.add('d-none');
+
+            document.getElementById('empty-detail').classList.add('d-none');
+            document.getElementById('chat-detail').classList.remove('d-none');
+            
+            document.getElementById('selected-user-name').innerText = chats[email].name;
+            document.getElementById('selected-user-id').innerText = email;
+            updateOnlineStatus(!!chats[email].connectionId);
+            
+            const msgContainer = document.getElementById('admin-chat-messages');
+            msgContainer.innerHTML = '<div class="text-center text-muted small py-2">Geçmiş yükleniyor...</div>';
+            
+            // Geçmişi getir
+            connection.invoke("GetChatHistory", email).then(history => {
+                msgContainer.innerHTML = '';
+                history.forEach(m => {
+                    appendMessage(m.senderName, m.message, m.isAdminMessage ? 'admin-msg' : 'user-msg', m.id, m.isEdited);
+                });
+            });
+        };
+
+        window.sendTestMessage = sendTestMessage;
+
+        window.confirmDeleteChat = function() {
+            if (activeEmail) {
+                Swal.fire({
+                    title: 'Sohbeti Sil?',
+                    text: `${activeEmail} ile olan tüm sohbet geçmişi silinecektir. Bu işlem geri alınamaz!`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Evet, Sil',
+                    cancelButtonText: 'Vazgeç'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        connection.invoke("DeleteChat", activeEmail)
+                            .then(() => {
+                                Swal.fire('Silindi!', 'Sohbet başarıyla silindi.', 'success');
+                            })
+                            .catch(err => Swal.fire('Hata!', err.toString(), 'error'));
+                    }
+                });
+            }
+        };
+
+        document.getElementById('admin-chat-send').onclick = () => sendResponse();
+        document.getElementById('admin-chat-input').onkeypress = (e) => { if (e.key === 'Enter') sendResponse(); };
+
+        let typingTimeout;
+        document.getElementById('admin-chat-input').oninput = () => {
+            if (activeEmail) {
+                connection.invoke("NotifyTyping", activeEmail, true);
+                clearTimeout(typingTimeout);
+                typingTimeout = setTimeout(() => {
+                    connection.invoke("NotifyTyping", activeEmail, false);
+                }, 3000);
+            }
+        };
+
+        function sendResponse() {
+            const input = document.getElementById('admin-chat-input');
+            const message = input.value;
+            const connId = chats[activeEmail]?.connectionId;
+            
+            if (message && activeEmail) {
+                clearTimeout(typingTimeout);
+                connection.invoke("NotifyTyping", activeEmail, false);
+                
+                if (editingMessageId) {
+                    connection.invoke("EditMessage", parseInt(editingMessageId), message)
+                        .then(() => cancelEdit())
+                        .catch(err => console.error(err.toString()));
+                } else {
+                    if (!connId) {
+                        // Swal.fire('Uyarı', 'Bu kullanıcı şu an çevrimdışı görünüyor. Mesajınız kayıt edildi.', 'info');
+                    }
+                    
+                    connection.invoke("SendResponseToUser", connId || "", "Rivora Destek", message, activeEmail)
+                        .catch(err => {
+                            console.error(err.toString());
+                            Swal.fire('Hata!', err.toString(), 'error');
+                        });
+                    
+                    appendMessage("Siz", message, 'admin-msg');
+                }
+                input.value = "";
+            }
+        }
+
+        let editingMessageId = null;
+        window.editMessageUI = function() {
+            if (selectedMessageId) {
+                const msgEl = document.querySelector(`[data-id="${selectedMessageId}"]`);
+                const currentText = msgEl.querySelector('.msg-content').innerText;
+                
+                editingMessageId = selectedMessageId;
+                const input = document.getElementById('admin-chat-input');
+                input.value = currentText;
+                input.classList.add('edit-mode-active');
+                input.focus();
+                
+                document.getElementById('edit-indicator').classList.remove('d-none');
+            }
+        }
+
+        window.cancelEdit = function() {
+            editingMessageId = null;
+            const input = document.getElementById('admin-chat-input');
+            input.value = '';
+            input.classList.remove('edit-mode-active');
+            document.getElementById('edit-indicator').classList.add('d-none');
+        }
+
+        function appendMessage(user, message, className, messageId, isEdited) {
+            const msgContainer = document.getElementById('admin-chat-messages');
+            const div = document.createElement('div');
+            div.className = `msg-bubble ${className}`;
+            if (messageId) div.dataset.id = messageId;
+            div.oncontextmenu = (e) => showContextMenu(e, messageId);
+            
+            let html = `<small class="d-block opacity-75 fw-bold mb-1">${user}</small><span class="msg-content">${message}</span>`;
+            if (isEdited) {
+                html += `<small class="edited-label">bu mesaj düzenlendi</small>`;
+            }
+            div.innerHTML = html;
+            
+            msgContainer.appendChild(div);
+            msgContainer.scrollTop = msgContainer.scrollHeight;
+        }
+
+        let selectedMessageId = null;
+        function showContextMenu(e, messageId) {
+            e.preventDefault();
+            selectedMessageId = messageId;
+            const menu = document.getElementById('context-menu');
+            menu.style.display = 'block';
+            menu.style.left = (e.pageX || e.clientX) + 'px';
+            menu.style.top = (e.pageY || e.clientY) + 'px';
+        }
+
+        window.onclick = function() {
+            const menu = document.getElementById('context-menu');
+            if (menu) menu.style.display = 'none';
+        }
+
+        window.deleteMessage = function() {
+            if (selectedMessageId) {
+                Swal.fire({
+                    title: 'Mesajı Sil?',
+                    text: "Bu mesaj kalıcı olarak silinecektir.",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'Sil',
+                    cancelButtonText: 'Vazgeç'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        connection.invoke("DeleteSingleMessage", parseInt(selectedMessageId))
+                            .catch(err => Swal.fire('Hata!', err.toString(), 'error'));
+                    }
+                });
+            }
+        }
+
+    }
+    </script>
+}

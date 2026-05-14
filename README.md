@@ -32,7 +32,7 @@ Haftalık ilerleme raporları ve teknik detaylara aşağıdaki tablodan ulaşabi
 | **Hafta 7** | [Hafta 7 Raporu](./Raporlar/Hafta7_Rapor.md) | Dinamik özellik yönetimi, Rezervasyon motoru ve Takvim entegrasyonu. |
 | **Hafta 8** | [Hafta 8 Raporu](./Raporlar/Hafta8_Rapor.md) | Identity entegrasyonu, Profil yönetimi ve Rivora markalaması. |
 | **Hafta 9** | [Hafta 9 Raporu](./Raporlar/Hafta9_Rapor.md) | Güvenlik (CSRF/XSS), Global Hata Yönetimi ve Logging (Serilog). |
-| **Hafta 10** | [Hafta 10 Raporu](./Raporlar/Hafta10_Rapor.md) | Değerlendirme Sistemi, Canlı Destek (SignalR) ve UX İyileştirmeleri. |
+| **Hafta 10** | [Hafta 10 Raporu](./Raporlar/Hafta10_Rapor.md) | Değerlendirme Sistemi, Canlı Destek (SignalR) ve UX İyileştirmeleri. Sistemin sunucuya yüklenmesi|
 
 
 ---

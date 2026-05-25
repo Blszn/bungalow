@@ -2,3 +2,9 @@
 [Oo]bj/
 .vs/
 *.user
+
+# Environment secrets
+.env
+
+# User secrets
+secrets.json

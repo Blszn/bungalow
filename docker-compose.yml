@@ -6,7 +6,7 @@ services:
     container_name: mssql-db
     environment:
       - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=REDACTED
+      - MSSQL_SA_PASSWORD=${MSSQL_SA_PASSWORD}
     ports:
       - "1433:1433"
     volumes:
@@ -20,7 +20,10 @@ services:
     depends_on:
       - db
     environment:
-      - ConnectionStrings__DefaultConnection=Server=db;Database=YourWebsiteDB;User Id=sa;Password=REDACTED;TrustServerCertificate=True;MultipleActiveResultSets=true
+      - ConnectionStrings__DefaultConnection=${CONNECTION_STRING}
+      - Iyzipay__ApiKey=${IYZIPAY_API_KEY}
+      - Iyzipay__SecretKey=${IYZIPAY_SECRET_KEY}
+      - Iyzipay__BaseUrl=https://sandbox-api.iyzipay.com
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "80:8080"

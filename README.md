@@ -37,4 +37,4 @@ Haftalık ilerleme raporları ve teknik detaylara aşağıdaki tablodan ulaşabi
 
 ---
 
-*Geliştirilmeye devam etmektedir.*
+
